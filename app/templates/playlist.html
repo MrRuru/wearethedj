@@ -1,0 +1,30 @@
+<div class="playlist-topbar bar bar-subheader">
+  <div class="current-stars">
+    <span>★</span> × 12
+  </div>
+  <div class="currently-playing"><span>Playing : </span>Alt-J - Breezeblocks</div>
+</div>
+
+<ion-view title="Playlist">
+  <ion-content class="has-subheader">
+
+    <ion-list>
+
+      <ion-item ng-repeat="track in tracks | orderBy:'score':true" type="item-text-wrap" class="track" ng-class="track.status">
+        <div class="left score">
+          <strong>{{track.score}}</strong>
+          <span ng-show="track.pending">+{{track.pending}}</span>
+        </div>
+
+        <div class="right upvote">
+          <a>★</a>
+        </div>
+
+        <h3>{{track.title}}</h3>
+        <p>{{track.artist}}</p>
+      </ion-item>
+      
+    </ion-list>
+
+  </ion-content>
+</ion-view>

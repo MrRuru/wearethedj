@@ -1,0 +1,204 @@
+/* Your app's CSS, go crazy, make it your own */
+
+
+/* Base styles */
+/*
+  black : #000000
+  dark: #1C1C19
+  red: #A60202
+  yellow: #FFC003
+  light: #FCEA97
+  
+  light1: #FEF0B1;
+  light2: #FEF4C6;
+
+  dark1: #151513;
+  dark2: #121208;
+
+  white: #CCC;
+  white2: #999;
+*/
+
+body{
+  background-color: #1C1C19; /* dark */
+  color: #DDD; /* white */
+}
+
+/* Topbar */
+.topbar{
+  background-color: #A60202; /* red */
+  color: #FCEA97; /* light */
+  border-bottom: none;
+}
+
+/* Playlist topbar */
+.playlist-topbar{
+  background-color: #FCEA97; /* light */
+  color: #1C1C19; /* dark */
+  border-bottom: none;
+  height: 32px; }
+
+  .playlist-topbar .current-stars{
+    font-weight: bold;
+    float: right;
+    margin-right: 40px; }
+
+  .playlist-topbar .currently-playing{
+    font-size: 12px;
+    display: inline; }
+
+.has-subheader{
+  top: 78px; /* Because of smaller subheader */
+}
+
+/* Bottom tabs */
+.bottomnav .tabs{
+  background-color: #A60202; /* red */
+  color: #FCEA97; /* light */
+  border-top: none;
+}
+
+.bottomnav .tab-item .icon{
+  margin-top: 8px;
+}
+
+/* Tracks */
+.track { 
+  background: #121208; /* dark2 */
+  border: none;
+}
+.track:nth-child(odd) { 
+  background: #151513; /* dark1 */
+}
+
+.track .left{
+  float: left;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.track .right{
+  float: right;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-left: 20px;
+}
+
+
+/* Track details */
+.track h3{ /* Artist */
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.track p{ /* Title */
+  color: #999; /* white2 */
+  font-size: 13px;
+}
+
+
+/* Score */
+.track .score{
+  text-align: right;
+}
+
+.track .score strong{
+  display: block;
+  font-weight: bold;
+  font-size: 24px;
+  color: #999; /* white2 */
+} 
+
+.track .score span{
+  display: block;
+  font-size: 11px;
+  margin-top: 2px;
+  margin-right: 1px;
+  font-weight: bold;
+  color: #FFC003; /* yellow */
+}
+
+
+/* Upvote */
+.track .upvote a{
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 4px solid #666; /* darkgray */
+  line-height: 32px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: #A60202; /* red */
+  vertical-align: middle;
+}
+
+
+/* New track */
+.track.new .score strong{
+  color: #A60202; /* red */
+}
+
+.track.new h3{
+  color: #FFC003; /* yellow */  
+}
+
+.track.new p{
+  color: #FFC003; /* yellow */
+}
+
+.track.new .upvote a{
+  border-color: #A60202; /* red */
+  color: #FFC003; /* yellow */
+}
+
+
+/* Down track */
+.track.down .score strong{
+  color: #444;
+}
+
+.track.down h3{
+  color: #666;
+}
+
+.track.down p{
+  color: #444;
+}
+
+.track.down .upvote a{
+  border-color: #444;
+  color: #666;
+}
+
+
+/* Search form */
+form.search{
+  background: #F0F0F0; /* white */
+}
+
+form.search input{
+  color: #1C1C19; /* dark */  
+}
+
+.track .add a{
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 4px solid #A60202; /* red */
+  line-height: 24px;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #FFC003; /* yellow */
+  vertical-align: middle;  
+}
+
+.track .add.added a{
+  opacity: 0;
+}

@@ -1,0 +1,26 @@
+<ion-view title="Add a track">
+  <ion-content>
+
+    <ion-list>
+
+      <form class="search">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search for a track">
+        </label>
+      </form>
+
+      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track">
+
+        <div class="right add" ng-class="result.status">
+          <a>+</a>
+        </div>
+
+        <h3>{{result.title}}</h3>
+        <p>{{result.artist}}</p>
+      </ion-item>
+      
+    </ion-list>
+
+  </ion-content>
+</ion-view>
