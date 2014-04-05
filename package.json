@@ -1,0 +1,14 @@
+{
+  "name": "wearethedj",
+  "description": "gamified collaborative playlist",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "socket.io": "0.9",
+    "express": "3.x",
+    "redis": "0.10.x",
+    "hiredis": "0.1.16",
+    "q": "1.0.0",
+    "lodash": "2.4.1"
+  }
+}

@@ -3,21 +3,35 @@
 
     <ion-list>
 
-      <form class="search">
+      <form class="search" ng-submit="doSearch()">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Search for a track">
+          <input type="text" placeholder="Search for a track" ng-model="search.query">
+          <input type="submit" style="display:none;"></input>
         </label>
       </form>
 
-      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track">
 
-        <div class="right add" ng-class="result.status">
+      <div ng-show="firstView" class="padding">
+        <p class="search-help">Look for an artist or track, click + to add it to the current playlist.</p>
+      </div>
+
+
+      <div class="searching" ng-show="searching">
+        <div class="spinner">
+          <div class="inner"></div>
+        </div>
+      </div>
+
+
+      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track" ng-hide="searching">
+
+        <div class="right add" ng-class="result.status" ng-click="addTrack(result)">
           <a>+</a>
         </div>
 
         <h3>{{result.title}}</h3>
-        <p>{{result.artist}}</p>
+        <p>{{result.artist.name}}</p>
       </ion-item>
       
     </ion-list>

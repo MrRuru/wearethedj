@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('playlist', ['ionic', 'playlist.services', 'playlist.controllers'])
+angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'app.services'])
 
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -55,5 +55,11 @@ angular.module('playlist', ['ionic', 'playlist.services', 'playlist.controllers'
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/playlist');
+
+})
+
+.run(function(User, Playlist, Room){
+
+  // Trick to force-load these services (needed in the sync)
 
 });

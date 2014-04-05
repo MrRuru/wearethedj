@@ -1,22 +1,26 @@
 <div class="playlist-topbar bar bar-subheader">
   <div class="current-stars">
-    <span>★</span> × 12
+    <span>★</span> × {{votes()}}
   </div>
-  <div class="currently-playing"><span>Playing : </span>Alt-J - Breezeblocks</div>
+  <div class="currently-playing"><span>Playing : </span>{{ playing }}</div>
 </div>
 
 <ion-view title="PLAYLIST">
   <ion-content class="has-subheader">
 
+    <div ng-show="playlist.length === 0" class="padding">
+      <p class="notracks">The playlist is empty :( &nbsp;&nbsp; Please <a href="#/tab/search">add some tracks</a></p>
+    </div>
+
     <ion-list>
 
-      <ion-item ng-repeat="track in tracks | orderBy:'score':true" type="item-text-wrap" class="track" ng-class="track.status">
+      <ion-item ng-repeat="track in playlist | orderTracks" type="item-text-wrap" class="track" ng-class="track.status">
         <div class="left score">
           <strong>{{track.score}}</strong>
-          <span ng-show="track.pending">+{{track.pending}}</span>
+          <span ng-show="track.pendingVotes > 0">+ {{track.pendingVotes}}</span>
         </div>
 
-        <div class="right upvote">
+        <div class="right upvote" ng-mousedown="track.startUpvote()">
           <a>★</a>
         </div>
 

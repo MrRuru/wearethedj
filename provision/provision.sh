@@ -4,7 +4,7 @@
 sudo apt-get update -y
 
 # Global dependencies
-sudo apt-get install python-software-properties -y
+sudo apt-get install python-software-properties build-essential -y
 
 # Add repositories for edge packages
 sudo add-apt-repository ppa:chris-lea/node.js -y
@@ -26,3 +26,7 @@ sudo cp /www/provision/conf/nginx.conf /etc/nginx/sites-available/app
 sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/app
 sudo rm /etc/nginx/sites-enabled/default
 sudo service nginx restart
+
+# Install dependencies
+cd /www
+npm install

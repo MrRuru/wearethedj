@@ -5,45 +5,65 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>WeAreTheDJ</title>
 
-    <!-- ionic css -->
+
+    <!-- vendor css -->
     <link href="lib/css/ionic.css" rel="stylesheet">
 
-    <!-- your app's css -->
+    <!-- app css -->
     <link href="css/app.css" rel="stylesheet">
 
-    <!-- ionic/angularjs scripts -->
-    <script src="lib/js/ionic.bundle.js"></script>
+    <!-- vendor scripts -->
+    <script src="socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="lib/js/lodash.min.js" type="text/javascript"></script>
+    <script src="lib/js/ionic.bundle.js" type="text/javascript"></script>
+    <script src="lib/js/angular/angular-cookies.js" type="text/javascript"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <!-- <script src="cordova.js"></script> -->
-
-    <!-- your app's script -->
+    <!-- app scripts -->
     <script src="js/app.js"></script>
+
     <script src="js/services.js"></script>
+    <script src="js/services/playlist.js"></script>
+    <script src="js/services/sync.js"></script>
+    <script src="js/services/socket.js"></script>
+    <script src="js/services/user.js"></script>
+    <script src="js/services/room.js"></script>
+
     <script src="js/controllers.js"></script>
+    <script src="js/controllers/playlist.js"></script>
+    <script src="js/controllers/search.js"></script>
+
+    <!-- External libs -->
+    <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>    
+
   </head>
 
-  <!-- 
-    'starter' is the name of this angular module (js/app.js)
-  -->
-  <body ng-app="playlist">
+  <body ng-app="app">
 
-    <!-- 
-      The nav bar that will be updated as we navigate between views
-      Additional attributes set its look, ion-nav-bar animation and icons
-      Icons provided by Ionicons: http://ionicons.com/ 
-    -->
-    <ion-nav-bar class="topbar bar">
-      <ion-nav-back-button class="button-icon button-clear ion-ios7-arrow-back">
-      </ion-nav-back-button>
-    </ion-nav-bar>
+    <!-- Loading page -->
+    <div ng-show="!appLoaded" class="loading-screen">
+      <img src="img/logo-big.png" width="256" height="256" class="logo">
+      <p>Loading...</p>
+    </div>
 
-    <!-- 
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
+    <div ng-cloak ng-show="appLoaded">
 
+      <!-- 
+        The nav bar that will be updated as we navigate between views
+        Additional attributes set its look, ion-nav-bar animation and icons
+        Icons provided by Ionicons: http://ionicons.com/ 
+      -->
+      <ion-nav-bar class="topbar bar">
+      </ion-nav-bar>
+
+      <!-- 
+        The views will be rendered in the <ion-nav-view> directive below
+        Templates are in the /templates folder (but you could also
+        have templates inline in this html file if you'd like).
+      -->
+      <ion-nav-view></ion-nav-view>
+
+    </div>
+
+    <div id="dz-root"></div>
   </body>
 </html>
