@@ -9,7 +9,7 @@ var express       = require('express')
   , server        = require('http').createServer(app)
   , socketServer  = require('http').createServer()
   , io            = require('socket.io').listen(socketServer)
-  , Rooms         = require('./lib/rooms.js')
+  , Sockets       = require('./lib/sockets.js')
 
 
 // Launch apps
@@ -27,12 +27,15 @@ app.use(express.static(__dirname + '/front'));
 
 // Pop top track API endpoint
 app.delete('/room/:roomId/top', function(req, res){
-  var room = Rooms.get(req.params.roomId);
+  var roomId = req.params.roomId;
+  var room = Room.find(roomId);
 
-  room.popTopTrack().then(function(trackId){
-    console.log('popped top track. response is', trackId);
-    res.send(trackId);
-  }).done();
+  room.popTopTrack().then(function(track){
+    res.send(track.id);
+  },
+  function(err){
+    res.send(500, err);
+  });
 });
 
 
@@ -54,22 +57,17 @@ io.sockets.on('connection', function(socket){
     socketUserId = data.userId;
     socketRoomId = data.roomId;
 
-    // Get the current room
-    var room = Rooms.get(socketRoomId);
-
-    // Bind the socket as a new user
-    // Handles bootstraping, and update events
-    room.connect(socketUserId, socket);
-
+    // Connect the socket (create the user and everything)
+    Sockets.connect(socketRoomId, socketUserId, socket);
   });
+
 
   // Disconnection
   socket.on('disconnect', function(){
 
     // Clear the user if defined
     if(socketRoomId && socketUserId) {
-      console.log('APP - disconnecting', socketUserId, 'from room', socketRoomId);
-      Rooms.get(socketRoomId).disconnect(socketUserId, socket);
+      Sockets.disconnect(socketRoomId, socketUserId);
     }
 
   });

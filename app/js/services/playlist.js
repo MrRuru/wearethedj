@@ -72,7 +72,10 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
     var self = this;
 
-    Sync.upvoteTrack(this.id, score, function(newScore){
+    Sync.upvoteTrack(this.id, score, function(res, err){
+      if(!res){
+        alert('error : ', err);
+      }
       User.clearVotes(self.id);
       self.upvoting = false;
       self.bumpTo(self.score + score);

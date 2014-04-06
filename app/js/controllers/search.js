@@ -43,7 +43,10 @@ angular.module('app.controllers.search', ['app.services.sync'])
   $scope.addTrack = function(track){
     track.status = 'adding';
 
-    Sync.addTrack(track, function(){
+    Sync.addTrack(track, function(res, err){
+      if(!res){
+        alert('error : ', err);
+      }
       track.status = 'added';
     });
   };
