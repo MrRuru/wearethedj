@@ -238,28 +238,28 @@ body{
 
 
 /* Down track */
-.track.down .score strong{
+.track.dying .score strong{
   color: #444;
 }
 
-.track.down h3{
+.track.dying h3{
   color: #666;
 }
 
-.track.down p{
+.track.dying p{
   color: #444;
 }
 
-.track.down .upvote a{
+.track.dying .upvote a{
   border-color: #444;
   color: #666;
 }
 
-.track.pending.down .upvote a{
-  -webkit-animation: blinkDown 1000ms infinite linear;
+.track.pending.dying .upvote a{
+  -webkit-animation: blinkDying 1000ms infinite linear;
 }
 
-@-webkit-keyframes blinkDown { 
+@-webkit-keyframes blinkDying { 
   0% { 
     color: #666;
     background-color: transparent;

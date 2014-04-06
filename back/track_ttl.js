@@ -1,190 +1,101 @@
-var Adapter = require('./lib/adapter.js'),
+var DB      = require('./lib/database.js'),
+    Pubsub  = require('./lib/pubsub.js'),
     _       = require('lodash');
 
-var NEW_DURATION = parseInt(process.env.NEW_DURATION, 10) || 3000; // seconds
-var TTL_DURATION = parseInt(process.env.NEW_DURATION, 10) || 9000; // seconds
-var MULTIPLIER = parseInt(process.env.MULTIPLIER, 10) || 1; // Higher = steeper downfall
+
+var DEFAULT_NEW_DURATION = 10,
+    DEFAULT_TTL_DURATION = 10,
+    DEFAULT_DEATH_RATE = 1;
+
+var _newDuration = ( parseInt(process.env.NEW_DURATION, 10) || DEFAULT_NEW_DURATION ) * 1000; // seconds
+    _ttlDuration = ( parseInt(process.env.NEW_DURATION, 10) || DEFAULT_TTL_DURATION ) * 1000; // seconds
+    _deathRate   = ( parseFloat(process.env.MULTIPLIER, 10) || DEFAULT_DEATH_RATE   ); // Higher = steeper downfall
+
 var _rooms = {}; // Sort tracks by room
 
 
-// Individual track logic
-
-var Track = function(roomId, opts){
-  console.log('initializing track with ', opts);
-  this.id = opts.id;
-  this.roomId = roomId;
-  this.status = opts.status;
-
-  this.nextTimeout = null;
-
-  this.initialize();
-};
-
-Track.prototype.destroy = function(){
-  console.log('destroying track', this);
-  clearTimeout(this.nextTimeout);
-};
-
-Track.prototype.initialize = function(){
-  console.log('initializing TTL for track', this.id);
-  var self = this;
-
-  // New track : remove new status next
-  if ( this.status === "new" ) {
-    console.log(this.id, 'is a new track, programming status down');
-    this.programAlive();
+var setTrackTimeout = function(track, delay, fn){
+  if (delay < 0) {
+    delay = 0;
   }
 
-  // Dying : launch cooldown
-  else if ( this.status === "down" ) {
-    console.log(this.id, 'is dying, killing it now');
-    this.programDeath();
-  }
+  clearTimeout(_rooms[track.roomId][track.id]);
 
-  // Normal 
-  else {
-    console.log(this.id, 'is a not new anymore, programming death');
-    this.programDying();
-  }
-
+  _rooms[track.roomId][track.id] = setTimeout(fn.bind(track), delay);
 };
 
-Track.prototype.updateStatus = function(newStatus){
-  console.log('updating', this.id, 'status : ', newStatus);
-  var self = this;
+var add = function(track){
+  console.log('adding', track);
+  // Build room if needed
+  if (!_.has(_rooms, track.roomId)) {
+    console.log('building room', track.roomId);
+    _rooms[track.roomId] = {};
+  }
 
-  if (this.status === newStatus) {
+  check(track);
+};
+
+
+var bootstrap = function(){
+  console.log('bootstraping');
+
+  DB.getAllTracks().then(function(tracks){
+    _.each(tracks, add);
+  })
+  .done();
+};
+
+var check = function(track){
+  console.log('checking', track);  
+
+  // If new : prepare normal status timeout
+  if (track.status === 'new') {
+    var normal_in = (track.created_at + _newDuration) - Date.now();
+    console.log("setting track normal in", normal_in);
+    setTrackTimeout(track, normal_in, function(){
+      DB.setTrackStatus(this.roomId, this.id, 'normal').done();
+    });
     return;
   }
 
-  return Adapter.setStatus(this.roomId, this.id, newStatus)
-  .then(function(res){
-    if(!res){
-      console.log('could not update status');
-      return false;
-    }
-    console.log('status upate ok');
-    self.status = newStatus;
-    return true;
-  });
-};
-
-Track.prototype.programAlive = function(){
-  console.log('programming', this.id, 'to be alive');
-  var self = this;
-  this.nextTimeout = setTimeout(function(){
-    self.setAlive();
-  }, NEW_DURATION);
-};
-
-Track.prototype.setAlive = function(){
-  console.log('setting', this.id, 'alive');
-  var self = this;
-  clearTimeout(this.nextTimeout);
-  this.updateStatus('')
-  .then(function(res){
-    if(!!res){
-      self.programDying();
-    }
-  })
-  .done();
-};
-
-Track.prototype.programDying = function(){
-  console.log('programming', this.id, 'to be dying');
-  var self = this;
-  this.nextTimeout = setTimeout(function(){
-    self.setDying();
-  }, TTL_DURATION);
-};
-
-Track.prototype.setDying = function(){
-  console.log('setting', this.id, 'dying');
-  var self = this;
-  clearTimeout(this.nextTimeout);
-  this.updateStatus('down')
-  .then(function(res){
-    if(!!res){
-      self.programDeath();
-    }
-  })
-  .done();
-};
-
-Track.prototype.programDeath = function(){
-  console.log('programming', this.id, 'to be dead');
-  var self = this;
-
-  var die = function(){
-    console.log('killing', self.id);
-    // Downvote
-
-    // Get new score
-
-    // Return if none (TODO : adapter delete if 0)
-
-    // Calculate new TTL
-    var nextTick = 100;
-
-    this.nextTimeout = setTimeout(die, nextTick);
-  };
-
-  die();
-};
-
-
-// Boostraping and monitoring
-var refreshTrack = function(roomId, trackId){
-  // Check if track exists
-  
-  track.setAlive();
-};
-
-var importTrack = function(roomId, trackDetails){
-  if (!_.has(_rooms, roomId)) {
-    _rooms[roomId] = {};
-  }
-
-  if (!_.has(_rooms[roomId], trackDetails.id)) {
-    console.log('building track');
-    _rooms[roomId][trackDetails.id] = new Track(roomId, trackDetails);
-  }
-  else {
-    console.log('replacing track');
-    _rooms[roomId][trackDetails.id].destroy();
-    _rooms[roomId][trackDetails.id] = new Track(roomId, trackDetails);
-  }
-};
-
-var bootstrap = function(){
-  Adapter.getAllTracks().then(function(res){
-
-    _.each(res, function(roomAndTrack){
-      var roomId = roomAndTrack[0];
-      var trackId = roomAndTrack[1];
-
-      Adapter.getTrack(roomId, trackId)
-      .then(function(trackDetails){
-        trackDetails.id = trackId;
-        importTrack(roomId, trackDetails);
-      })
-      .done();
-
+  // If normal : prepare dying status
+  if (track.status === 'normal') {
+    var dying_in = (track.last_upvote_at + _ttlDuration) - Date.now();
+    console.log('setting track dying in', dying_in);
+    setTrackTimeout(track, dying_in, function(){
+      DB.setTrackStatus(this.roomId, this.id, 'dying').done();
     });
-  })
-  .done();
-};
+    return;
+  }
+
+  if (track.status === 'dying') {
+
+    // If dying but supposed to be normal (last_upvote_at changed), reupdate status
+    var dying_in = (track.last_upvote_at + _ttlDuration) - Date.now();
+    if (dying_in > 0) {
+      console.log('was dying, back to normal');
+      DB.setTrackStatus(track.roomId, track.id, 'normal').done();
+      return;
+    }
+
+    // Else next hp drop
+    var next_drop = (1 / track.score) * 20000;
+    setTrackTimeout(track, next_drop, function(){
+      DB.dieTrack(this.roomId, this.id).done();
+    });
+  }
+}
 
 
 // Listeners
-// Adapter.onAllNewTracks(function(roomId, trackDetails){
-//   importTrack(roomId, trackDetails);
-// });
+Pubsub.onNewTrack(null, function(track){
+  add(track);
+});
 
-// Listeners
-// Adapter.onAllUpvotes(function(roomId, trackDetails){
-//   refreshTrack(roomId, trackDetails);
-// });
+Pubsub.onUpdateTrack(null, function(track){
+  check(track);
+});
+
 
 
 bootstrap();

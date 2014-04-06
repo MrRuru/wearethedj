@@ -17,10 +17,13 @@ var zrevrangebyscore = Q.nbind(client.zrevrangebyscore, client);
 var zscore = Q.nbind(client.zscore, client);
 var zincrby = Q.nbind(client.zincrby, client);
 var zadd = Q.nbind(client.zadd, client);
+var hset = Q.nbind(client.hset, client);
 var hmset = Q.nbind(client.hmset, client);
 var hgetall = Q.nbind(client.hgetall, client);
 var decrby = Q.nbind(client.decrby, client);
-
+var keys = Q.nbind(client.keys, client);
+var del = Q.nbind(client.del, client);
+var zrem = Q.nbind(client.zrem, client);
 
 // ===========
 // Track model
@@ -47,14 +50,11 @@ Track.prototype.get = function() {
         status: attrs.status,
         artist: attrs.artist,
         title: attrs.title,
-        created_at: parseInt(attrs.created_at, 10)
-      };      
+        created_at: parseInt(attrs.created_at, 10),
+        last_upvote_at: parseInt(attrs.last_upvote_at, 10)
+      };
     });
-  })
-};
-
-Track.prototype.score = function() {
-  return this.room.trackScore(this.id);
+  });
 };
 
 Track.prototype.create = function(args) {
@@ -71,6 +71,7 @@ Track.prototype.create = function(args) {
         title: args.title,
         artist: args.artist,
         created_at: Date.now(),
+        last_upvote_at: Date.now(),
         status: 'new',
       };
       var score = 1;
@@ -89,18 +90,92 @@ Track.prototype.create = function(args) {
   });
 };
 
-Track.prototype.notifyNew = function() {
-  this.get()
+Track.prototype.setAttr = function(key, value) {
+  var self = this;
+
+  return this.get()
   .then(function(trackAttrs){
-    Pubsub.notifyNewTrack(trackAttrs);
+    if( !trackAttrs ){
+      return false;
+    }
+    if ( trackAttrs[key] === value ){
+      return false;
+    }
+    else {
+      return hset(self.key, key, value)
+      .then(function(){
+        self.notifyUpdate();
+      })
+      .then(function(){
+        return true;
+      });
+    }
+  });
+};
+
+Track.prototype.delete = function() {
+  console.log('deleting track', this);
+  var self = this; 
+
+  return this.room.deleteTrack(this.id);
+};
+
+Track.prototype.score = function() {
+  return this.room.trackScore(this.id);
+};
+
+Track.prototype.pingLastUpvote = function() {
+  var now = Date.now();
+  console.log('pinging last upvote', now);
+  return hset(this.key, 'last_upvote_at', now).then(function(res){
+    console.log('ping upvote ok! : res');
+
+  });
+};
+
+Track.prototype.die = function() {
+  var self = this;
+
+  // Downvote 1
+  return this.get()
+  .then(function(attrs){
+    if (!attrs) { console.log('already dead'); return false; }
+
+    return self.room.upvote(self.id, -1)
+    .then(function(score){
+      // Score is 0 : deletion
+      if (score <= 0) {
+        console.log('score 0, delete');
+        return self.delete()
+        .then(function(res){
+          return Track.notifyDelete(attrs);
+        });
+      }
+      else {
+        console.log('score not 0, update');
+        return self.notifyUpdate()
+        .then(function(){ return true; });
+      }
+    });
+  });
+};
+
+Track.prototype.notifyNew = function() {
+  return this.get()
+  .then(function(trackAttrs){
+    return Pubsub.notifyNewTrack(trackAttrs);
   }); 
 };
 
 Track.prototype.notifyUpdate = function() {
-  this.get()
+  return this.get()
   .then(function(trackAttrs){
-    Pubsub.notifyUpdateTrack(trackAttrs);
+    return Pubsub.notifyUpdateTrack(trackAttrs);
   }); 
+};
+
+Track.notifyDelete = function(trackAttrs) {
+  return Pubsub.notifyDeleteTrack(trackAttrs);
 };
 
 
@@ -233,11 +308,19 @@ Room.prototype.addTrack = function(trackId) {
 
 Room.prototype.upvote = function(trackId, score) {
   return zincrby(this.playlistKey, score, trackId)
-  .then(function(){
-    return true;
+  .then(function(score){
+    return parseInt(score, 10);
   });
 };
 
+Room.prototype.deleteTrack = function(trackId) {
+  console.log('deleting track from playlist');
+  return zrem(this.key, trackId)
+  .then(function(){
+    console.log('deleted track from playlist');
+    return true;
+  });
+};
 
 
 // =======
@@ -313,24 +396,65 @@ DB.upvoteTrack = function(roomId, userId, trackId, score){
 
   // Check both exist and are allowed
   return track.get()
-  .then(function(attrs){
-    if (!attrs) { throw 'No track found'; }    
+  .then(function(trackAttrs){
+    if (!trackAttrs) { throw 'No track found'; }
+
+    if (trackAttrs.status === 'new') {
+      score = score * 2;
+    }
 
     return user.get()
-    .then(function(attrs){
-      if (!attrs || attrs.votes < score) { throw 'Not enough votes'; }
+    .then(function(userAttrs){
+      if (!userAttrs || userAttrs.votes < score) { throw 'Not enough votes'; }
 
       return user.removeVotes(score)
       .then(function(){
+        console.log('upvoting track')
         return room.upvote(trackId, score)
       })
+      .then(function(){
+        console.log('pinging upvote');
+        return track.pingLastUpvote();
+      })
       .then(function(res){
+        console.log('pinged last upvote')
         track.notifyUpdate();
         user.notifyUpdate();
-        return res;
+        return true;
       });
     });
   })
-}
+};
+
+// Get all tracks
+DB.getAllTracks = function(){
+  console.log('getting all tracks');
+  return keys('watdj:rooms:*:tracks:*')
+  .then(function(keys){
+    console.log('keys : ', keys);
+    return Q.all( _.map(keys, function(key){
+      var splitKey = key.split(':');
+      var roomId = splitKey[2];
+      var trackId = splitKey[4];
+      return (new Track(roomId, trackId)).get();
+    }) );
+  })
+  .then(function(tracks){
+    return _.compact(tracks);
+  });
+};
+
+// Set a track's status
+DB.setTrackStatus = function(roomId, trackId, newStatus){
+  var track = new Track(roomId, trackId);
+  return track.setAttr('status', newStatus);
+};
+
+// Make a track die (downvote 1, delete if 0)
+DB.dieTrack = function(roomId, trackId){
+  console.log('dying track', trackId);
+  var track = new Track(roomId, trackId);
+  return track.die();
+};
 
 module.exports = DB;

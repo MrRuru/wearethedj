@@ -80,7 +80,9 @@ Pubsub.notifyUpdateTrack = function(track){
   publish( keys['update_track'](track.roomId, track.id), track );
 };
 
-
+Pubsub.notifyDeleteTrack = function(track){
+  publish( keys['delete_track'](track.roomId, track.id), track );
+};
 
 
 
