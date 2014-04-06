@@ -80,8 +80,8 @@ RoomSockets.prototype.listenToSocket = function(socket, userId) {
   // Add track
   socket.on('addTrack', function(trackData, cb){
     DB.addTrack(self.id, trackData).then(
-      function(res){ cb(nil, res); },
-      function(err){ cb(err, err); }
+      function(res){ cb(true, res); },
+      function(err){ cb(false, err); }
     );
   });
 

@@ -24,6 +24,11 @@ var setTrackTimeout = function(track, delay, fn){
   _rooms[track.roomId][track.id] = setTimeout(fn.bind(track), delay);
 };
 
+var unlink = function(track){
+  clearTimeout(_rooms[track.roomId][track.id]);
+  delete _rooms[track.roomId][track.id];
+};
+
 var add = function(track){
   console.log('adding', track);
   // Build room if needed
@@ -96,6 +101,9 @@ Pubsub.onUpdateTrack(null, function(track){
   check(track);
 });
 
+Pubsub.onDeleteTrack(null, function(track){
+  unlink(track);
+});
 
 
 bootstrap();

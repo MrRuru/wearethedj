@@ -24,6 +24,7 @@ var decrby = Q.nbind(client.decrby, client);
 var keys = Q.nbind(client.keys, client);
 var del = Q.nbind(client.del, client);
 var zrem = Q.nbind(client.zrem, client);
+var incr = Q.nbind(client.incr, client);
 
 // ===========
 // Track model
@@ -243,11 +244,9 @@ User.prototype.notifyNew = function() {
 };
 
 User.prototype.notifyUpdate = function() {
-  var self = this;
-
-  this.get()
+  return this.get()
   .then(function(userAttrs){
-    Pubsub.notifyUpdateUser(self.room.id, userAttrs);
+    Pubsub.notifyUpdateUser(userAttrs);
   });
 };
 
@@ -260,6 +259,19 @@ User.prototype.removeVotes = function(score) {
   });
 };
 
+User.prototype.addVote = function() {
+  var self = this;
+  console.log('addingvote');
+  return incr(this.key)
+  .then(function(){
+    console.log('incremented');
+    return self.notifyUpdate();
+  })
+  .then(function(){
+    console.log('notified');
+    return self.get();
+  });
+};
 
 // ==========
 // Room model
@@ -399,10 +411,6 @@ DB.upvoteTrack = function(roomId, userId, trackId, score){
   .then(function(trackAttrs){
     if (!trackAttrs) { throw 'No track found'; }
 
-    if (trackAttrs.status === 'new') {
-      score = score * 2;
-    }
-
     return user.get()
     .then(function(userAttrs){
       if (!userAttrs || userAttrs.votes < score) { throw 'Not enough votes'; }
@@ -410,6 +418,9 @@ DB.upvoteTrack = function(roomId, userId, trackId, score){
       return user.removeVotes(score)
       .then(function(){
         console.log('upvoting track')
+        if (trackAttrs.status === 'new') {
+          score = score * 2;
+        }
         return room.upvote(trackId, score)
       })
       .then(function(){
@@ -455,6 +466,28 @@ DB.dieTrack = function(roomId, trackId){
   console.log('dying track', trackId);
   var track = new Track(roomId, trackId);
   return track.die();
+};
+
+DB.getAllUsers = function(){
+  return keys('watdj:rooms:*:users:*')
+  .then(function(keys){
+    console.log('keys : ', keys);
+    return Q.all( _.map(keys, function(key){
+      var splitKey = key.split(':');
+      var roomId = splitKey[2];
+      var userId = splitKey[4];
+      return (new User(roomId, userId)).get();
+    }) );
+  })
+  .then(function(users){
+    return _.compact(users);
+  });
+},
+
+DB.addUserVote = function(roomId, userId){
+  console.log('adding vote to', roomId, userId);
+  var user = new User(roomId, userId);
+  return user.addVote();
 };
 
 module.exports = DB;

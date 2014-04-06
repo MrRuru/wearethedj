@@ -7,12 +7,7 @@ angular.module('app.controllers.playlist', ['app.services.playlist'])
   return function(tracks) {
     res = _.values(tracks);
     res.sort(function(a, b){
-      if (a.score === b.score) {
-        return a.created_at > b.created_at;
-      }
-      else {
-        return a.score < b.score;
-      }
+      return (b.score - a.score) || (a.created_at - b.created_at);
     });
     return res;
   };
@@ -48,6 +43,7 @@ angular.module('app.controllers.playlist', ['app.services.playlist'])
     }
     else {
       $scope.playlist = _.values(Playlist.tracks);
+      window.playlist = $scope.playlist;
     }
   });
 

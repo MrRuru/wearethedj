@@ -24,9 +24,9 @@
       </div>
 
 
-      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track" ng-hide="searching">
+      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track" ng-hide="searching" ng-class="(result.status === 'added') ? 'new' : ( (result.status === 'cannotadd') ? 'dying' : '' )">
 
-        <div class="right add" ng-class="result.status" ng-click="addTrack(result)">
+        <div class="right upvote add" ng-class="result.status" ng-click="addTrack(result)">
           <a>+</a>
         </div>
 

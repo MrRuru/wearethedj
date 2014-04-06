@@ -2,8 +2,8 @@
 // Search controller
 // =================
 
-angular.module('app.controllers.search', ['app.services.sync'])
-.controller('SearchCtrl', function($scope, $timeout, Sync) {
+angular.module('app.controllers.search', ['app.services.sync', 'app.controllers.playlist'])
+.controller('SearchCtrl', function($scope, $timeout, Sync, Playlist) {
 
   $scope.search = {query: ''};
   $scope.searching = false;
@@ -24,6 +24,11 @@ angular.module('app.controllers.search', ['app.services.sync'])
       $scope.searching = false;
 
       var results = res.data.slice(0,10);
+      _.each(results, function(result){
+        if ( Playlist.hasTrack(result.id) ) {
+          result.status = 'cannotadd';
+        }
+      });
 
       var result;
       var gradualAppend = function(){
@@ -41,17 +46,19 @@ angular.module('app.controllers.search', ['app.services.sync'])
   };
 
   $scope.addTrack = function(track){
+    if (track.status){
+      return;
+    }
+
     track.status = 'adding';
 
-    Sync.addTrack(track, function(err, res){
-      if(err){
-        alert('error : ', err);
-      }
-
-      if(res){
+    Sync.addTrack(track, function(success, res){
+      if(success){
+        console.log('added');
         track.status = 'added';
       }
       else {
+        console.log('Error adding track : ', res);
         track.status = '';
       }
     });

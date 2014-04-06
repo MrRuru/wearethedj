@@ -137,6 +137,10 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     delete _tracks[trackOpts.id];
   };
 
+  var hasTrack = function(trackId){
+    return _.has(_tracks, trackId);
+  };
+
   Playlist = {
     bootstrap: bootstrap,
     newTrack: newTrack,
@@ -145,7 +149,8 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     deleteTrack: deleteTrack,
     tracks: _tracks,
     playing: {},
-    loadedOnce: false
+    loadedOnce: false,
+    hasTrack: hasTrack
   };
 
   Sync.setPlaylist(Playlist);
