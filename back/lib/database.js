@@ -42,7 +42,7 @@ Track.prototype.get = function() {
       if (!attrs) { return null; }
       return {
         id: self.id,
-        roomId: self.roomId,
+        roomId: self.room.id,
         score: score,
         status: attrs.status,
         artist: attrs.artist,
@@ -54,7 +54,7 @@ Track.prototype.get = function() {
 };
 
 Track.prototype.score = function() {
-  return ( new Room(this.roomId) ).trackScore(this.id);
+  return this.room.trackScore(this.id);
 };
 
 Track.prototype.create = function(args) {
@@ -102,6 +102,7 @@ Track.prototype.notifyUpdate = function() {
     Pubsub.notifyUpdateTrack(trackAttrs);
   }); 
 };
+
 
 // ==========
 // User model
@@ -158,20 +159,26 @@ User.prototype.create = function() {
 };
 
 User.prototype.notifyNew = function() {
+  var self = this;
+
   this.get()
   .then(function(userAttrs){
-    Pubsub.notifyNewUser(roomId, userAttrs);    
+    Pubsub.notifyNewUser(self.room.id, userAttrs);    
   });
 };
 
 User.prototype.notifyUpdate = function() {
+  var self = this;
+
   this.get()
   .then(function(userAttrs){
-    Pubsub.notifyUpdateUser(roomId, userAttrs);
+    Pubsub.notifyUpdateUser(self.room.id, userAttrs);
   });
 };
 
 User.prototype.removeVotes = function(score) {
+  var self = this;
+
   return decrby(this.key, score)
   .then(function(){
     return true;
@@ -192,14 +199,12 @@ Room.prototype.tracks = function() {
 
   return this.trackIds()
   .then(function(trackIds){
-    console.log('trackids : ', trackIds);
     return Q.all(_.map(trackIds, function(trackId){
       var track = new Track(self.id, trackId);
       return track.get();
     }));
   })
   .then(function(trackWithDetails){
-    console.log('trackWithDetails : ', trackWithDetails);
     return _.compact(trackWithDetails);
   });
 };
@@ -207,7 +212,6 @@ Room.prototype.tracks = function() {
 Room.prototype.trackIds = function(first_argument) {
   return zrevrangebyscore(this.playlistKey, '+inf', 0, 'withscores')
   .then(function(raw_res){
-    console.log('raw res', raw_res);
     var ids = [];
     for (var i = 0 ; i < (raw_res.length/2) ; i++) {
       ids.push(raw_res[2*i]);
@@ -288,8 +292,16 @@ DB.addTrack = function(roomId, trackAttrs){
   var track = new Track(roomId, trackAttrs.id);
   return track.create(trackAttrs)
   .then(function(res){
-    track.notifyNew();
-    return res;
+    var success = res[0];
+    var attrs = res[1];
+
+    if (success) {
+      track.notifyNew();
+      return attrs
+    }
+    else {
+      return false;
+    }
   });
 };
 

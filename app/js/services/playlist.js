@@ -11,12 +11,12 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   function Track(opts) {
     this.id = opts.id;
     this.score = opts.score;
-    this.artist = opts.artist;
-    this.title = opts.title;
-    this.status = opts.status;
-    this.created_at = opts.created_at;
-    this.upvoting = false;
+    this.targetScore = opts.score;
+
     this.pendingVotes = 0;
+    this.upvoting = false;
+
+    this.setAttrs(opts)
   };
 
   Track.prototype.bumpOne = function(){
@@ -38,6 +38,10 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     };
     this.bumpTimeout = $timeout(bumpOne, 30);
   };
+
+  Track.prototype.bumpBy = function(score) {
+    this.bumpTo(this.targetScore + score);
+  }; 
 
   Track.prototype.bumpTo = function(targetScore) {
     this.targetScore = targetScore;
@@ -66,20 +70,36 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   };
 
   Track.prototype.upvote = function(){
-    this.upvoting = true;
     var score = this.pendingVotes;
     this.pendingVotes = 0;
+    this.upvoting = true;
 
     var self = this;
 
+    // Optimistic upvote
+    this.bumpBy(score);
+    var cancelUser = User.clearVotes(this.id);
+
     Sync.upvoteTrack(this.id, score, function(res, err){
-      if(!res){
-        alert('error : ', err);
-      }
-      User.clearVotes(self.id);
       self.upvoting = false;
-      self.bumpTo(self.score + score);
+
+      if(res){ return; } // Ok
+      if(err){ console.log('Upvote error : err'); }
+
+      // Rollback;
+      cancelUser();
     });
+  };
+
+  Track.prototype.setAttrs = function(opts) {
+    if (opts.score !== this.score) {
+      this.bumpTo(opts.score);
+    }
+
+    this.artist = opts.artist;
+    this.title = opts.title;
+    this.status = opts.status;
+    this.created_at = opts.created_at;
   };
 
 
@@ -95,33 +115,34 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   };
 
   // Add a new track
-  var addTrack = function(trackOpts){
+  var newTrack = function(trackOpts){
     if (! _.has(_tracks, trackOpts.id)) {
       _tracks[trackOpts.id] = new Track(trackOpts);
     }
   };
 
-  // Remove a track
-  var trackPlaying = function(trackId){
-    var track = _tracks[trackId];
-    Playlist.playing = {
-      title: track.title,
-      artist: track.artist
-    };
-    delete _tracks[trackId];
+  var updateTrack = function(trackOpts){
+    var track = _tracks[trackOpts.id];
+    track.setAttrs(trackOpts);
   };
 
-  // Receive upvotes
-  var upvoteTrack = function(data){
-    var track = _tracks[data.trackId];
-    track.bumpTo(data.score);    
+  var playingTrack = function(trackOpts){
+    Playlist.playing = {
+      title: trackOpts.title,
+      artist: trackOpts.artist
+    };    
+  };
+
+  var deleteTrack = function(trackOpts){
+    delete _tracks[trackOpts.id];
   };
 
   Playlist = {
     bootstrap: bootstrap,
-    addTrack: addTrack,
-    trackPlaying: trackPlaying,
-    upvoteTrack: upvoteTrack,
+    newTrack: newTrack,
+    playingTrack: playingTrack,
+    updateTrack: updateTrack,
+    deleteTrack: deleteTrack,
     tracks: _tracks,
     playing: {},
     loadedOnce: false

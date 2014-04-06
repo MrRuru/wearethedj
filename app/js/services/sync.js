@@ -47,10 +47,12 @@ angular.module('app.services.sync', [])
       checkLoadedStatus();
     });
 
-    $socket.on('newTrack', Playlist.addTrack);
-    $socket.on('trackPlaying', Playlist.trackPlaying);
-    $socket.on('upvoteTrack', Playlist.upvoteTrack);
-    $socket.on('votes', User.updateVotes);    
+    $socket.on('newTrack', Playlist.newTrack);
+    $socket.on('updateTrack', Playlist.updateTrack);
+    $socket.on('playingTrack', Playlist.playingTrack);
+    $socket.on('deleteTrack', Playlist.deleteTrack);
+
+    $socket.on('updateUser', User.updateUser);
   };
 
 

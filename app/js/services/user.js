@@ -20,42 +20,46 @@ angular.module('app.services.user', ['app.services.sync'])
     $cookieStore.put('uid', uid);
   }
 
-  var votes = 0;
-  var pendingVotes = [];
-  var totalPendingVotes = 0;
+  var _votes = 0;
+  var _pendingVotes = [];
+  var _totalPendingVotes = 0;
 
 
   var User = {
     id: uid,
 
     bootstrap: function(data){
-      votes = data.votes;
+      _votes = data.votes;
     },
 
     votes: function(){
-      return votes - totalPendingVotes;
+      return _votes - _totalPendingVotes;
     },
 
     useVote: function(trackId){
       console.log('using vote on ', trackId);
-      pendingVotes[trackId] = pendingVotes[trackId] || 0;
-      pendingVotes[trackId] += 1;
-      totalPendingVotes += 1;
+      _pendingVotes[trackId] = _pendingVotes[trackId] || 0;
+      _pendingVotes[trackId] += 1;
+      _totalPendingVotes += 1;
     },
 
     clearVotes: function(trackId){
-      console.log('clearing votes for ', trackId);
-      var trackVotes = pendingVotes[trackId];
+      var trackVotes = _pendingVotes[trackId];
 
-      totalPendingVotes -= trackVotes;
-      pendingVotes[trackId] = 0;
+      _totalPendingVotes = _totalPendingVotes - trackVotes;
+      _pendingVotes[trackId] = 0;
 
       // Assume votes are cashed, will be corrected via the server anyway
-      votes -= trackVotes;
+      _votes -= trackVotes;
+
+      // Send correction callback
+      return function(){
+        _votes = _votes + trackVotes;
+      };
     },
 
-    updateVotes: function(newVotes){
-      votes = newVotes;
+    updateUser: function(attrs){
+      _votes = attrs.votes;
     }
   };
 

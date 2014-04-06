@@ -8,7 +8,19 @@ var _sockets = {}; // roomId => RoomSockets instance
 var RoomSockets = function(roomId){
   this.id = roomId;
   this.userSockets = {};
+  this.subbers = [];
   this.bindToPubsub();
+};
+
+RoomSockets.prototype.unlink = function() {
+  // Clear subbers
+  _.each(this.subbers, function(subber){
+    // Close the client
+    subber.quit();
+  });
+
+  // Close sockets
+  delete this.userSockets;
 };
 
 RoomSockets.prototype.addUser = function(userId, socket) {
@@ -33,6 +45,7 @@ RoomSockets.prototype.addUser = function(userId, socket) {
 };
 
 RoomSockets.prototype.removeUser = function(userId) {
+  // Dereference the socket
   delete this.userSockets[userId];
 };
 
@@ -40,25 +53,25 @@ RoomSockets.prototype.bindToPubsub = function() {
   var self = this;
 
   // Messages to listen and forward
-  Pubsub.onTrackAdded(this.id, function(trackAttrs){
+  this.subbers.push(Pubsub.onNewTrack(this.id, function(trackAttrs){
     self.broadcast('newTrack', trackAttrs);
-  });
+  }));
 
-  Pubsub.onTrackUpdated(this.id, function(trackAttrs){
+  this.subbers.push(Pubsub.onUpdateTrack(this.id, function(trackAttrs){
     self.broadcast('updateTrack', trackAttrs);
-  });
+  }));
 
-  Pubsub.onTrackRemoved(this.id, function(trackAttrs){
-    self.broadcast('removeTrack', trackAttrs);
-  });
+  this.subbers.push(Pubsub.onDeleteTrack(this.id, function(trackAttrs){
+    self.broadcast('deleteTrack', trackAttrs);
+  }));
 
-  Pubsub.onTrackPlaying(this.id, function(trackAttrs){
-    self.broadcast('playTrack', trackAttrs);
-  });
+  this.subbers.push(Pubsub.onPlayingTrack(this.id, function(trackAttrs){
+    self.broadcast('playingTrack', trackAttrs);
+  }));
 
-  Pubsub.onUserUpdated(this.id, function(userAttrs){
-    self.notifyUser(userAttrs.id, 'updateScore', userAttrs);
-  });
+  this.subbers.push(Pubsub.onUpdateUser(this.id, function(userAttrs){
+    self.notifyUser(userAttrs.id, 'updateUser', userAttrs);
+  }));
 };
 
 RoomSockets.prototype.listenToSocket = function(socket, userId) {
@@ -67,15 +80,15 @@ RoomSockets.prototype.listenToSocket = function(socket, userId) {
   // Add track
   socket.on('addTrack', function(trackData, cb){
     DB.addTrack(self.id, trackData).then(
-      function(res){ cb(res); },
-      function(err){ cb(false, err); }
+      function(res){ cb(nil, res); },
+      function(err){ cb(err, err); }
     );
   });
 
   // Upvote track
   socket.on('upvote', function(trackData, cb){
     DB.upvoteTrack(self.id, userId, trackData.trackId, trackData.score).then(
-      function(res){ cb(res); },
+      function(res){ cb(true, res); },
       function(err){ cb(false, err); }
     );
   });  
@@ -88,7 +101,8 @@ RoomSockets.prototype.notifyUser = function(userId, message, data) {
 };
 
 RoomSockets.prototype.broadcast = function(message, data) {
-  _.each(_.values(this.sockets), function(socket){
+  console.log('broadcasting', message, data);
+  _.each(_.values(this.userSockets), function(socket){
     socket.emit(message, data);
   });
 };

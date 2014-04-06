@@ -14,7 +14,7 @@
 
     <ion-list>
 
-      <ion-item ng-repeat="track in playlist | orderTracks" type="item-text-wrap" class="track" ng-class="track.status">
+      <ion-item ng-repeat="track in playlist | orderTracks" type="item-text-wrap" class="track" ng-class="track.status + ' ' + (track.upvoting ? 'pending' : '')">
         <div class="left score">
           <strong>{{track.score}}</strong>
           <span ng-show="track.pendingVotes > 0">+ {{track.pendingVotes}}</span>

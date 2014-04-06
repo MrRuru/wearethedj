@@ -163,6 +163,7 @@ body{
 /* Upvote */
 .track .upvote a{
   display: block;
+  box-sizing: border-box;
   width: 40px;
   height: 40px;
   border-radius: 100%;
@@ -173,6 +174,19 @@ body{
   text-align: center;
   color: #A60202; /* red */
   vertical-align: middle;
+}
+
+.track.pending .upvote a{
+  -webkit-animation: blink 1000ms infinite linear;
+}
+
+@-webkit-keyframes blink { 
+  0% { }
+  50% {
+    color: black;
+    background-color: #666;
+  }
+  100% { }
 }
 
 
@@ -194,6 +208,34 @@ body{
   color: #FFC003; /* yellow */
 }
 
+.track.pending.new .upvote a{
+  -webkit-animation: blinkNew 1000ms infinite linear; /* inout-cubic */
+}
+
+
+@-webkit-keyframes blinkNew { 
+  0% { 
+    color: #FFC003;
+    background-color: transparent;
+  }
+  32% { 
+    color: #FFC003;
+    background-color: transparent;
+  }
+  50% {
+    color: black;
+    background-color: #A60202;
+  }
+  68% { 
+    color: #FFC003;
+    background-color: transparent;
+  }
+  100% { 
+    color: #FFC003;
+    background-color: transparent;
+  }
+}
+
 
 /* Down track */
 .track.down .score strong{
@@ -212,6 +254,34 @@ body{
   border-color: #444;
   color: #666;
 }
+
+.track.pending.down .upvote a{
+  -webkit-animation: blinkDown 1000ms infinite linear;
+}
+
+@-webkit-keyframes blinkDown { 
+  0% { 
+    color: #666;
+    background-color: transparent;
+  }
+  32% { 
+    color: #666;
+    background-color: transparent;
+  }
+  50% {
+    color: black;
+    background-color: #444;
+  }
+  68% { 
+    color: #666;
+    background-color: transparent;
+  }
+  100% { 
+    color: #666;
+    background-color: transparent;
+  }
+}
+
 
 
 /* Search form */
