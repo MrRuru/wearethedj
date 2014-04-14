@@ -1,3 +1,2 @@
-Track TTL
-User votes
+Room via URL
 Analytics

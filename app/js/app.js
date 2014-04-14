@@ -16,6 +16,13 @@ angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'ap
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl'
+    })
+
+
     // setup an abstract state for the tabs directive
     .state('tab', {
       url: '/tab',
@@ -54,7 +61,7 @@ angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'ap
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/playlist');
+  $urlRouterProvider.otherwise('/login');
 
 })
 

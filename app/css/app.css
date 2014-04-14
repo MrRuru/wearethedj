@@ -53,6 +53,7 @@
 
 body{
   background-color: #1C1C19; /* dark */
+  background-image: url(/img/bg.png);
   color: #DDD; /* white */
   font-family: 'Quantico' sans-serif;
 }
@@ -314,12 +315,33 @@ form.search input{
 
 
 /* Loading screen */
-.loading-screen{
+.logo{
+  margin-top: 300px;
+  display: block;
   text-align: center;
-  margin-top: 25%;
+  margin-top: 70px;
 }
 
 
+/* Login screen */
+.room-form input{
+  padding: 6px;
+  font-size: 18px;
+  line-height: 30px;
+  color: #CCC; /* White */
+}
+
+.room-form.focus .item-input{
+  border-color: #A60202; /* red */
+}
+
+.room-form.focus i{
+  color: #FFC003; /* red */
+}
+
+.room-form.focus input{
+  color: #1C1C19; /* dark */
+}
 
 /* ========== */
 /* ANIMATIONS */

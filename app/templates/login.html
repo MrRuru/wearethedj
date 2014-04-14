@@ -1,0 +1,15 @@
+<div class="logo">
+  <img src="img/logo-alpha.png" width="256" height="256">
+</div>
+
+<div class="list">
+
+  <form class="room-form" ng-submit="joinRoom()" ng-class="{focus: focused}">
+    <label class="item item-input">
+      <i class="icon ion-star placeholder-icon"></i>
+      <input type="text" placeholder="Give your code" ng-model="room.name" ng-click="focused=true">
+      <input type="submit" style="display:none;"></input>
+    </label>
+  </form>
+
+</div>
