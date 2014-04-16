@@ -5,14 +5,16 @@
 angular.module('app.services.room', ['app.services.sync'])
 .factory('Room', function(Sync){
 
-  var uid = 'myroom';
+  var uid = null;
 
   var Room = {
-    id: uid
+    get: function(){ return uid; },
+    set: function(newid){
+      uid = newid;
+      Sync.setRoom(this);
+    }
   };
 
-  Sync.setRoom(Room);
   return Room;
-
 });
 

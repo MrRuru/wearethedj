@@ -4,12 +4,16 @@
 
 <div class="list">
 
-  <form class="room-form" ng-submit="joinRoom()" ng-class="{focus: focused}">
+  <form class="room-form" ng-submit="joinRoom()" ng-class="{focus: focused}" ng-hide="loading">
     <label class="item item-input">
       <i class="icon ion-star placeholder-icon"></i>
       <input type="text" placeholder="Give your code" ng-model="room.name" ng-click="focused=true">
       <input type="submit" style="display:none;"></input>
     </label>
   </form>
+
+  <div ng-show="loading">
+    <div class="spinner"><div class="outer"><div class="inner"></div></div></div>
+  </div>
 
 </div>

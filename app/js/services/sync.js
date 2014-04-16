@@ -6,14 +6,14 @@ angular.module('app.services.sync', [])
 .factory('Sync', function($rootScope, $socket){
 
   // Link to bound services
-  var User, Room, Playlist;
+  var User, Room, Playlist, onLoaded;
 
   // Are the dependencies linked, to send the socket connection
   var checkLinkingStatus = function(){
     if (User && Room && Playlist) {
       console.log('SYNC - launching bootstrap');
       setupWatchers();
-      $socket.emit('bootstrap', {userId: User.id, roomId: Room.id});
+      $socket.emit('bootstrap', {userId: User.id, roomId: Room.get()});
     }
   };
 
@@ -27,7 +27,7 @@ angular.module('app.services.sync', [])
     console.log('checking if loaded');
     if (loadedCheck.tracks && loadedCheck.user) {
       console.log('loaded!!');
-      $rootScope.appLoaded = true;
+      onLoaded();
     }
   };
 
@@ -76,6 +76,9 @@ angular.module('app.services.sync', [])
       Playlist = playlistService;
       checkLinkingStatus();
     },
+
+    // Callback when ready
+    onLoaded: function(cb){ onLoaded = cb; },
 
 
     // Accessors to send data

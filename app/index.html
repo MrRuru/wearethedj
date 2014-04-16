@@ -41,14 +41,13 @@
   <body ng-app="app">
 
     <!-- Loading page -->
-    <div ng-show="!appLoaded" class="loading-screen">
+    <div ng-show="false" class="loading-screen">
       <div class="logo">
         <img src="img/logo-alpha.png" width="256" height="256">
       </div>
-      <p>Loading...</p>
     </div>
 
-    <div ng-cloak ng-show="appLoaded">
+    <div ng-cloak ng-show="true">
 
       <!-- 
         The nav bar that will be updated as we navigate between views

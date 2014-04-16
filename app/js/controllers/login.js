@@ -3,9 +3,20 @@
 // =================
 
 angular.module('app.controllers.login', ['app.services.sync', 'app.services.room'])
-.controller('LoginCtrl', function($rootScope, Sync, Room) {
+.controller('LoginCtrl', function($scope, $location, Sync, Room) {
 
-  // $rootScope.appLoaded = true;
-  console.log('in login');
+  $scope.joinRoom = function(){
+    var roomName = $scope.room.name;
+
+    Sync.onLoaded(function(){
+      // $scope.loading = false;
+      // $location.path('/tab/playlist');
+    });
+
+    console.log('loading...');
+    $scope.loading = true;
+
+    Room.set(roomName);
+  };
 
 });
