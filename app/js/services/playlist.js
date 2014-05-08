@@ -153,7 +153,6 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     hasTrack: hasTrack
   };
 
-  Sync.setPlaylist(Playlist);
   return Playlist;
 
 });

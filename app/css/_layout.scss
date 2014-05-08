@@ -1,0 +1,86 @@
+body{
+  background-color: lighten($lightgray, 13);
+  color: $lightback;
+  font-family: $basefont;
+  font-weight: 700;
+}
+
+// TOPBAR
+.topbar{
+  background: $darkmain;
+  color: $white;
+  border-bottom: none;
+  font-family: $titlefont;
+  height: $line-height;
+  padding: $padding;
+
+  h1.title{
+    line-height: $line-height;
+    font-size: $line-height / 3;
+  }
+
+}
+
+// BOTTOM BAR
+.bottomnav .tabs{
+  background-color: $darkmain;
+  color: $white;
+  border-top: none;
+  height: $line-height;
+}
+
+.bottomnav .tab-item .icon{
+  margin: $padding;
+  @include icon;
+}
+
+
+// PLAYLIST TOPBAR
+.playlist-topbar{
+  background: $darkback;
+  color: $lightgray;
+  height: $line-height;
+  top: $line-height;
+  font-weight: 900;
+  border-bottom: 0;
+  padding: $padding;
+  line-height: $inner-height;
+  text-align: right;
+
+  strong{
+    vertical-align: baseline;
+    line-height: $inner-height - $padding;
+    display: inline-block;
+    font-size: $inner-height * 0.75;
+    font-family: $titlefont;
+  }
+
+  small{
+    vertical-align: super;
+    margin-right: $inner-height * 0.25;
+    margin-left: $inner-height * 0.1;
+    line-height: $inner-height - $padding;
+    display: inline-block;
+    font-family: $titlefont;
+    font-size: $inner-height * 0.4;
+  }
+
+  span{
+    top: 0;
+    @include upvote;
+    color: $lightmain;
+    margin-top: -$inner-height / 2; // Not vertically aligned..
+  }
+
+  // .currently-playing{
+  //   float: left;
+  //   width: 70%;
+  //   overflow: ellipsis;
+  //   line-height: $line-height;
+  //   font-size: $line-height / 4;
+  // }
+}
+
+.has-subheader{
+  top: $line-height * 2;
+}

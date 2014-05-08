@@ -65,8 +65,12 @@ angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'ap
 
 })
 
-.run(function(User, Playlist, Room){
+.run(function(User, Playlist, Room, Sync){
 
-  // Trick to force-load these services (needed in the sync)
+  Sync.setRoom(Room);
+  Sync.setPlaylist(Playlist);
+  Sync.setUser(User);
+
+  Sync.load();
 
 });

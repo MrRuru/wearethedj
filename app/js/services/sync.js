@@ -8,14 +8,7 @@ angular.module('app.services.sync', [])
   // Link to bound services
   var User, Room, Playlist, onLoaded;
 
-  // Are the dependencies linked, to send the socket connection
-  var checkLinkingStatus = function(){
-    if (User && Room && Playlist) {
-      console.log('SYNC - launching bootstrap');
-      setupWatchers();
-      $socket.emit('bootstrap', {userId: User.id, roomId: Room.get()});
-    }
-  };
+  var loaded = false;
 
   // Is the data loaded ?
   var loadedCheck = {
@@ -27,7 +20,7 @@ angular.module('app.services.sync', [])
     console.log('checking if loaded');
     if (loadedCheck.tracks && loadedCheck.user) {
       console.log('loaded!!');
-      onLoaded();
+      loaded = true;
     }
   };
 
@@ -62,24 +55,32 @@ angular.module('app.services.sync', [])
     setUser: function(userService){
       console.log('linked user service');
       User = userService;
-      checkLinkingStatus();
     },
 
     setRoom: function(roomService){
       console.log('linked room service');
       Room = roomService;
-      checkLinkingStatus();
     },
 
     setPlaylist: function(playlistService){
       console.log('linked playlist service');
       Playlist = playlistService;
-      checkLinkingStatus();
     },
 
-    // Callback when ready
-    onLoaded: function(cb){ onLoaded = cb; },
+    load: function(){
+      console.log('loading');
+      if(loaded){
+        return;
+      }
 
+      if (!Room.get()){
+        return;
+      }
+      
+      console.log('SYNC - launching bootstrap');
+      setupWatchers();
+      $socket.emit('bootstrap', {userId: User.id, roomId: Room.get()});
+    },
 
     // Accessors to send data
     addTrack: function(track, cb){

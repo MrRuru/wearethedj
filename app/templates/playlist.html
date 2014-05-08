@@ -1,8 +1,8 @@
 <div class="playlist-topbar bar bar-subheader">
   <div class="current-stars">
-    <span>★</span> × {{votes()}}
+    <strong>{{votes()}}</strong> <small>x</small> <span><i class="icon ion-disc"></i></span>
   </div>
-  <div class="currently-playing"><span>Playing : </span>{{ playing }}</div>
+<!--   <div class="currently-playing"><span>Playing : </span>{{ playing }}</div> -->
 </div>
 
 <ion-view title="PLAYLIST">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="right upvote" ng-mousedown="track.startUpvote()">
-          <a>★</a>
+          <a><i class="icon ion-disc"></i></a>
         </div>
 
         <h3>{{track.title}}</h3>

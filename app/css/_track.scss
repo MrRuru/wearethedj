@@ -1,0 +1,90 @@
+@mixin colored($high, $mid, $low, $back){
+  h3{ color: $mid }
+  p{ color: $low; }
+
+  background: lighten($back, 1);
+  &:nth-child(odd) { 
+    background: darken($back, 1);
+  }
+
+  .left strong{
+    color: $low;
+  }
+
+  .right a{
+    color: $mid;    
+  }
+}
+
+.track{
+  height: $line-height;
+
+  border: 0;
+
+  .item-content{
+    padding: $padding;
+  }
+
+  .left{
+    float: left;
+    width: $inner-height;
+    height: $inner-height;
+    margin-right: $padding;
+
+    strong{
+      text-align: right;
+      display: block;
+      font-family: $titlefont;
+      line-height: $inner-height - $padding;
+      font-size: $inner-height * 0.75;
+
+      &.tight{
+        font-size: $inner-height * 0.45;
+      }
+    }
+  }
+
+  .right{
+    float: right;
+    width: $line-height - 2 * $padding;
+    height: $line-height - 2 * $padding;
+    margin-left: $padding;
+
+    a{
+      @include upvote;
+      cursor: pointer;
+    }
+  }
+
+  h3{
+    font-weight: 900;
+    font-size: 15px;
+    margin-bottom: 0;
+    height: $inner-height / 2;
+    line-height: $inner-height / 2;
+  }
+
+  p{
+    font-weight: 600;
+    font-size: 13px;
+    height: $inner-height / 2;
+    line-height: $inner-height / 2;
+  }  
+
+
+  // Normal track
+  @include colored($darkmain, $lightback, $darkgray, lighten($lightgray, 13));
+
+  // New track
+  &.new{
+    @include colored($white, $white, $white, $darkmain);
+  }
+
+
+  // Dying track
+  &.dying{
+    @include colored($lightback, $darkgray, $gray, lighten($lightgray, 13));
+  }
+
+}
+

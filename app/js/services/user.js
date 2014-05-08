@@ -2,8 +2,8 @@
 // User Service
 // ============
 
-angular.module('app.services.user', ['app.services.sync'])
-.factory('User', function($cookieStore, Sync){
+angular.module('app.services.user', [])
+.factory('User', function($cookieStore){
 
   var generateUid = function(){
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -63,7 +63,6 @@ angular.module('app.services.user', ['app.services.sync'])
     }
   };
 
-  Sync.setUser(User);
   return User;
 
 });

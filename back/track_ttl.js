@@ -3,8 +3,8 @@ var DB      = require('./lib/database.js'),
     _       = require('lodash');
 
 
-var DEFAULT_NEW_DURATION = 10,
-    DEFAULT_TTL_DURATION = 10,
+var DEFAULT_NEW_DURATION = 1000,
+    DEFAULT_TTL_DURATION = 15000,
     DEFAULT_DEATH_RATE = 1;
 
 var _newDuration = ( parseInt(process.env.NEW_DURATION, 10) || DEFAULT_NEW_DURATION ) * 1000; // seconds

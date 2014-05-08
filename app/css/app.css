@@ -1,516 +1,157 @@
 /* Your app's CSS, go crazy, make it your own */
-
-
-/* Base styles */
-/*
-  black : #000000
-  dark: #1C1C19
-  red: #A60202
-  yellow: #FFC003
-  light: #FCEA97
-  
-  light1: #FEF0B1;
-  light2: #FEF4C6;
-
-  dark1: #151513;
-  dark2: #121208;
-
-  white: #CCC;
-  white2: #999;
-*/
-
 /* Fonts */
-@font-face{
-  font-family: 'Quantico';
-  src: url(/fonts/quantico.ttf);
-}
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+@font-face {
+  font-family: 'Komikax';
+  src: url(/fonts/KOMIKAX_.ttf); }
 
-@font-face{
-  font-family: 'Quantico';
-  src: url(/fonts/quantico_bold.ttf);
-  font-weight:bold;
-}
-
-/*
-@font-face{
-  font-family: 'Red October';
-  src: url(/fonts/redoctober.ttf);
-}
-*/
-
-@font-face{
-  font-family: 'Red October';
-  src: url(/fonts/redoctober_bold.ttf);
-  font-weight:bold;
-}
-
-@font-face{
-  font-family: 'Hunger Games';
-  src: url(/fonts/hungergames.ttf);
-}
-
-
-
-body{
-  background-color: #1C1C19; /* dark */
-  background-image: url(/img/bg.png);
-  color: #DDD; /* white */
-  font-family: 'Quantico' sans-serif;
-}
-
-/* Topbar */
-.topbar{
-  background-color: #A60202; /* red */
-  color: #FCEA97; /* light */
-  border-bottom: none;
-  font-family: 'Hunger Games';
-}
-
-/* Playlist topbar */
-.playlist-topbar{
-  background-color: #FCEA97; /* light */
-  color: #1C1C19; /* dark */
-  border-bottom: none;
-  height: 32px; }
-
-  .playlist-topbar .current-stars{
-    font-weight: bold;
+.track {
+  height: 72px;
+  border: 0;
+  background: #e4e6e8; }
+  .track .item-content {
+    padding: 15px; }
+  .track .left {
+    float: left;
+    width: 42px;
+    height: 42px;
+    margin-right: 15px; }
+    .track .left strong {
+      text-align: right;
+      display: block;
+      font-family: "Komikax";
+      line-height: 27px;
+      font-size: 31.5px; }
+      .track .left strong.tight {
+        font-size: 18.9px; }
+  .track .right {
     float: right;
-    display: block;
-    text-align: right;
-    min-width: 70px;
-    margin-right: 40px; }
+    width: 42px;
+    height: 42px;
+    margin-left: 15px; }
+    .track .right a {
+      display: inline-block;
+      height: 42px;
+      line-height: 42px;
+      width: 42px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 42px;
+      cursor: pointer; }
+  .track h3 {
+    font-weight: 900;
+    font-size: 15px;
+    margin-bottom: 0;
+    height: 21px;
+    line-height: 21px; }
+  .track p {
+    font-weight: 600;
+    font-size: 13px;
+    height: 21px;
+    line-height: 21px; }
+  .track h3 {
+    color: #34495e; }
+  .track p {
+    color: #7f8c8d; }
+  .track:nth-child(odd) {
+    background: #dee1e3; }
+  .track .left strong {
+    color: #7f8c8d; }
+  .track .right a {
+    color: #34495e; }
+  .track.new {
+    background: #9145b1; }
+    .track.new h3 {
+      color: #ecf0f1; }
+    .track.new p {
+      color: #ecf0f1; }
+    .track.new:nth-child(odd) {
+      background: #8b43a9; }
+    .track.new .left strong {
+      color: #ecf0f1; }
+    .track.new .right a {
+      color: #ecf0f1; }
+  .track.dying {
+    background: #e4e6e8; }
+    .track.dying h3 {
+      color: #7f8c8d; }
+    .track.dying p {
+      color: #95a5a6; }
+    .track.dying:nth-child(odd) {
+      background: #dee1e3; }
+    .track.dying .left strong {
+      color: #95a5a6; }
+    .track.dying .right a {
+      color: #7f8c8d; }
 
-  .playlist-topbar .currently-playing{
-    font-size: 12px;
-    display: inline; }
+body {
+  background-color: #e1e4e5;
+  color: #34495e;
+  font-family: "Lato", sans-serif;
+  font-weight: 700; }
 
-.has-subheader{
-  top: 78px; /* Because of smaller subheader */
-}
+.topbar {
+  background: #8e44ad;
+  color: #ecf0f1;
+  border-bottom: none;
+  font-family: "Komikax";
+  height: 72px;
+  padding: 15px; }
+  .topbar h1.title {
+    line-height: 72px;
+    font-size: 24px; }
 
-/* Bottom tabs */
-.bottomnav .tabs{
-  background-color: #A60202; /* red */
-  color: #FCEA97; /* light */
+.bottomnav .tabs {
+  background-color: #8e44ad;
+  color: #ecf0f1;
   border-top: none;
-}
+  height: 72px; }
 
-.bottomnav .tab-item .icon{
-  margin-top: 8px;
-}
-
-/* Tracks */
-.track { 
-  background: #121208; /* dark2 */
-  border: none;
-}
-.track:nth-child(odd) { 
-  background: #151513; /* dark1 */
-}
-
-.track .left{
-  float: left;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  margin-right: 20px;
-}
-
-.track .right{
-  float: right;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  margin-left: 20px;
-}
-
-
-/* Track details */
-.track h3{ /* Artist */
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.track p{ /* Title */
-  color: #999; /* white2 */
-  font-size: 13px;
-}
-
-
-/* Score */
-.track .score{
-  text-align: right;
-}
-
-.track .score strong{
-  font-family: 'Red October';
-  display: block;
-  font-weight: bold;
-  font-size: 24px;
-  color: #999; /* white2 */
-} 
-
-.track .score span{
-  display: block;
-  font-size: 11px;
-  margin-top: 2px;
-  margin-right: 1px;
-  font-weight: bold;
-  color: #FFC003; /* yellow */
-}
-
-
-/* Upvote */
-.track .upvote a{
-  display: block;
-  box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  border: 4px solid #666; /* darkgray */
-  line-height: 32px;
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-  color: #A60202; /* red */
-  vertical-align: middle;
-}
-
-.track.pending .upvote a{
-  -webkit-animation: blink 1000ms infinite linear;
-}
-
-@-webkit-keyframes blink { 
-  0% { }
-  50% {
-    color: black;
-    background-color: #666;
-  }
-  100% { }
-}
-
-
-/* New track */
-.track.new .score strong{
-  color: #A60202; /* red */
-}
-
-.track.new h3{
-  color: #FFC003; /* yellow */  
-}
-
-.track.new p{
-  color: #FFC003; /* yellow */
-}
-
-.track.new .upvote a{
-  border-color: #A60202; /* red */
-  color: #FFC003; /* yellow */
-}
-
-.track.pending.new .upvote a{
-  -webkit-animation: blinkNew 1000ms infinite linear; /* inout-cubic */
-}
-
-
-@-webkit-keyframes blinkNew { 
-  0% { 
-    color: #FFC003;
-    background-color: transparent;
-  }
-  32% { 
-    color: #FFC003;
-    background-color: transparent;
-  }
-  50% {
-    color: black;
-    background-color: #A60202;
-  }
-  68% { 
-    color: #FFC003;
-    background-color: transparent;
-  }
-  100% { 
-    color: #FFC003;
-    background-color: transparent;
-  }
-}
-
-
-/* Down track */
-.track.dying .score strong{
-  color: #444;
-}
-
-.track.dying h3{
-  color: #666;
-}
-
-.track.dying p{
-  color: #444;
-}
-
-.track.dying .upvote a{
-  border-color: #444;
-  color: #666;
-}
-
-.track.pending.dying .upvote a{
-  -webkit-animation: blinkDying 1000ms infinite linear;
-}
-
-@-webkit-keyframes blinkDying { 
-  0% { 
-    color: #666;
-    background-color: transparent;
-  }
-  32% { 
-    color: #666;
-    background-color: transparent;
-  }
-  50% {
-    color: black;
-    background-color: #444;
-  }
-  68% { 
-    color: #666;
-    background-color: transparent;
-  }
-  100% { 
-    color: #666;
-    background-color: transparent;
-  }
-}
-
-
-
-/* Search form */
-form.search{
-  background: #F0F0F0; /* white */
-}
-
-form.search input{
-  color: #1C1C19; /* dark */  
-}
-
-.track .add a{
-  display: block;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  border: 4px solid #666; /* darkgray */
-  line-height: 28px;
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  color: #A60202; /* red */
-  vertical-align: middle;  
-}
-
-.track .add.added a{
-  border-color: #A60202; /* red */
-  color: #FFC003; /* yellow */
-}
-
-
-/* Loading screen */
-.logo{
-  margin-top: 300px;
-  display: block;
-  text-align: center;
-  margin-top: 70px;
-}
-
-
-/* Login screen */
-.room-form{
-  animation: fadein 1000ms;
-  -webkit-animation: fadein 1000ms;
-}
-
-.room-form .item-input{  
-  border-color: #666; /* White3 */
-  transition: all 300ms;
-}
-
-.room-form input{
-  padding: 6px;
-  font-size: 18px;
-  line-height: 30px;
-  color: black; /* White */
-}
-
-.room-form.focus .item-input{
-  background-color: white; /* white 1 */
-}
-
-.room-form.focus i{
-  color: #A60202; /* red */
-}
-
-@-webkit-keyframes fadein { 
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-
-/* Spinner */
-.spinner{
-  height: 40px;
-  display: block;
-  text-align: center;
-}
-
-.spinner .outer{
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;  
-  border-left: 4px solid rgba(0,0,0,0);
-  border-right: 4px solid rgba(0,0,0,0);
-  border-top: 4px solid #A60202; /* red */
-  border-bottom: 4px solid #A60202; /* red */
-  -webkit-animation: spin 1000ms infinite linear;
-  position: relative;
+.bottomnav .tab-item .icon {
+  margin: 15px;
   display: inline-block;
-}
+  height: 42px;
+  line-height: 42px;
+  width: 42px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 42px; }
 
-.spinner .inner{
-  border-left: 4px solid rgba(0,0,0,0);
-  border-right: 4px solid rgba(0,0,0,0);
-  border-top: 4px solid #FFC003; /* yellow */
-  border-bottom: 4px solid #FFC003; /* yellow */
-  -webkit-animation: spin_inv 400ms infinite linear;
-  border-radius: 100%;  
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-}
+.playlist-topbar {
+  background: #2c3e50;
+  color: #bdc3c7;
+  height: 72px;
+  top: 72px;
+  font-weight: 900;
+  border-bottom: 0;
+  padding: 15px;
+  line-height: 42px;
+  text-align: right; }
+  .playlist-topbar strong {
+    vertical-align: baseline;
+    line-height: 27px;
+    display: inline-block;
+    font-size: 31.5px;
+    font-family: "Komikax"; }
+  .playlist-topbar small {
+    vertical-align: super;
+    margin-right: 10.5px;
+    margin-left: 4.2px;
+    line-height: 27px;
+    display: inline-block;
+    font-family: "Komikax";
+    font-size: 16.8px; }
+  .playlist-topbar span {
+    top: 0;
+    display: inline-block;
+    height: 42px;
+    line-height: 42px;
+    width: 42px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 42px;
+    color: #9b59b6;
+    margin-top: -21px; }
 
-@-webkit-keyframes spin { 
-  from { 
-    -webkit-transform: rotate(0deg);
-  }
-  to { 
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes spin_inv { 
-  from { 
-    -webkit-transform: rotate(0deg);
-  }
-  to { 
-    -webkit-transform: rotate(-360deg);
-  }
-}
-
-
-/* ========== */
-/* ANIMATIONS */
-/* ========== */
-
-
-/* Track insertion */
-@-webkit-keyframes insert{ 
-  /* Initial state : nothing */
-  0% {
-    height: 0;
-    opacity: 1;
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-
-  /* Open the space */
-  30% {
-    height: 72px;
-    opacity: 1;
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-
-  /* Slide the track from the left */
-  100% {
-    height: 72px;
-    opacity: 1;
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-}
-
-
-/* Track removal */
-@-webkit-keyframes remove{ 
-  /* Initial state : nothing */
-  0% {
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-    height: 72px;
-  }
-
-  /* Slide to the right */
-  30% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-    height: 72px;
-  }
-
-  /* Close the space */
-  100% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-    height: 0;
-  }
-}
-
-.track.ng-enter {
-  height: 0;
-  opacity: 0; /*Trick for no flicker*/
-  -webkit-transition: 1000ms linear all;
-  transition: 1000ms linear all;
-}
-
-.track.ng-enter.ng-enter-active {
-  -webkit-animation: insert 1000ms;
-  animation: insert 1000ms;
-}
-
-.track.ng-leave {
-  -webkit-transition: 1000ms linear all;
-  transition: 1000ms linear all;
-}
-
-.track.ng-leave.ng-leave-active {
-  -webkit-animation: remove 1000ms;
-  animation: remove 1000ms;
-}
-
-
-/* Reordering */
-.track.ng-move {
-  -webkit-transform: translateY(72px);
-  transform: translateY(72px);
-
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-.track.ng-move.ng-move-active {
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
-}
-
-.track.ng-move + .track {
-  -webkit-transform: translateY(-72px);
-  transform: translateY(-72px);
-}
-
-.track.ng-move.ng-move-active + .track {
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
-}
+.has-subheader {
+  top: 144px; }

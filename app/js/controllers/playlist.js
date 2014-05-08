@@ -14,6 +14,8 @@ angular.module('app.controllers.playlist', ['app.services.playlist'])
 })
 .controller('PlaylistCtrl', function($scope, $timeout, Playlist, User, $filter) {
 
+  // Redirect if no room
+
   // For watching changes...
   $scope.playlist = Playlist.tracks;
   $scope.playing = Playlist.playing;
