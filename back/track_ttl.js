@@ -3,9 +3,9 @@ var DB      = require('./lib/database.js'),
     _       = require('lodash');
 
 
-var DEFAULT_NEW_DURATION = 1000,
-    DEFAULT_TTL_DURATION = 15000,
-    DEFAULT_DEATH_RATE = 1;
+var DEFAULT_NEW_DURATION = 300, // 5 minutes
+    DEFAULT_TTL_DURATION = 1200, // 30 minutes
+    DEFAULT_DEATH_RATE = 1; // 1 second
 
 var _newDuration = ( parseInt(process.env.NEW_DURATION, 10) || DEFAULT_NEW_DURATION ) * 1000; // seconds
     _ttlDuration = ( parseInt(process.env.NEW_DURATION, 10) || DEFAULT_TTL_DURATION ) * 1000; // seconds
@@ -84,7 +84,7 @@ var check = function(track){
     }
 
     // Else next hp drop
-    var next_drop = (1 / track.score) * 20000;
+    var next_drop = _deathRate;
     setTrackTimeout(track, next_drop, function(){
       DB.dieTrack(this.roomId, this.id).done();
     });

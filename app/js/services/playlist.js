@@ -109,6 +109,11 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
   // Bootstraping the playlist
   var bootstrap = function(data){
+    // Clear the playlist
+    _.each(_.keys(_tracks), function(id){
+      delete _tracks[id];
+    });
+
     _.each(data, function(trackOpts){
       _tracks[trackOpts.id] = new Track(trackOpts);
     });

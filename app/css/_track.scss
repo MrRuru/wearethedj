@@ -11,8 +11,8 @@
     color: $low;
   }
 
-  .right a{
-    color: $mid;    
+  .right{
+    color: $mid;
   }
 }
 
@@ -36,7 +36,7 @@
       display: block;
       font-family: $titlefont;
       line-height: $inner-height - $padding;
-      font-size: $inner-height * 0.75;
+      font-size: $inner-height * 0.6;
 
       &.tight{
         font-size: $inner-height * 0.45;
@@ -50,10 +50,19 @@
     height: $line-height - 2 * $padding;
     margin-left: $padding;
 
-    a{
-      @include upvote;
+    i.icon, i.upvote, a{
       cursor: pointer;
     }
+
+    i.icon, a{
+      font-size: $inner-height;
+      line-height: $inner-height;
+      height: $inner-height;
+      width: $inner-height;
+      display: inline-block;
+      text-align: center;
+    }
+
   }
 
   h3{
@@ -78,13 +87,122 @@
   // New track
   &.new{
     @include colored($white, $white, $white, $darkmain);
+    i.upvote{
+      .outer{ border-color: $white; }
+      .inner{ border-color: $white; }       
+    }
   }
 
 
   // Dying track
   &.dying{
     @include colored($lightback, $darkgray, $gray, lighten($lightgray, 13));
+    i.upvote{
+      @extend .muted;
+    }
   }
 
 }
 
+
+/* Track insertion */
+@-webkit-keyframes insert{ 
+  /* Initial state : nothing */
+  0% {
+    height: 0;
+    opacity: 1;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+
+  /* Open the space */
+  30% {
+    height: $line-height;
+    opacity: 1;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+
+  /* Slide the track from the left */
+  100% {
+    height: $line-height;
+    opacity: 1;
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+}
+
+
+/* Track removal */
+@-webkit-keyframes remove{ 
+  /* Initial state : nothing */
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    height: $line-height;
+  }
+
+  /* Slide to the right */
+  30% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    height: $line-height;
+  }
+
+  /* Close the space */
+  100% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    height: 0;
+  }
+}
+
+.track.ng-enter {
+  height: 0;
+  opacity: 0; /*Trick for no flicker*/
+  -webkit-transition: 1000ms linear all;
+  transition: 1000ms linear all;
+}
+
+.track.ng-enter.ng-enter-active {
+  -webkit-animation: insert 1000ms;
+  animation: insert 1000ms;
+}
+
+.track.ng-leave {
+  -webkit-transition: 1000ms linear all;
+  transition: 1000ms linear all;
+}
+
+.track.ng-leave.ng-leave-active {
+  -webkit-animation: remove 1000ms;
+  animation: remove 1000ms;
+}
+
+
+/* Reordering */
+.track.ng-move {
+  -webkit-transform: translateY($line-height);
+  transform: translateY($line-height);
+
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.track.ng-move.ng-move-active {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
+.track.ng-move + .track {
+  -webkit-transform: translateY(-$line-height);
+  transform: translateY(-$line-height);
+}
+
+.track.ng-move.ng-move-active + .track {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+}

@@ -3,15 +3,14 @@
 // ==================
 
 angular.module('app.services.room', [])
-.factory('Room', function(){
+.factory('Room', function($cookieStore){
 
-  // var uid = null;
-  // DEBUG
-  uid = 'test';
+  var uid = $cookieStore.get('room-name')
 
   var Room = {
     get: function(){ return uid; },
     set: function(newid){
+      $cookieStore.put('room-name', newid);
       uid = newid;
     }
   };

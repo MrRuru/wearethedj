@@ -8,17 +8,14 @@ angular.module('app.controllers.login', ['app.services.sync', 'app.services.room
   $scope.joinRoom = function(){
     var roomName = $scope.room.name;
 
-    Sync.onLoaded(function(){
-      $scope.loading = false;
-      $location.path('/tab/playlist');
-    });
-
-    console.log('loading...');
     $scope.loading = true;
 
     Room.set(roomName);
 
-    Sync.load();
+    Sync.load(function(){
+      $scope.loading = false;
+      $location.path('/tab/playlist');
+    });
   };
 
 });

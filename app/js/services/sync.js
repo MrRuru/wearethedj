@@ -9,6 +9,7 @@ angular.module('app.services.sync', [])
   var User, Room, Playlist, onLoaded;
 
   var loaded = false;
+  var onLoadedCb = null;
 
   // Is the data loaded ?
   var loadedCheck = {
@@ -21,6 +22,9 @@ angular.module('app.services.sync', [])
     if (loadedCheck.tracks && loadedCheck.user) {
       console.log('loaded!!');
       loaded = true;
+      if (_.isFunction(onLoadedCb)) {
+        onLoadedCb.call();
+      }
     }
   };
 
@@ -67,12 +71,9 @@ angular.module('app.services.sync', [])
       Playlist = playlistService;
     },
 
-    load: function(){
+    load: function(cb){
+      onLoadedCb = cb;
       console.log('loading');
-      if(loaded){
-        return;
-      }
-
       if (!Room.get()){
         return;
       }

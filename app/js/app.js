@@ -7,7 +7,6 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'app.services'])
 
-
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states

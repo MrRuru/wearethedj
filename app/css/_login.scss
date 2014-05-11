@@ -1,0 +1,50 @@
+// Logo
+.logo{
+  display: block;
+  text-align: center;
+  margin: $line-height 0;
+}
+
+
+// Form
+.room-form{
+  animation: fadein 1000ms;
+  -webkit-animation: fadein 1000ms;
+
+  .item-input{  
+    border: 0;
+    border: 1px solid #aaa;
+    background: $darkback;    
+    transition: all 300ms;
+    padding: $padding;
+  }
+
+  input{
+    height: $inner-height;
+    font-size: 18px;
+    line-height: $inner-height;
+    color: $darkback;
+    padding: 0;
+  }
+
+  .upvote{
+    margin-right: $padding;
+  }
+
+  &.focus{
+    .item-input{
+      background: $white;
+      border-color: $white;
+    }
+
+    i{
+      color: $lightmain;
+    }
+  }
+}
+
+
+@-webkit-keyframes fadein { 
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
