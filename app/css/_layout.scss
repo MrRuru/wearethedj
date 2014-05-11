@@ -26,13 +26,13 @@ body{
 // TOPBAR
 .topbar{
   background: $darkmain;
-  color: $white;
   border-bottom: none;
-  font-family: $titlefont;
   height: $line-height;
   padding: $padding;
 
   h1.title{
+    color: $white;
+    font-family: $titlefont;
     line-height: $line-height;
     font-size: $line-height / 3;
   }

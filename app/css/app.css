@@ -88,6 +88,7 @@ i.upvote {
       display: inline-block;
       text-align: center; }
   .track h3 {
+    font-family: "Lato", sans-serif;
     font-weight: 900;
     font-size: 15px;
     margin-bottom: 0;
@@ -241,12 +242,12 @@ body {
 
 .topbar {
   background: #8e44ad;
-  color: #ecf0f1;
   border-bottom: none;
-  font-family: "Komikax";
   height: 72px;
   padding: 15px; }
   .topbar h1.title {
+    color: #ecf0f1;
+    font-family: "Komikax";
     line-height: 72px;
     font-size: 24px; }
 
