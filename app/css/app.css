@@ -227,13 +227,11 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 700; }
 
-.has-header {
-  top: 72px; }
-
-.has-subheader {
-  top: 144px; }
+input {
+  font-family: "Lato", sans-serif; }
 
 .has-tabs {
+  top: 72px;
   bottom: 72px; }
 
 .pane, .view {
@@ -241,15 +239,23 @@ body {
   color: #34495e; }
 
 .topbar {
-  background: #8e44ad;
+  background: #34495e;
   border-bottom: none;
   height: 72px;
   padding: 15px; }
   .topbar h1.title {
+    margin: 0 15px;
     color: #ecf0f1;
+    text-align: left;
+    display: inline-block;
+    margin-left: 15px;
     font-family: "Komikax";
-    line-height: 72px;
-    font-size: 24px; }
+    line-height: 42px;
+    height: 42px;
+    font-size: 24px;
+    top: 15px; }
+    .topbar h1.title .right {
+      float: right; }
 
 .bottomnav .tabs {
   background-color: #34495e;
@@ -297,32 +303,16 @@ body {
   100% {
     opacity: 1; } }
 
-.playlist-topbar {
-  background: #34495e;
+.current-votes {
   color: #bdc3c7;
   height: 72px;
-  top: 72px;
-  font-weight: 900;
-  border-bottom: 0;
-  padding: 15px;
   line-height: 42px;
+  font-weight: 900;
   text-align: right; }
-  .playlist-topbar strong {
-    vertical-align: baseline;
-    line-height: 27px;
-    display: inline-block;
-    font-size: 31.5px;
-    font-family: "Komikax"; }
-  .playlist-topbar small {
-    vertical-align: super;
-    margin-right: 10.5px;
-    margin-left: 4.2px;
-    line-height: 27px;
-    display: inline-block;
-    font-family: "Komikax";
+  .current-votes small {
+    margin-left: -6.3px;
+    margin-right: 6.3px;
     font-size: 16.8px; }
-  .playlist-topbar i.upvote {
-    margin-bottom: 15px; }
 
 form.search .item-input {
   border: 0;
@@ -343,3 +333,7 @@ form.search i.icon {
   font-size: 42px;
   height: 42px;
   width: 42px; }
+
+.right.cannotadd a {
+  font-size: 25.2px;
+  font-family: "Komikax"; }

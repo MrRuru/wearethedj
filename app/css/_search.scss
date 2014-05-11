@@ -25,3 +25,9 @@ form.search{
     width: $inner-height;
   }
 }
+
+
+.right.cannotadd a{
+  font-size: $inner-height * 0.6;
+  font-family: $titlefont;
+}

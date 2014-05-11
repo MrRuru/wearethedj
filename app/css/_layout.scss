@@ -5,16 +5,13 @@ body{
   font-weight: 700;
 }
 
+input{
+  font-family: $basefont;
+}
+
 // CONTENT
-.has-header{
-  top: $line-height;
-}
-
-.has-subheader{
-  top: $line-height * 2;
-}
-
 .has-tabs{
+  top: $line-height;
   bottom: $line-height;
 }
 
@@ -25,18 +22,27 @@ body{
 
 // TOPBAR
 .topbar{
-  background: $darkmain;
+  background: $lightback;
   border-bottom: none;
   height: $line-height;
   padding: $padding;
 
   h1.title{
+    margin: 0 $padding;
     color: $white;
+    text-align: left;
+    display: inline-block;
+    margin-left: $padding;
     font-family: $titlefont;
-    line-height: $line-height;
+    line-height: $inner-height;
+    height: $inner-height;
     font-size: $line-height / 3;
-  }
+    top: $padding;
 
+    .right{
+      float: right;
+    }
+  }
 }
 
 // BOTTOM BAR

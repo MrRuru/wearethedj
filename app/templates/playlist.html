@@ -1,12 +1,15 @@
-<div class="playlist-topbar bar bar-subheader">
-  <div class="current-stars">
-    <strong>{{votes()}}</strong> <small>x</small> <i class="upvote muted"><span class="outer"><span class="inner"></span></span></i>
-  </div>
-<!--   <div class="currently-playing"><span>Playing : </span>{{ playing }}</div> -->
+<div class="topbar bar bar-header">
+  <h1 class="title">
+    PLAYLIST
+    <div class="right current-votes">
+      <strong>{{votes()}}</strong> <small>x</small> <i class="upvote muted"><span class="outer"><span class="inner"></span></span></i>
+    </div>
+  </h1>
 </div>
 
-<ion-view title="PLAYLIST">
-  <ion-content class="has-subheader">
+
+<ion-view>
+  <ion-content>
 
     <div ng-show="playlist.length === 0" class="padding">
       <p class="notracks">The playlist is empty :( &nbsp;&nbsp; Please <a href="#/tab/search">add some tracks</a></p>

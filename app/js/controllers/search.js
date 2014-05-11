@@ -27,6 +27,7 @@ angular.module('app.controllers.search', ['app.services.sync', 'app.controllers.
       _.each(results, function(result){
         if ( Playlist.hasTrack(result.id) ) {
           result.status = 'cannotadd';
+          result.score = Playlist.tracks[result.id].score;
         }
       });
 
