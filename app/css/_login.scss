@@ -13,7 +13,8 @@
 
   .item-input{  
     border: 0;
-    border: 1px solid #aaa;
+    border-top: 1px solid $darkgray;
+    border-bottom: 1px solid $darkgray;
     background: $darkback;    
     transition: all 300ms;
     padding: $padding;
