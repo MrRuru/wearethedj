@@ -23,6 +23,9 @@ sudo apt-get install nginx -y
 # Install redis
 sudo apt-get install redis-server -y
 
+# Install imagemagick
+sudo apt-get install imagemagick -y
+
 # # Install sqlite
 # sudo apt-get install sqlite3 -y
 
