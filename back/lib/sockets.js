@@ -95,8 +95,9 @@ RoomSockets.prototype.listenToSocket = function(socket, userId) {
 };
 
 RoomSockets.prototype.notifyUser = function(userId, message, data) {
-  if ( _.has(this.userSockets), userId ) {
-    this.userSockets[userId].emit(message, data);
+  var userSocket = this.userSockets[userId];
+  if (userSocket) {
+    userSocket.emit(message, data);
   }
 };
 

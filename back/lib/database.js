@@ -239,7 +239,7 @@ User.prototype.notifyNew = function() {
 
   this.get()
   .then(function(userAttrs){
-    Pubsub.notifyNewUser(self.room.id, userAttrs);    
+    Pubsub.notifyNewUser(userAttrs);    
   });
 };
 

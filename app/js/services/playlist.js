@@ -70,20 +70,28 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   };
 
   Track.prototype.upvote = function(){
+
     var score = this.pendingVotes;
-    this.pendingVotes = 0;
+    // this.pendingVotes = 0;
     this.upvoting = true;
 
     var self = this;
 
     // Optimistic upvote
-    this.bumpBy(score);
+    // this.bumpBy(score);
     var cancelUser = User.clearVotes(this.id);
 
     Sync.upvoteTrack(this.id, score, function(res, err){
       self.upvoting = false;
 
-      if(res){ return; } // Ok
+      // Ok
+      if(res){
+        console.log('response : ', res);
+        self.score = self.getScore();
+        self.pendingVotes = 0;
+        return;
+      }
+      
       if(err){ console.log('Upvote error : err'); }
 
       // Rollback;
@@ -100,6 +108,14 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     this.title = opts.title;
     this.status = opts.status;
     this.created_at = opts.created_at;
+  };
+
+  Track.prototype.getScore = function(){
+    var score = this.score + this.pendingVotes;
+    if (this.status === 'new'){
+      score += this.pendingVotes;
+    }
+    return score;
   };
 
 
