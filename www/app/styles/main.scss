@@ -15,43 +15,40 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 h1              { font-family: $titlefont; font-size: 4em; margin: 0 0 1em; line-height: 1.6em; font-weight: normal; }
 h2              { font-family: $titlefont; font-size: 2.5em; margin: 0 0 1em; line-height: 1.6em; font-weight: normal; }
-p,a,li          { font-family: $basefont; font-size: 1.6em; margin-bottom: 1em; line-height: 1.6em; font-weight: 300; }
+p,a,li          { font-family: $basefont; font-size: 1.6em; margin-bottom: 1em; line-height: 1.6em; font-weight: 400; }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 section {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 1em;
+    padding-right: 1em;
 
     // Vertical padding
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 4em;
+    padding-bottom: 4em;
 }
 
 
 // Header
 .header{
-    background: $darkmain;
+    background: $darkback;
     color: $white;
+    border-bottom: 0.5em solid $lightmain;
 
     .container{
         position: relative;
     }
 
-    h1{
-        margin: 0;
+    .name{
+        font-family: $titlefont;
+        color: lighten($lightmain, 10);
+        font-style: normal;
     }
 
-    h1 span{
-        opacity: 0.75;
-        margin-right: 0.1em;
-    }
-
-    p.tagline{
-        margin-top: 0.4em;
+    p.headline{
         font-size: 2.5em;
-        font-weight: 300;
+        font-weight: 200;
+        margin: 3em 0;
         font-style: italic;
-        color: $lightgray;
     }
 
     a.cta{
@@ -65,6 +62,11 @@ section {
         }
     }
 
+    .note{
+        color: $lightgray;
+        font-size: 0.8em;
+    }
+
     p.deezer{
         position: absolute;
         bottom: 0;
@@ -72,18 +74,68 @@ section {
     }
 }
 
-// Dec
-.description{
-    background: $lightback;
-    color: $white;
 
-    p.headline{
-        font-size: 2.5em;
-        font-weight: 200;
-        margin-top: 1em;
-        font-style: italic;        
+.description{
+    color: $lightback;
+    background: $white;
+
+    .step{
+        margin: 3em 0;
+        strong{
+            font-family: $titlefont;
+            color: $lightmain;
+            font-size: 120%;
+            margin-right: 0.2em;
+        }
+    }
+
+    .cta{
+        text-align: center;
+        margin-top: 3em;
+        margin-bottom: 3em;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 3em;
+        border-top: 1px solid $lightgray;
+
+        p{
+            color: $gray;
+            font-style: italic;
+        }
+
+        .btn{
+            font-size: 2em;
+            background: $lightmain;
+            border-radius: 0.2em;
+            color: $white;
+            text-transform: uppercase;
+            border-bottom: 0.2em solid $darkmain;
+            height: 3.2em;
+            line-height: 3.2em;
+            padding: 0 1.6em;
+            margin: 0;
+
+            &:hover{
+                background: darken($lightmain, 10);
+                border-color: darken($darkmain, 10);
+                color: white;
+            }
+        }
     }
 }
+
+// // Dec
+// .description{
+//     background: $lightback;
+//     color: $white;
+
+//     p.headline{
+//         font-size: 2.5em;
+//         font-weight: 200;
+//         margin-top: 1em;
+//         font-style: italic;
+//     }
+// }
 
 .demo{
     background: $lightgray;
@@ -124,9 +176,9 @@ section {
         padding-right: 0;
     }
 
-    // Full-page first section
-    .header .container{
-        padding-top: 130px;
-        min-height: 640px;
+    .description .cta{
+        margin-left: 3em;
+        margin-right: 3em;
     }
+
 }
