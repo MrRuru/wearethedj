@@ -1,9 +1,11 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$inner-height: 40px;
 
 // bower:scss
 @import '../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
 @import "../../../app/css/colors";
 @import "../../../app/css/fonts";
+@import "../../../app/css/icons";
 // endbower
 
 
@@ -87,6 +89,10 @@ section {
             font-size: 120%;
             margin-right: 0.2em;
         }
+    }
+
+    .sep{
+        text-align: center;
     }
 
     .cta{
