@@ -1,0 +1,1 @@
+"use strict";$("#launch, #launch-bottom").on("click",function(){$("#under-construction").modal("show")});

@@ -8,6 +8,7 @@ $inner-height: 40px;
 @import "../../../app/css/icons";
 // endbower
 
+$headfont: 'Montserrat', sans-serif;
 
 // Responsive typography
 @media screen and (max-width:319px){ body{font-size: 10px;} }
@@ -15,9 +16,14 @@ $inner-height: 40px;
 @media screen and (min-width:480px){ body{font-size: 14px;} }
 @media screen and (min-width:768px){ body{font-size: 16px;} }
 
-h1              { font-family: $titlefont; font-size: 4em; margin: 0 0 1em; line-height: 1.6em; font-weight: normal; }
-h2              { font-family: $titlefont; font-size: 2.5em; margin: 0 0 1em; line-height: 1.6em; font-weight: normal; }
-p,a,li          { font-family: $basefont; font-size: 1.6em; margin-bottom: 1em; line-height: 1.6em; font-weight: 400; }
+h1, h2, h3{ margin: 0 0 1em; line-height: 1.6em; font-weight: normal; font-weight: 700; }
+h1              { font-size: 4em; }
+h2              { font-size: 2.5em; }
+p               { margin-bottom: 1em; line-height: 1.6em; font-weight: 400; }
+
+body{
+    -webkit-font-smoothing: antialiased;    
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 section {
@@ -30,11 +36,23 @@ section {
 }
 
 
-// Header
+.cta-btn{
+    display: inline-block;
+    font-size: 1.6em;
+    margin: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0 1.6em;
+    height: 3.2em;
+    line-height: 3.2em;
+    cursor: pointer;    
+}
+
+
 .header{
-    background: $darkback;
+    background-color: $darkback;
     color: $white;
-    border-bottom: 0.5em solid $lightmain;
+    background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(black, 0.4) 0%, rgba(black, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba($darkmain, 0.4) 0%, rgba($darkmain,0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba($darkgray, 0.3) 0%, rgba($darkgray,0) 70%);
 
     .container{
         position: relative;
@@ -46,33 +64,40 @@ section {
         font-style: normal;
     }
 
-    p.headline{
-        font-size: 2.5em;
-        font-weight: 200;
-        margin: 3em 0;
-        font-style: italic;
-    }
 
-    a.cta{
+    h1{
+        font-family: $headfont;
         color: $white;
+        text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+        font-size: 2.5em;
+    }
+
+    h2{
         font-size: 1.6em;
-        margin: 1.5em 0;
-        padding: 0.4em 1em;
-        background: rgba(255,255,255,0.4);
-        &:hover{
-            background: rgba(255,255,255,0.5);
-        }
-    }
-
-    .note{
+        font-weight: 200;
+        font-style: italic;
         color: $lightgray;
-        font-size: 0.8em;
     }
 
-    p.deezer{
-        position: absolute;
-        bottom: 0;
-        right: 0;
+
+    .cta{
+        text-align: center;
+        margin-top: 3.6em;
+        margin-bottom: 2.4em;
+
+        a{
+            @extend .cta-btn;
+            color: $white;
+            border: 0.15em solid $white;
+            transition: all 100ms linear;
+
+            &:hover{
+                text-decoration: none;
+                color: $white;
+                background-color: $lightmain;
+                border-color: $lightmain;
+            }
+        }
     }
 }
 
@@ -82,7 +107,7 @@ section {
     background: $white;
 
     .step{
-        margin: 3em 0;
+        margin-bottom: 5em;
         strong{
             font-family: $titlefont;
             color: $lightmain;
@@ -95,14 +120,22 @@ section {
         text-align: center;
     }
 
-    .cta{
+    h3{
+        font-family: $headfont;
+        font-size: 2.5em;
+    }
+
+    p{
+        color: $darkgray;
+        font-style: italic;
+        font-size: 1.6em; 
+    }
+
+    .bottom{
         text-align: center;
-        margin-top: 3em;
-        margin-bottom: 3em;
         margin-left: 0;
         margin-right: 0;
-        padding-top: 3em;
-        border-top: 1px solid $lightgray;
+        padding: 2.4em 0;
 
         p{
             color: $gray;
@@ -110,16 +143,12 @@ section {
         }
 
         .btn{
-            font-size: 2em;
+            @extend .cta-btn;
+
             background: $lightmain;
             border-radius: 0.2em;
             color: $white;
-            text-transform: uppercase;
             border-bottom: 0.2em solid $darkmain;
-            height: 3.2em;
-            line-height: 3.2em;
-            padding: 0 1.6em;
-            margin: 0;
 
             &:hover{
                 background: darken($lightmain, 10);
@@ -143,32 +172,43 @@ section {
 //     }
 // }
 
-.demo{
-    background: $lightgray;
-    color: $darkback;
-}
+// .demo{
+//     background: $lightgray;
+//     color: $darkback;
+// }
 
-#iphone-mockup{
-    float: right;
-    width: 478px;
-    height: 999px;
-    position: relative;
-    background: url(../images/iphone-mockup.png);
-    iframe{
-        position: absolute;
-        top: 149px;
-        left: 43px;
+// #iphone-mockup{
+//     float: right;
+//     width: 478px;
+//     height: 999px;
+//     position: relative;
+//     background: url(../images/iphone-mockup.png);
+//     iframe{
+//         position: absolute;
+//         top: 149px;
+//         left: 43px;
+//     }
+// }
+
+
+// /* Custom page footer */
+// .footer {
+//     padding-top: 19px;
+//     color: #777;
+//     border-top: 1px solid #e5e5e5;
+// }
+
+
+// Temp modal
+.modal-content{
+    background: $white;
+    color: $darkback;
+
+    h2{
+        font-family: $headfont;
+        font-size: 1.6em;
     }
 }
-
-
-/* Custom page footer */
-.footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-}
-
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
