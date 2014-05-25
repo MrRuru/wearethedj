@@ -23,29 +23,60 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <section class="header">
-            <div class="container">
+        <div class="header">
+            <section class="landing">
 
-                <div class="row">
-                    <div class="col-md-8">
-                        <h1>The best music for your party.</h1>
-                        <h2>A realtime web playlist everyone has a vote on</h2>
-                        <div class="cta">
-                            <span class="button">
-                                <a id="launch">Launch a party</a>
-                            </span>
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1>The best music for your party.</h1>
+                            <h2>A realtime web playlist everyone has a vote on</h2>
+                            <div class="cta">
+                                <span class="button" id="launch">
+                                    Launch a party
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-4 visible-md visible-lg">
-                        <div id="mockup">
-                            <img src="images/mockup.png"/>
+                        <div class="col-md-4 visible-md visible-lg">
+                            <div id="mockup">
+                                <img src="images/mockup.png"/>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
+            <section class="signup-form">
+                <div class="container">
+                    <div class="creating" style="display: none;">
+                        <h2>Creating your playlist...</h2>
+                        <div class="spinner">
+                            <i class="spin"><span class="outer"><span class="inner"></span></span></i>
+                        </div>
+                    </div>
+
+                    <div class="created" style="display: none;">
+                        <h2>Your playlist is ready!</h2>
+                        <p class="code">The access code is 
+                            <strong class="input"><span class="content" contenteditable="true" id="codeinput">18654</span><span class="append" id="edit-code"><span class="glyphicon glyphicon-pencil"></span></span></strong>                            
+                        </p>
+
+                        <div class="link">
+                            <h3>Playlist : <a href="#" target="_blank">http://playl.st/fsd5t</a></h3>
+                            <p>Give this link to the people at the party.</p>
+                        </div>
+
+                        <div class="link">
+                            <h3>Music player : <a href="#" target="_blank">http://playl.st/fsd5t</a></h3>
+                            <p>Open this link on the computer plugged to the soundsytem.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <section class="description">
             <div class="container">
