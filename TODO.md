@@ -1,11 +1,7 @@
-Room via URL
-Analytics
-
-Design
- - sympathique
- - doux
- - coloré
- - rustique
- - pas froid
- - aplats de couleurs, fonts epaisses (comic book), traits epais, spinner "lourds"
- - upvote = croche enroulée dans un cercle
+- remove votes count : timeout per trackid in session (longer)
+- room creation (fuck code choosing, just impose it)
+- player page, with links to app and code along with player
+- debugging :(
+- track directive? (for voting on the search page)
+- analytics (at least a little)
+- demo room for testing design (random adds in cron)
