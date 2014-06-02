@@ -29,5 +29,15 @@ form.search{
 
 .right.cannotadd a{
   font-size: $inner-height * 0.6;
-  font-family: $titlefont;
+  font-family: $basefont;
+  font-weight: 300;
+}
+
+
+i.add-track{
+  font-size: $inner-height;
+  height: $inner-height;
+  width: $inner-height;
+  line-height: $inner-height;
+  text-align: center;
 }

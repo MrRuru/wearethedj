@@ -1,5 +1,10 @@
+html{
+  min-height: 100%;
+}
+
 body{
   background: $darkback;
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(black, 0.4) 0%, rgba(black, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba($darkmain, 0.4) 0%, rgba($darkmain,0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba($darkgray, 0.3) 0%, rgba($darkgray,0) 70%);
   color: $white;
   font-family: $basefont;
   font-weight: 700;
@@ -33,10 +38,12 @@ input{
     text-align: left;
     display: inline-block;
     margin-left: $padding;
-    font-family: $titlefont;
+    font-family: $headfont;
+    text-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+    font-weight: 700;
     line-height: $inner-height;
     height: $inner-height;
-    font-size: $line-height / 3;
+    font-size: $inner-height / 1.6;
     top: $padding;
 
     .right{

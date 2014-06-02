@@ -32,10 +32,11 @@
     margin-right: $padding;
 
     strong{
-      text-align: right;
+      text-align: center;
       display: block;
-      font-family: $titlefont;
-      line-height: $inner-height - $padding;
+      font-family: $basefont;
+      font-weight: 300;
+      line-height: 36px;
       font-size: $inner-height * 0.6;
 
       &.tight{
@@ -67,8 +68,8 @@
 
   h3{
     font-family: $basefont;
-    font-weight: 900;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 14px;
     margin-bottom: 0;
     height: $inner-height / 2;
     line-height: $inner-height / 2;
@@ -76,7 +77,8 @@
 
   p{
     font-weight: 600;
-    font-size: 13px;
+    font-style: italic;
+    font-size: 12px;
     height: $inner-height / 2;
     line-height: $inner-height / 2;
   }  
@@ -85,8 +87,8 @@
   // Normal track
   @include colored($darkmain, $lightback, $darkgray, lighten($lightgray, 13));
 
-  // New track
-  &.new{
+  // Highlighted track
+  &.highlight{
     @include colored($white, $white, $white, $darkmain);
     i.upvote{
       .outer{ border-color: $white; }
@@ -94,6 +96,16 @@
     }
   }
 
+  // New track
+  &.new{
+    @include colored($darkmain, $darkmain, $darkgray, lighten($lightgray, 13));
+    .left strong{
+      color: $lightmain;
+    }
+    i.upvote .outer{
+      border-color: $darkmain;
+    }
+  }
 
   // Dying track
   &.dying{

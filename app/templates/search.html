@@ -1,5 +1,5 @@
 <div class="topbar bar bar-header">
-  <h1 class="title">ADD A TRACK</h1>
+  <h1 class="title">Add a track</h1>
 </div>
 
 <ion-view>
@@ -28,10 +28,14 @@
       </div>
 
 
-      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track" ng-hide="searching" ng-class="(result.status === 'added') ? 'new' : ( (result.status === 'cannotadd') ? 'dying' : '' )">
+      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track" ng-hide="searching" ng-class="(result.status === 'added') ? 'highlight' : ( (result.status === 'cannotadd') ? 'dying' : '' )">
+        <div class="left score">
+          <strong>{{result.score || '-'}}</strong>
+        </div>
 
-        <div class="right upvote add" ng-class="result.status" ng-click="addTrack(result)">
-          <a>{{result.score || '+'}}</a>
+        <div class="right upvote add" ng-class="result.status">
+          <i class="upvote" ng-show="result.score"><span class="outer"><span class="inner"></span></span></i>
+          <i class="fa fa-plus-circle add-track" ng-hide="result.score" ng-click="addTrack(result)"></i>
         </div>
 
         <h3>{{result.title}}</h3>

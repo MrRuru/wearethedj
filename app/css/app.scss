@@ -14,154 +14,18 @@ $inner-height: ($line-height - 2 * $padding);
 @import "playlist";
 @import "search";
 
+// Title
+.main-title{
+  font-family: $headfont;
 
-// /* Topbar */
-// .topbar{
-//   background-color: #A60202; /* red */
-//   color: #FCEA97; /* light */
-//   border-bottom: none;
-//   font-family: 'Hunger Games';
-// }
+  span:nth-child(1){
+    color: $white;
+  }
+  span:nth-child(2){
+    color: $lightmain;
+  }
+  span:nth-child(3){
+    color: $lightmain;    
+  }
+}
 
-// /* Playlist topbar */
-// .playlist-topbar{
-//   background-color: #FCEA97; /* light */
-//   color: #1C1C19; /* dark */
-//   border-bottom: none;
-//   height: 32px; }
-
-//   .playlist-topbar .current-stars{
-//     font-weight: bold;
-//     float: right;
-//     display: block;
-//     text-align: right;
-//     min-width: 70px;
-//     margin-right: 40px; }
-
-//   .playlist-topbar .currently-playing{
-//     font-size: 12px;
-//     display: inline; }
-
-// .has-subheader{
-//   top: 78px; /* Because of smaller subheader */
-// }
-
-// /* Bottom tabs */
-// .bottomnav .tabs{
-//   background-color: #A60202; /* red */
-//   color: #FCEA97; /* light */
-//   border-top: none;
-// }
-
-// .bottomnav .tab-item .icon{
-//   margin-top: 8px;
-// }
-
-// /* Tracks */
-// .track { 
-//   background: #121208; /* dark2 */
-//   border: none;
-// }
-// .track:nth-child(odd) { 
-//   background: #151513; /* dark1 */
-// }
-
-// .track .left{
-//   float: left;
-//   width: 40px;
-//   height: 40px;
-//   overflow: hidden;
-//   margin-right: 20px;
-// }
-
-// .track .right{
-//   float: right;
-//   width: 40px;
-//   height: 40px;
-//   overflow: hidden;
-//   margin-left: 20px;
-// }
-
-
-// /* Track details */
-// .track h3{ /* Artist */
-//   font-weight: bold;
-//   font-size: 16px;
-// }
-
-// .track p{ /* Title */
-//   color: #999; /* white2 */
-//   font-size: 14px;
-// }
-
-
-// /* Score */
-// .track .score{
-//   text-align: right;
-// }
-
-// .track .score strong{
-//   font-family: 'Red October';
-//   display: block;
-//   font-weight: bold;
-//   font-size: 24px;
-//   color: #999; /* white2 */
-// } 
-
-// .track .score span{
-//   display: block;
-//   font-size: 11px;
-//   margin-top: 2px;
-//   margin-right: 1px;
-//   font-weight: bold;
-//   color: #FFC003; /* yellow */
-// }
-
-
-// /* Upvote */
-// .track .upvote a{
-//   display: block;
-//   box-sizing: border-box;
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 100%;
-//   border: 4px solid #666; /* darkgray */
-//   line-height: 32px;
-//   font-size: 22px;
-//   font-weight: bold;
-//   text-align: center;
-//   color: #A60202; /* red */
-//   vertical-align: middle;
-// }
-
-// .track.pending .upvote a{
-//   -webkit-animation: blink 1000ms infinite linear;
-// }
-
-// /* Search form */
-// form.search{
-//   background: #F0F0F0; /* white */
-// }
-
-// form.search input{
-//   color: #1C1C19; /* dark */  
-// }
-
-// .track .add a{
-//   display: block;
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 100%;
-//   border: 4px solid #666; /* darkgray */
-//   line-height: 28px;
-//   font-size: 32px;
-//   font-weight: bold;
-//   text-align: center;
-//   color: #A60202; /* red */
-//   vertical-align: middle;  
-// }
-
-// .track .add.added a{
-//   border-color: #A60202; /* red */
-//   color: #FFC003; /* yellow */
-// }

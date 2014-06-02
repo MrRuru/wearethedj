@@ -1,9 +1,6 @@
 <div class="topbar bar bar-header">
   <h1 class="title">
-    PLAYLIST
-    <div class="right current-votes">
-      <strong>{{votes()}}</strong> <small>x</small> <i class="upvote muted"><span class="outer"><span class="inner"></span></span></i>
-    </div>
+    Playlist
   </h1>
 </div>
 
@@ -17,7 +14,17 @@
 
     <ion-list>
 
-      <ion-item ng-repeat="track in playlist | orderTracks" type="item-text-wrap" class="track" ng-class="track.status + ' ' + (track.upvoting ? 'pending' : '')">
+      <ion-item class="track highlight">
+        <div class="left score">
+          <strong>
+            <i class="fa fa-volume-up"></i>
+          </strong>
+        </div>
+        <h3>{{playlist.playing.title}}</h3>
+        <p>{{playlist.playing.artist}}</p>
+      </ion-item>
+
+      <ion-item ng-repeat="track in playlist.tracks | orderTracks" type="item-text-wrap" class="track" ng-class="track.status + ' ' + (track.upvoting ? 'pending' : '')">
         <div class="left score">
           <strong>{{track.getScore()}}</strong>
         </div>
