@@ -54,6 +54,16 @@ Track.prototype.destroy = Q.async( function* () {
 });
 
 
+// Update its status
+// Returns nothing
+Track.prototype.setStatus = Q.async( function* (status) {
+
+  yield Redis.hset( Redis.track(this.roomId, this.id), 'status', status );
+  this.status = status;
+
+});
+
+
 
 // ======= //
 // GLOBALS //

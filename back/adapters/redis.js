@@ -21,11 +21,12 @@ Redis.keys = Q.nbind(client.keys, client);
 Redis.del = Q.nbind(client.del, client);
 Redis.zrem = Q.nbind(client.zrem, client);
 Redis.incr = Q.nbind(client.incr, client);
+Redis.has = Q.nbind(client.has, client);
 
 
 // The common used keys
-Redis.playlist = function (roomId) { return 'pldnc:rooms:' + roomId + ':playlist'; }
-Redis.track = function (roomId, trackId) { return 'pldnc:rooms' + roomId + ':tracks:' + trackId; }
+Redis.playlist = function (roomId) { return 'pldnc:rooms:' + roomId + ':playlist'; };
+Redis.track = function (roomId, trackId) { return 'pldnc:rooms' + roomId + ':tracks:' + trackId; };
 
 
 // Exporting

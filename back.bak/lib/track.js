@@ -66,28 +66,28 @@ var Pubsub = require('./pubsub.js');
 //   });
 // };
 
-Track.prototype.setAttr = function(key, value) {
-  var self = this;
+// Track.prototype.setAttr = function(key, value) {
+//   var self = this;
 
-  return this.get()
-  .then(function(trackAttrs){
-    if( !trackAttrs ){
-      return false;
-    }
-    if ( trackAttrs[key] === value ){
-      return false;
-    }
-    else {
-      return hset(self.key, key, value)
-      .then(function(){
-        self.notifyUpdate();
-      })
-      .then(function(){
-        return true;
-      });
-    }
-  });
-};
+//   return this.get()
+//   .then(function(trackAttrs){
+//     if( !trackAttrs ){
+//       return false;
+//     }
+//     if ( trackAttrs[key] === value ){
+//       return false;
+//     }
+//     else {
+//       return hset(self.key, key, value)
+//       .then(function(){
+//         self.notifyUpdate();
+//       })
+//       .then(function(){
+//         return true;
+//       });
+//     }
+//   });
+// };
 
 // Track.prototype.delete = function() {
 //   console.log('deleting track', this);

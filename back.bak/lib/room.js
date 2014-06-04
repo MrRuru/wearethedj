@@ -1,11 +1,11 @@
 
-// ==========
-// Room model
-// ==========
-var Room = function(id){
-  this.id = id;
-  this.playlistKey = 'watdj:rooms:' + id + ':playlist';
-};
+// // ==========
+// // Room model
+// // ==========
+// var Room = function(id){
+//   this.id = id;
+//   this.playlistKey = 'watdj:rooms:' + id + ':playlist';
+// };
 
 Room.prototype.tracks = function() {
   var self = this;
@@ -22,16 +22,16 @@ Room.prototype.tracks = function() {
   });
 };
 
-Room.prototype.trackIds = function(first_argument) {
-  return zrevrangebyscore(this.playlistKey, '+inf', 0, 'withscores')
-  .then(function(raw_res){
-    var ids = [];
-    for (var i = 0 ; i < (raw_res.length/2) ; i++) {
-      ids.push(raw_res[2*i]);
-    }
-    return ids;
-  });
-};
+// Room.prototype.trackIds = function(first_argument) {
+//   return zrevrangebyscore(this.playlistKey, '+inf', 0, 'withscores')
+//   .then(function(raw_res){
+//     var ids = [];
+//     for (var i = 0 ; i < (raw_res.length/2) ; i++) {
+//       ids.push(raw_res[2*i]);
+//     }
+//     return ids;
+//   });
+// };
 
 // Room.prototype.trackScore = function(trackId) {
 //   return zscore(this.playlistKey, trackId)
