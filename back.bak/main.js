@@ -57,6 +57,7 @@ io.sockets.on('connection', function(socket){
     socketUserId = data.userId;
     socketRoomId = data.roomId;
 
+
     // Connect the socket (create the user and everything)
     Sockets.connect(socketRoomId, socketUserId, socket);
   });

@@ -23,9 +23,6 @@ git checkout v0.11.13
 make
 sudo make install 
 
-sudo apt-get install nodejs -y
-sudo npm install -g n
-
 # Add path to the shell
 echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
 source ~/.bashrc

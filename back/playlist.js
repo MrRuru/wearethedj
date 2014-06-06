@@ -9,7 +9,7 @@ var Playlist = function(roomId){
 };
 
 
-Playlist.protype.tracks = function(){
+Playlist.prototype.tracks = function(){
 
   // Tracks ids
 

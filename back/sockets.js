@@ -1,3 +1,8 @@
-// Handles users connected to a room, and how to dispatch messages received / sent
+// Handle socket storing and querying
 
-// ! Track.create changed signature (false || track) instead of [false||true, attrs||null]
+var Sockets = {};
+
+Sockets.on = function(){};
+
+
+module.exports = Sockets;
