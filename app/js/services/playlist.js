@@ -3,7 +3,7 @@
 // ================
 
 angular.module('app.services.playlist', ['app.services.sync', 'app.services.user'])
-.factory('Playlist', function($rootScope, $timeout, Sync, User){
+.factory('Playlist', function($rootScope, $timeout, $window, Sync, User){
 
   $rootScope.appLoaded = false;  
 
@@ -50,52 +50,27 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     }
   };
 
-  Track.prototype.startUpvote = function(){
-    if (this.upvoting || User.votes() <= 0) {
-      return;
-    }
 
-    console.log('upvoting');
-    this.pendingVotes = this.pendingVotes || 0;
-    this.pendingVotes += 1;
-    User.useVote(this.id);
-
-    if (User.votes() == 0) 
-      this.upvote();
-    else {
-      // Start upvote 1 second later
-      $timeout.cancel(this.timeout);
-      this.timeout = $timeout(_.bind(this.upvote, this), 1000);
-    }
-  };
 
   Track.prototype.upvote = function(){
-
-    var score = this.pendingVotes;
-    // this.pendingVotes = 0;
-    this.upvoting = true;
-
     var self = this;
 
-    // Optimistic upvote
-    // this.bumpBy(score);
-    var cancelUser = User.clearVotes(this.id);
+    var score = (self.status === 'new') ? 2 : 1;
+    self.upvoting = true;
 
-    Sync.upvoteTrack(this.id, score, function(res, err){
+    // Optimistic upvote
+    self.bumpBy(score);
+
+    Sync.upvoteTrack(self.id, function(res, msg){
       self.upvoting = false;
 
-      // Ok
-      if(res){
-        console.log('response : ', res);
-        self.score = self.getScore();
-        self.pendingVotes = 0;
+      // Nok
+      if (!res) {
+        console.log('Upvote error : ', msg);
+        Sync.reload();
         return;
       }
-      
-      if(err){ console.log('Upvote error : err'); }
 
-      // Rollback;
-      cancelUser();
     });
   };
 
@@ -121,6 +96,8 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   Track.compare = function(a,b){
     return (b.score - a.score) || (a.created_at - b.created_at);
   };
+
+  Track.cooldown = 10000; // 10 seconds
 
 
   // Current tracks, indexed by id

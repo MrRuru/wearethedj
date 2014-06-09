@@ -1,7 +1,7 @@
 // The track model
 // Handles logic and persistence for a single track
 var Q     = require('q'),
-    redis = require('../adapters/redis');
+    Redis = require('../adapters/redis');
 
 
 // ======== //
@@ -22,15 +22,17 @@ var Q     = require('q'),
 // - title          
 // - created_at     
 // - last_upvote_at 
-var Track = function() {
-  public id             = parseInt(attrs.id, 10);
-  public roomId         = parseInt(attrs.roomId);
-  public score          = parseInt(attrs.score || 0, 10);
-  public status         = attrs.status;
-  public artist         = attrs.artist;
-  public title          = attrs.title;
-  public created_at     = parseInt(attrs.created_at, 10);
-  public last_upvote_at = parseInt(attrs.last_upvote_at, 10);
+var Track = function(attrs) {
+  this.attrs = {
+    id             : parseInt(attrs.id, 10),
+    roomId         : attrs.roomId,
+    score          : parseInt(attrs.score || 0, 10),
+    status         : attrs.status,
+    artist         : attrs.artist,
+    title          : attrs.title,
+    created_at     : parseInt(attrs.created_at, 10),
+    last_upvote_at : parseInt(attrs.last_upvote_at, 10)
+  };
 };
 
 
@@ -58,12 +60,20 @@ Track.prototype.destroy = Q.async( function* () {
 // Returns nothing
 Track.prototype.setStatus = Q.async( function* (status) {
 
-  yield Redis.hset( Redis.track(this.roomId, this.id), 'status', status );
+  yield Redis.hset( Redis.track(this.attrs.roomId, this.attrs.id), 'status', status );
   this.status = status;
 
 });
 
 
+// Upvote
+Track.prototype.upvote = Q.async( function* () {
+
+  var upvoteBy = (this.attrs.status === 'new') ? 2 : 1;
+  var newScore = yield Redis.zincrby( Redis.playlist(this.attrs.roomId), upvoteBy, this.attrs.id );
+  this.attrs.score = parseInt(newScore, 10);
+
+});
 
 // ======= //
 // GLOBALS //
@@ -99,7 +109,7 @@ Track.get = Q.async( function* (roomId, trackId) {
 Track.create = Q.async( function* (roomId, trackId, artist, title) {
 
   // Already existing : cancel
-  var existing = yield Track.get(attrs.roomId, attrs.id);
+  var existing = yield Track.get(roomId, trackId);
   if (!!existing) { return false; }
 
   // Build the attrs

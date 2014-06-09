@@ -6,16 +6,35 @@ angular.module('app.controllers.login', ['app.services.sync', 'app.services.room
 .controller('LoginCtrl', function($scope, $location, Sync, Room) {
 
   $scope.joinRoom = function(){
-    var roomName = $scope.room.name;
+    var roomName = $scope.room.code;
 
+    $scope.error = '';
     $scope.loading = true;
 
-    Room.set(roomName);
+    Room.find(roomName).then(function(roomId){
 
-    Sync.load(function(){
+      if (!roomId) { 
+        $scope.loading = false;
+        $scope.error = "This is not a valid code.";
+        return;
+      }
+
+      console.log('got room', roomId);
+      Room.set(roomId);
+
+      Sync.load(function(){
+        $scope.loading = false;
+        $location.path('/tab/playlist');
+      });
+
+    }, function(reason){
+
+      console.log('ERROR : ', reason);
+      $scope.error = "An error happened, sorry.";
       $scope.loading = false;
-      $location.path('/tab/playlist');
+
     });
+
   };
 
 });

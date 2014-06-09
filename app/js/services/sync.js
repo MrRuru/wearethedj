@@ -8,40 +8,20 @@ angular.module('app.services.sync', [])
   // Link to bound services
   var User, Room, Playlist, onLoaded;
 
-  var loaded = false;
   var onLoadedCb = null;
+  var watchersOk = false;
 
-  // Is the data loaded ?
-  var loadedCheck = {
-    tracks: false,
-    user: false
-  };
+  // Watchers
+  var setupWatchers = function(){
+    if (watchersOk) { return; }
 
-  var checkLoadedStatus = function(){
-    console.log('checking if loaded');
-    if (loadedCheck.tracks && loadedCheck.user) {
-      console.log('loaded!!');
+    $socket.on('bootstrap', function(data){
+      console.log('got playlist', data);
+      Playlist.bootstrap(data);
       loaded = true;
       if (_.isFunction(onLoadedCb)) {
         onLoadedCb.call();
       }
-    }
-  };
-
-
-  // Watchers
-  var setupWatchers = function(){
-    $socket.on('bootstrapPlaylist', function(data){
-      console.log('got playlist', data);
-      Playlist.bootstrap(data);
-      loadedCheck.tracks = true;
-      checkLoadedStatus();
-    });
-
-    $socket.on('bootstrapUser', function(data){
-      User.bootstrap(data);
-      loadedCheck.user = true;
-      checkLoadedStatus();
     });
 
     $socket.on('newTrack', Playlist.newTrack);
@@ -49,7 +29,9 @@ angular.module('app.services.sync', [])
     $socket.on('playingTrack', Playlist.playingTrack);
     $socket.on('deleteTrack', Playlist.deleteTrack);
 
-    $socket.on('updateUser', User.updateUser);
+    // $socket.on('updateUser', User.updateUser);
+
+    watchersOk = true;
   };
 
 
@@ -80,7 +62,11 @@ angular.module('app.services.sync', [])
       
       console.log('SYNC - launching bootstrap');
       setupWatchers();
-      $socket.emit('bootstrap', {userId: User.id, roomId: Room.get()});
+      $socket.emit('joinRoom', {userId: User.id, roomId: Room.get()});
+    },
+
+    reload: function(){
+      $socket.emit('joinRoom', {userId: User.id, roomId: Room.get()});
     },
 
     // Accessors to send data
@@ -88,8 +74,8 @@ angular.module('app.services.sync', [])
       $socket.emit('addTrack', {id: track.id, artist: track.artist.name, title: track.title}, cb);
     },
 
-    upvoteTrack: function(trackId, score, cb){
-      $socket.emit('upvote', {trackId: trackId, score: score}, cb);
+    upvoteTrack: function(trackId, cb){
+      $socket.emit('upvote', {trackId: trackId}, cb);
     }
 
   };

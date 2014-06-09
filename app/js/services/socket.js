@@ -9,6 +9,8 @@ angular.module('app.services.socket', [])
   var socket;
   socket = io.connect('http://' + location.hostname + ':3456');
 
+  console.log('got socket', socket);
+
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {

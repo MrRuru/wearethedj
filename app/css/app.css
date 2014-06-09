@@ -323,6 +323,12 @@ input {
   .room-form.focus i {
     color: #9b59b6; }
 
+.login-error {
+  background: transparent;
+  border: none;
+  color: #ecf0f1;
+  opacity: 0.8; }
+
 @-webkit-keyframes fadein {
   0% {
     opacity: 0; }

@@ -3,16 +3,33 @@
 // ==================
 
 angular.module('app.services.room', [])
-.factory('Room', function($cookieStore){
+.factory('Room', function($cookieStore, $http){
 
-  var uid = $cookieStore.get('room-name')
+  var uid = $cookieStore.get('roomId')
 
-  var Room = {
-    get: function(){ return uid; },
-    set: function(newid){
-      $cookieStore.put('room-name', newid);
-      uid = newid;
-    }
+  var Room = {};
+
+  Room.get = function(){ return uid; };
+
+  Room.set = function(newid){
+    $cookieStore.put('roomId', newid);
+    uid = newid;
+  };
+
+  Room.find = function(code){
+    return $http.get('/room', {
+      params: {
+        code: code
+      } 
+    })
+    .then(function(res){
+      if (!res.data) {
+        return null;
+      }
+      else {
+        return res.data.id;
+      }
+    });
   };
 
   return Room;

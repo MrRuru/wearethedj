@@ -5,54 +5,101 @@
 var  Q             = require('q')
    , socketServer  = require('http').createServer()
    , io            = require('socket.io').listen(socketServer)
-   , Sockets       = require('./sockets.js');
+   , Sockets       = require('./sockets.js')
+   , Playlist      = require('./playlist.js')
+   , TrackExpirer  = require('./track_expirer.js');
 
 
 // The calls
-Sockets.on('addTrack', Q.apply( function* (context, data) { // context = getters for room / user of socket + broadcasters
+Sockets.on('addTrack', function(context, data, cb) { // context = getters for room / user of socket + broadcasters
 
-  var playlist = yield context.getPlaylist();
-  var track = yield playlist.addTrack(data);
+  Q.spawn(function * () {
 
-  // Track TTL : to notify
+    try {
+      var playlist = yield context.getPlaylist();
+      var track = yield playlist.addTrack(data);
 
-  context.broadcast('newTrack', track);
+      if (!track) { 
+        console.log('track already present');
+        cb(false, 'track already present');
+        return;
+      }
 
-}));
+      yield TrackExpirer.addTrack(track);
+
+      Sockets.broadcastRoom(playlist.room.attrs.id, 'newTrack', track.attrs);
+      cb(true);
+    }
+    catch (e) {
+      console.log('Error adding track', context, data, e);
+      cb(false, e);
+    }
+
+  });
+
+});
 
 
-Sockets.on('upvote', Q.apply( function* (context, data) {
+Sockets.on('upvote', function(context, data, cb) {
 
-  var playlist = yield context.getPlaylist();
-  
-  // Track TTL : to notify
+  Q.spawn(function * () {
 
-  // ... TODO  
+    try {
+      var trackId = data.trackId;
 
-}));
+      var playlist = yield context.getPlaylist();
+      var track = yield playlist.getTrack(trackId);
+      if (!track) { cb(false); return; }
+
+      yield track.upvote();
+      yield TrackExpirer.refreshTrack(track);
+
+      cb(true);
+      Sockets.broadcastRoom(playlist.room.attrs.id, 'updateTrack', track.attrs);
+    }
+    catch (e) {
+      console.log('Error upvoting track', context, data, e);
+      cb(false, e);
+    }
+
+  });
+
+});
 
 
 
 
 // Binding s the sockets
-io.sockets.on('connection', function(){
+io.sockets.on('connection', function(socket){
 
-  socket.on('bootstrap', function(data){
+  socket.on('joinRoom', function(data){
+    Q.spawn( function* () {
 
-    Sockets.register({
-      user: data.userId,
-      room: data.roomId,
-      socket: socket
+      if (!data.userId || !data.roomId) {
+        throw('Cannot bootstrap without a user and a room. userId is ' + data.userId + ' roomId is ' + data.roomId);
+      }
+
+      socket.userId = data.userId;
+      socket.roomId = data.roomId;
+
+      Sockets.register(socket);
+
+      // Respond with the playlist
+      var playlist = yield Playlist.find(data.roomId);
+
+      if (!playlist) {
+        socket.emit('boostrap', {'error': 'NoRoom'});
+        return;
+      }
+
+      var tracks = yield playlist.tracks();
+      socket.emit('bootstrap', tracks);
+
     });
-
   });
 
   socket.on('disconnect', function(){
-
-    Sockets.unregister({
-      socket: socket
-    });
-
+    Sockets.unregister(socket);
   });
 
 });

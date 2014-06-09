@@ -9,4 +9,4 @@ var api = require('./api.js'),
 api.listen(appPort);
 sockets.listen(socketPort);
 
-console.log('Server Running');
+console.log('Server Running. API on ', appPort, 'and WebSockets on', socketPort);

@@ -5,7 +5,7 @@ var Q       = require('q'),
     client  = redis.createClient();
 
 // The exported module
-var Redis;
+var Redis = {};
 
 Redis.set = Q.nbind(client.set, client);
 Redis.get = Q.nbind(client.get, client);
@@ -15,18 +15,21 @@ Redis.zincrby = Q.nbind(client.zincrby, client);
 Redis.zadd = Q.nbind(client.zadd, client);
 Redis.hset = Q.nbind(client.hset, client);
 Redis.hmset = Q.nbind(client.hmset, client);
+Redis.hget = Q.nbind(client.hget, client);
 Redis.hgetall = Q.nbind(client.hgetall, client);
 Redis.decrby = Q.nbind(client.decrby, client);
 Redis.keys = Q.nbind(client.keys, client);
 Redis.del = Q.nbind(client.del, client);
 Redis.zrem = Q.nbind(client.zrem, client);
 Redis.incr = Q.nbind(client.incr, client);
-Redis.has = Q.nbind(client.has, client);
+Redis.exists = Q.nbind(client.exists, client);
 
 
 // The common used keys
-Redis.playlist = function (roomId) { return 'pldnc:rooms:' + roomId + ':playlist'; };
-Redis.track = function (roomId, trackId) { return 'pldnc:rooms' + roomId + ':tracks:' + trackId; };
+Redis.codes =    function()                 { return 'pldnc:codes'; };
+Redis.room =     function(roomId)           { return 'pldnc:rooms:' + roomId; };
+Redis.playlist = function (roomId)          { return 'pldnc:rooms:' + roomId + ':playlist'; };
+Redis.track =    function (roomId, trackId) { return 'pldnc:rooms:' + roomId + ':tracks:' + trackId; };
 
 
 // Exporting

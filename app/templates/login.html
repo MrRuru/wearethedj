@@ -9,9 +9,13 @@
       <i class="upvote" ng-class="{muted: !focused, spin: loading}">
         <span class="outer"><span class="inner"></span></span>
       </i>
-      <input type="text" placeholder="Enter your code" ng-model="room.name" ng-click="focused=true">
+      <input type="text" placeholder="Enter your code" ng-model="room.code" ng-click="focused=true">
       <input type="submit" style="display:none;"></input>
     </label>
   </form>
+
+  <div class="item login-error">
+    {{ error }}
+  </div>
 
 </div>
