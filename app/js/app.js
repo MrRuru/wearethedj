@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'app.services'])
+angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'app.services', 'app.directives.upvote'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

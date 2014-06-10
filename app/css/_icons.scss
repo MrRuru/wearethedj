@@ -1,28 +1,30 @@
+// Fuck it, absolute sizes
+
 i.upvote{
   display: inline-block;
-  height: $inner-height;
-  line-height: $inner-height;
-  width: $inner-height;
+  height: 42px;
+  line-height: 42px;
+  width: 42px;
   text-align: center;
   vertical-align: middle;
-  font-size: $inner-height;
+  font-size: 42px;
 
   .outer{
     display: block;
-    width: $inner-height * 0.88;
-    height: $inner-height * 0.88;
-    margin: $inner-height * 0.06;
+    width: 38px;
+    height: 38px;
+    margin: 2px;
     border-radius: 100%;
-    border: $inner-height * 0.2 solid $darkback;
+    border: 9px solid $darkback;
   }
 
   .inner{
     display: block;
-    width: $inner-height * 0.38;
-    height: $inner-height * 0.38;
-    border: $inner-height * 0.1 solid $lightmain;
+    width: 16px;
+    height: 16px;
+    border: 4px solid $lightmain;
     border-radius: 100%;
-    margin: $inner-height * 0.05;
+    margin: 2px;
   }
 
   &.muted{
@@ -68,3 +70,16 @@ i.upvote{
   }
 }
 
+upvote{
+  width: 42px;
+  height: 42px;
+
+  .outer{
+    stroke: $darkback;
+  }
+
+
+  .inner{
+    stroke: $lightmain;
+  }
+}

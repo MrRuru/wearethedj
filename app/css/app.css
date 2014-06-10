@@ -4,7 +4,6 @@
 @font-face {
   font-family: 'Komikax';
   src: url(/fonts/KOMIKAX_.ttf); }
-
 i.upvote {
   display: inline-block;
   height: 42px;
@@ -15,18 +14,18 @@ i.upvote {
   font-size: 42px; }
   i.upvote .outer {
     display: block;
-    width: 36.96px;
-    height: 36.96px;
-    margin: 2.52px;
+    width: 38px;
+    height: 38px;
+    margin: 2px;
     border-radius: 100%;
-    border: 8.4px solid #2c3e50; }
+    border: 9px solid #2c3e50; }
   i.upvote .inner {
     display: block;
-    width: 15.96px;
-    height: 15.96px;
-    border: 4.2px solid #9b59b6;
+    width: 16px;
+    height: 16px;
+    border: 4px solid #9b59b6;
     border-radius: 100%;
-    margin: 2.1px; }
+    margin: 2px; }
   i.upvote.muted .outer, .track.dying i.upvote .outer {
     border-color: #95a5a6; }
   i.upvote.muted .inner, .track.dying i.upvote .inner {
@@ -46,13 +45,19 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(360deg); } }
-
 @-webkit-keyframes spin-reverse {
   from {
     -webkit-transform: rotate(0deg); }
 
   to {
     -webkit-transform: rotate(-360deg); } }
+upvote {
+  width: 42px;
+  height: 42px; }
+  upvote .outer {
+    stroke: #2c3e50; }
+  upvote .inner {
+    stroke: #9b59b6; }
 
 .track {
   height: 72px;
@@ -178,7 +183,6 @@ i.upvote {
     opacity: 1;
     -webkit-transform: translateX(0%);
     transform: translateX(0%); } }
-
 /* Track removal */
 @-webkit-keyframes remove {
   /* Initial state : nothing */
@@ -198,7 +202,6 @@ i.upvote {
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
     height: 0; } }
-
 .track.ng-enter {
   height: 0;
   opacity: 0;
@@ -244,7 +247,7 @@ html {
 
 body {
   background: #2c3e50;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
   color: #ecf0f1;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
@@ -335,7 +338,6 @@ input {
 
   100% {
     opacity: 1; } }
-
 .current-votes {
   color: #bdc3c7;
   height: 72px;

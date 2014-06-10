@@ -1,6 +1,6 @@
 // Handles tracks expiration
 var Q       = require('q'),
-    Track   = require('./models/tracks.js'),
+    Track   = require('./models/track.js'),
     Sockets = require('./sockets.js');
 
 

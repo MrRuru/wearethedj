@@ -15,6 +15,7 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
     this.pendingVotes = 0;
     this.upvoting = false;
+    this.lastUpvote = 0;
 
     this.setAttrs(opts)
   };
@@ -53,6 +54,11 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
 
   Track.prototype.upvote = function(){
+    // Not been 10 seconds : ignore
+    if ( Date.now() - this.lastUpvote < 10000) {
+      return;
+    }
+
     var self = this;
 
     var score = (self.status === 'new') ? 2 : 1;
@@ -60,6 +66,7 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
     // Optimistic upvote
     self.bumpBy(score);
+    this.lastUpvote = Date.now();
 
     Sync.upvoteTrack(self.id, function(res, msg){
       self.upvoting = false;
