@@ -36,13 +36,6 @@ var Track = function(attrs) {
 };
 
 
-// Upvote the track by one
-// Returns nothing
-Track.prototype.upvote = Q.async( function* () {
-  return yield Redis.zincr(Redis.playlist(this.roomId), this.id);
-});
-
-
 // Destroys the track
 // Returns nothing
 Track.prototype.destroy = Q.async( function* () {
@@ -58,10 +51,10 @@ Track.prototype.destroy = Q.async( function* () {
 
 // Update its status
 // Returns nothing
-Track.prototype.setStatus = Q.async( function* (status) {
+Track.prototype.setAttr = Q.async( function* (attr, value) {
 
-  yield Redis.hset( Redis.track(this.attrs.roomId, this.attrs.id), 'status', status );
-  this.status = status;
+  yield Redis.hset( Redis.track(this.attrs.roomId, this.attrs.id), attr, value );
+  this[attrs] = value;
 
 });
 
@@ -72,6 +65,22 @@ Track.prototype.upvote = Q.async( function* () {
   var upvoteBy = (this.attrs.status === 'new') ? 2 : 1;
   var newScore = yield Redis.zincrby( Redis.playlist(this.attrs.roomId), upvoteBy, this.attrs.id );
   this.attrs.score = parseInt(newScore, 10);
+
+});
+
+
+// Downvote
+Track.prototype.downvote = Q.async( function* () {
+
+  var newScore = yield Redis.zincrby( Redis.playlist(this.attrs.roomId), -1, this.attrs.id );
+  this.attrs.score = parseInt(newScore, 10);
+
+  // TODO : destroy if less than 0
+  if (this.attrs.score <= 0) {
+    yield this.destroy();
+  }
+
+  return this;
 
 });
 

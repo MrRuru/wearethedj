@@ -69,7 +69,7 @@ api.delete('/room/:roomId/top', function(req, res){
       var playlist = yield Playlist.find(roomId);
       var track = yield playlist.popTopTrack();
 
-      yield TrackTTL.deleteTrack(track.id);
+      yield TrackExpirer.deleteTrack(track.id);
       Sockets.broadcastRoom(roomId, 'playingTrack', track);
 
       res.send(track.attrs);
