@@ -94,6 +94,10 @@
       .outer{ border-color: $white; }
       .inner{ border-color: $white; }       
     }
+    upvote{
+      .outer{ stroke: $white; }
+      .inner{ stroke: $white; }       
+    }
   }
 
   // New track
@@ -105,13 +109,30 @@
     i.upvote .outer{
       border-color: $darkmain;
     }
+    upvote .outer{
+      stroke: $darkmain;
+    }
   }
 
   // Dying track
   &.dying{
     @include colored($lightback, $darkgray, $gray, lighten($lightgray, 13));
     i.upvote{
-      @extend .muted;
+      .outer{
+        border-color: $gray;
+      }
+      .inner{
+        border-color: $lightgray;
+      }
+    }
+
+    upvote{
+      .outer{
+        stroke: $gray;
+      }
+      .inner{
+        stroke: $lightgray;
+      }      
     }
   }
 

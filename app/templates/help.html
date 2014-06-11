@@ -3,14 +3,14 @@
 <ion-view>
   <ion-content>
 
-    <ion-item class="track demo">
+    <ion-item class="track demo" ng-class="track.status">
       <div class="left score">
         <strong>
-          42
+          {{ track.score }}
         </strong>
       </div>
-      <div class="right upvote">
-        <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
+      <div class="right upvote" ng-click="track.upvote()">
+        <upvote track="track"></upvote>
       </div>
       <h3>Happy</h3>
       <p>C2C</p>
@@ -24,20 +24,16 @@
       </ion-slide>
 
       <ion-slide>
-        <p class="title">This is a track : </p>
-      </ion-slide>
-
-      <ion-slide>
-        <p class="title">Click on the button to raise its score.</p>
+        <p class="title">This is a track.<br>Click on the button to raise its score.</p>
         <p class="subtitle">You can vote for it every 15 seconds.</p>
       </ion-slide>
 
       <ion-slide>
-        <p class="title">Newly added tracks are pink. Your votes count double.</p>
+        <p class="title">New tracks are pink.<br>They get double votes.</p>
       </ion-slide>
 
       <ion-slide>
-        <p class="title">Old tracks are gray and lose score.</p>
+        <p class="title">Old tracks are gray.<br>They slowly lose points.</p>
         <p class="subtitle">Vote for them to bring them back.</p>
       </ion-slide>
 
@@ -46,8 +42,7 @@
       </ion-slide>
 
       <ion-slide>
-        <p>Click here to vote for tracks.</p>
-        <p>And here to add a new one.</p>
+        <p class="title">TODO : links for submenu</p>
       </ion-slide>
 
 

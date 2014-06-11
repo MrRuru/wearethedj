@@ -3,7 +3,7 @@ angular.module('app.directives.upvote', [])
 
   // Constants
   var dashLength = 91;
-  var cooldown = 10000; // 10 seconds
+  var cooldown = 15000; // 15 seconds
 
 
   // Global object for getting animation frame

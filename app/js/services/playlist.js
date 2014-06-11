@@ -7,13 +7,14 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
   $rootScope.appLoaded = false;  
 
+  var cooldown = 15000; // 15 seconds
+
   // Track model
   function Track(opts) {
     this.id = opts.id;
     this.score = opts.score;
     this.targetScore = opts.score;
 
-    this.pendingVotes = 0;
     this.upvoting = false;
     this.lastUpvote = 0;
 
@@ -55,7 +56,7 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
   Track.prototype.upvote = function(){
     // Not been 10 seconds : ignore
-    if ( Date.now() - this.lastUpvote < 10000) {
+    if ( Date.now() - this.lastUpvote < cooldown) {
       return;
     }
 

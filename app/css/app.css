@@ -4,7 +4,6 @@
 @font-face {
   font-family: 'Komikax';
   src: url(/fonts/KOMIKAX_.ttf); }
-
 i.upvote {
   display: inline-block;
   height: 42px;
@@ -27,9 +26,9 @@ i.upvote {
     border: 4px solid #9b59b6;
     border-radius: 100%;
     margin: 2px; }
-  i.upvote.muted .outer, .track.dying i.upvote .outer {
+  i.upvote.muted .outer {
     border-color: #95a5a6; }
-  i.upvote.muted .inner, .track.dying i.upvote .inner {
+  i.upvote.muted .inner {
     border-color: #bdc3c7; }
   i.upvote.spin .outer {
     border-top-color: transparent;
@@ -46,14 +45,12 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(360deg); } }
-
 @-webkit-keyframes spin-reverse {
   from {
     -webkit-transform: rotate(0deg); }
 
   to {
     -webkit-transform: rotate(-360deg); } }
-
 upvote {
   width: 42px;
   height: 42px; }
@@ -135,6 +132,10 @@ upvote {
       border-color: #ecf0f1; }
     .track.highlight i.upvote .inner {
       border-color: #ecf0f1; }
+    .track.highlight upvote .outer {
+      stroke: #ecf0f1; }
+    .track.highlight upvote .inner {
+      stroke: #ecf0f1; }
   .track.new {
     background: #e4e6e8; }
     .track.new h3 {
@@ -151,6 +152,8 @@ upvote {
       color: #9b59b6; }
     .track.new i.upvote .outer {
       border-color: #8e44ad; }
+    .track.new upvote .outer {
+      stroke: #8e44ad; }
   .track.dying {
     background: #e4e6e8; }
     .track.dying h3 {
@@ -163,6 +166,14 @@ upvote {
       color: #95a5a6; }
     .track.dying .right {
       color: #7f8c8d; }
+    .track.dying i.upvote .outer {
+      border-color: #95a5a6; }
+    .track.dying i.upvote .inner {
+      border-color: #bdc3c7; }
+    .track.dying upvote .outer {
+      stroke: #95a5a6; }
+    .track.dying upvote .inner {
+      stroke: #bdc3c7; }
 
 /* Track insertion */
 @-webkit-keyframes insert {
@@ -186,7 +197,6 @@ upvote {
     opacity: 1;
     -webkit-transform: translateX(0%);
     transform: translateX(0%); } }
-
 /* Track removal */
 @-webkit-keyframes remove {
   /* Initial state : nothing */
@@ -206,7 +216,6 @@ upvote {
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
     height: 0; } }
-
 .track.ng-enter {
   height: 0;
   opacity: 0;
@@ -252,7 +261,7 @@ html {
 
 body {
   background: #2c3e50;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
   color: #ecf0f1;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
@@ -343,7 +352,6 @@ input {
 
   100% {
     opacity: 1; } }
-
 .current-votes {
   color: #bdc3c7;
   height: 72px;
@@ -409,7 +417,19 @@ i.add-track {
   font-weight: 400;
   text-align: center;
   margin: 1em 0;
-  padding: 0px 10px; }
+  padding: 0px 10px;
+  line-height: 1.6em; }
+.help .slider-slide p.subtitle {
+  text-align: center;
+  opacity: 0.8;
+  padding: 0px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  position: absolute;
+  top: 216px;
+  width: 100%; }
+.help h1, .help p.title, .help p.subtitle, .help .slider-pager-page {
+  color: #ecf0f1; }
 .help .track.demo {
   top: 126px;
   opacity: 1;
@@ -420,15 +440,19 @@ i.add-track {
   background: #34495e; }
 .help.slide0 .slider-pager, .help.slide0 .track.demo {
   opacity: 0; }
-.help.slide0 h1, .help.slide0 p.title, .help.slide0 .slider-pager-page {
-  color: #ecf0f1; }
 .help.slide0 h1 {
   margin-top: 1em;
   margin-bottom: 2em; }
 .help.slide1 .pane {
+  background: #46486d; }
+.help.slide2 .pane {
+  background: #58477d; }
+.help.slide3 .pane {
+  background: #6a468d; }
+.help.slide4 .pane {
+  background: #7c459d; }
+.help.slide5 .pane {
   background: #8e44ad; }
-.help.slide1 h1, .help.slide1 p.title, .help.slide1 .slider-pager-page {
-  color: #ecf0f1; }
 
 .main-title {
   font-family: "Montserrat"; }
