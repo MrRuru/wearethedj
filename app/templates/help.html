@@ -1,12 +1,60 @@
-<div class="topbar bar bar-header">
-  <h1 class="title">Help</h1>
-</div>
+<div class="help" ng-class="'slide' + index">
 
 <ion-view>
-  <ion-content padding="true">
-    <h3>Get started</h3>
-    <p>
-      Help goes here ...
-    </p>
+  <ion-content>
+
+    <ion-item class="track demo">
+      <div class="left score">
+        <strong>
+          42
+        </strong>
+      </div>
+      <div class="right upvote">
+        <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
+      </div>
+      <h3>Happy</h3>
+      <p>C2C</p>
+    </ion-item>
+
+    <ion-slide-box on-slide-changed="slideHasChanged(index)">
+
+      <ion-slide>
+        <h1>Welcome!</h1>
+        <p class="title">Swipe to get started</p>
+      </ion-slide>
+
+      <ion-slide>
+        <p class="title">This is a track : </p>
+      </ion-slide>
+
+      <ion-slide>
+        <p class="title">Click on the button to raise its score.</p>
+        <p class="subtitle">You can vote for it every 15 seconds.</p>
+      </ion-slide>
+
+      <ion-slide>
+        <p class="title">Newly added tracks are pink. Your votes count double.</p>
+      </ion-slide>
+
+      <ion-slide>
+        <p class="title">Old tracks are gray and lose score.</p>
+        <p class="subtitle">Vote for them to bring them back.</p>
+      </ion-slide>
+
+      <ion-slide>
+        <p class="title">The top track in the list is the one played next.</p>
+      </ion-slide>
+
+      <ion-slide>
+        <p>Click here to vote for tracks.</p>
+        <p>And here to add a new one.</p>
+      </ion-slide>
+
+
+    </ion-slide-box>
+
+
   </ion-content>
 </ion-view>
+
+</div>

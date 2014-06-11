@@ -4,6 +4,7 @@
 @font-face {
   font-family: 'Komikax';
   src: url(/fonts/KOMIKAX_.ttf); }
+
 i.upvote {
   display: inline-block;
   height: 42px;
@@ -45,12 +46,14 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(360deg); } }
+
 @-webkit-keyframes spin-reverse {
   from {
     -webkit-transform: rotate(0deg); }
 
   to {
     -webkit-transform: rotate(-360deg); } }
+
 upvote {
   width: 42px;
   height: 42px; }
@@ -183,6 +186,7 @@ upvote {
     opacity: 1;
     -webkit-transform: translateX(0%);
     transform: translateX(0%); } }
+
 /* Track removal */
 @-webkit-keyframes remove {
   /* Initial state : nothing */
@@ -202,6 +206,7 @@ upvote {
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
     height: 0; } }
+
 .track.ng-enter {
   height: 0;
   opacity: 0;
@@ -247,7 +252,7 @@ html {
 
 body {
   background: #2c3e50;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
   color: #ecf0f1;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
@@ -338,6 +343,7 @@ input {
 
   100% {
     opacity: 1; } }
+
 .current-votes {
   color: #bdc3c7;
   height: 72px;
@@ -380,6 +386,49 @@ i.add-track {
   width: 42px;
   line-height: 42px;
   text-align: center; }
+
+.help .slider, .help .slider-slides, .help .scroll {
+  height: 100%; }
+.help .has-tabs {
+  top: 0;
+  padding-top: 72px; }
+.help .pane {
+  background: transparent;
+  transition: background linear 300ms; }
+.help .slider-pager {
+  opacity: 1;
+  transition: opacity 300ms linear; }
+.help .slider-slide h1 {
+  font-family: "Montserrat";
+  font-weight: 700;
+  text-align: center;
+  padding: 0px 10px; }
+.help .slider-slide p.title {
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+  text-align: center;
+  margin: 1em 0;
+  padding: 0px 10px; }
+.help .track.demo {
+  top: 126px;
+  opacity: 1;
+  transition: opacity 300ms linear;
+  position: absolute;
+  width: 100%; }
+.help.slide0 .pane {
+  background: #34495e; }
+.help.slide0 .slider-pager, .help.slide0 .track.demo {
+  opacity: 0; }
+.help.slide0 h1, .help.slide0 p.title, .help.slide0 .slider-pager-page {
+  color: #ecf0f1; }
+.help.slide0 h1 {
+  margin-top: 1em;
+  margin-bottom: 2em; }
+.help.slide1 .pane {
+  background: #8e44ad; }
+.help.slide1 h1, .help.slide1 p.title, .help.slide1 .slider-pager-page {
+  color: #ecf0f1; }
 
 .main-title {
   font-family: "Montserrat"; }
