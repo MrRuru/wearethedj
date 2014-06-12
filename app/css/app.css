@@ -395,65 +395,122 @@ i.add-track {
   line-height: 42px;
   text-align: center; }
 
-.help .slider, .help .slider-slides, .help .scroll {
-  height: 100%; }
-.help .has-tabs {
-  top: 0;
-  padding-top: 72px; }
-.help .pane {
-  background: transparent;
-  transition: background linear 300ms; }
-.help .slider-pager {
-  opacity: 1;
-  transition: opacity 300ms linear; }
-.help .slider-slide h1 {
-  font-family: "Montserrat";
-  font-weight: 700;
-  text-align: center;
-  padding: 0px 10px; }
-.help .slider-slide p.title {
-  font-size: 16px;
-  font-style: italic;
-  font-weight: 400;
-  text-align: center;
-  margin: 1em 0;
-  padding: 0px 10px;
-  line-height: 1.6em; }
-.help .slider-slide p.subtitle {
-  text-align: center;
-  opacity: 0.8;
-  padding: 0px 10px;
-  font-size: 14px;
-  font-weight: 400;
-  position: absolute;
-  top: 216px;
-  width: 100%; }
-.help h1, .help p.title, .help p.subtitle, .help .slider-pager-page {
+.help {
   color: #ecf0f1; }
-.help .track.demo {
-  top: 126px;
-  opacity: 1;
-  transition: opacity 300ms linear;
-  position: absolute;
-  width: 100%; }
-.help.slide0 .pane {
-  background: #34495e; }
-.help.slide0 .slider-pager, .help.slide0 .track.demo {
-  opacity: 0; }
-.help.slide0 h1 {
-  margin-top: 1em;
-  margin-bottom: 2em; }
-.help.slide1 .pane {
-  background: #46486d; }
-.help.slide2 .pane {
-  background: #58477d; }
-.help.slide3 .pane {
-  background: #6a468d; }
-.help.slide4 .pane {
-  background: #7c459d; }
-.help.slide5 .pane {
-  background: #8e44ad; }
+  .help h1, .help p.title {
+    color: #ecf0f1; }
+  .help .slider, .help .slider-slides, .help .scroll {
+    height: 100%; }
+  .help .has-tabs {
+    top: 0;
+    padding-top: 72px; }
+  .help .pane {
+    background: transparent;
+    transition: background linear 300ms; }
+  .help .slider-pager {
+    display: none; }
+  .help .slider-slide h1 {
+    font-family: "Montserrat";
+    font-weight: 700;
+    text-align: center;
+    padding: 0px 10px; }
+  .help .slider-slide p.title {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+    margin: 1em 0;
+    padding: 0px 10px;
+    line-height: 1.6em; }
+  .help .slider-slide strong {
+    font-style: normal;
+    font-weight: 900; }
+  .help .tracks {
+    top: 126px;
+    opacity: 1;
+    transition: opacity 300ms linear;
+    position: absolute;
+    width: 100%; }
+  .help .swipe {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    position: absolute;
+    top: 288px;
+    color: #ecf0f1;
+    font-size: 24px;
+    font-weight: 300;
+    opacity: 0;
+    transition: opacity 0s linear; }
+    .help .swipe.displayed {
+      transition: opacity 1000ms linear;
+      opacity: 1; }
+    .help .swipe i {
+      -webkit-animation: blink 4000ms linear infinite;
+      animation: blink 4000ms linear infinite; }
+    .help .swipe i:nth-child(1) {
+      -webkit-animation-delay: 100ms; }
+    .help .swipe i:nth-child(2) {
+      -webkit-animation-delay: 50ms; }
+  .help.slide0 .pane {
+    background: #34495e; }
+  .help.slide0 .slider-pager, .help.slide0 .tracks {
+    opacity: 0; }
+  .help.slide0 h1 {
+    margin-top: 1em;
+    margin-bottom: 2em; }
+  .help.slide1 .pane {
+    background: #46486d; }
+  .help.slide2 .pane {
+    background: #58477d; }
+  .help.slide3 .pane {
+    background: #6a468d; }
+  .help.slide4 .tracks .additional {
+    left: 0; }
+  .help.slide4 .pane {
+    background: #7c459d; }
+  .help.slide5 .pane {
+    background: #8e44ad; }
+  .help.slide5 .tracks {
+    opacity: 0; }
+  .help.slide5 .swipe {
+    display: none; }
+  .help.slide5 h1 {
+    margin-bottom: 2em; }
+  .help.slide5 p.link {
+    font-size: 18px;
+    line-height: 24px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+    margin: 1em 0;
+    padding: 0px 10px;
+    line-height: 36px;
+    color: #ecf0f1; }
+    .help.slide5 p.link i {
+      font-size: 36px;
+      vertical-align: middle;
+      margin: 0px 10px; }
+  .help.slide5 .downarrow {
+    text-align: center;
+    font-size: 36px;
+    width: 100%;
+    position: absolute;
+    bottom: 52px; }
+    .help.slide5 .downarrow i {
+      color: #ecf0f1;
+      -webkit-animation: blink 4000ms linear infinite;
+      animation: blink 4000ms linear infinite; }
 
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1; }
+
+  1% {
+    opacity: 0; }
+
+  20% {
+    opacity: 1; } }
 .main-title {
   font-family: "Montserrat"; }
   .main-title span:nth-child(1) {

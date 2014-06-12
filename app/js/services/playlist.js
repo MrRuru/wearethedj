@@ -93,14 +93,6 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     this.created_at = opts.created_at;
   };
 
-  Track.prototype.getScore = function(){
-    var score = this.score + this.pendingVotes;
-    if (this.status === 'new'){
-      score += this.pendingVotes;
-    }
-    return score;
-  };
-
   Track.compare = function(a,b){
     return (b.score - a.score) || (a.created_at - b.created_at);
   };

@@ -26,7 +26,7 @@
 
       <ion-item ng-repeat="track in playlist.tracks | orderTracks" type="item-text-wrap" class="track" ng-class="track.status + ' ' + (track.upvoting ? 'pending' : '')">
         <div class="left score">
-          <strong>{{track.getScore()}}</strong>
+          <strong>{{track.score}}</strong>
         </div>
 
         <div class="right upvote" ng-click="track.upvote()">

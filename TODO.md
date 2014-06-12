@@ -1,13 +1,7 @@
-- remove votes count : timeout per trackid in session (longer)
-- room creation (fuck code choosing, just impose it)
 - player page, with links to app and code along with player
-- debugging :(
-- track directive? (for voting on the search page)
+- room creation : plug the API (and use an input)
+- current track
+- add track timeouts in the session
 - analytics (at least a little)
 - demo room for testing design (random adds in cron)
-
-
-force client reload (and log) on server errors
-
-
-...bug with mulit upvote...
+- bug with multi upvote

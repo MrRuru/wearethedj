@@ -24,7 +24,7 @@ angular.module('app.controllers.login', ['app.services.sync', 'app.services.room
 
       Sync.load(function(){
         $scope.loading = false;
-        $location.path('/tab/playlist');
+        $location.path('/tab/help');
       });
 
     }, function(reason){

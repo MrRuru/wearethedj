@@ -3,18 +3,26 @@
 <ion-view>
   <ion-content>
 
-    <ion-item class="track demo" ng-class="track.status">
-      <div class="left score">
-        <strong>
-          {{ track.score }}
-        </strong>
-      </div>
-      <div class="right upvote" ng-click="track.upvote()">
-        <upvote track="track"></upvote>
-      </div>
-      <h3>Happy</h3>
-      <p>C2C</p>
-    </ion-item>
+    <div class="tracks ion-list">
+      <ion-item class="track demo" ng-class="track.status">
+        <div class="left score">
+          <strong>
+            {{ track.score }}
+          </strong>
+        </div>
+        <div class="right" ng-click="track.upvote()">
+          <upvote track="track"></upvote>
+        </div>
+        <h3>Happy</h3>
+        <p>C2C</p>
+      </ion-item>
+    </div>
+
+    <div class="swipe" ng-class="{displayed: linkToNextPage}">
+      <i class="fa fa-chevron-left"></i>
+      <i class="fa fa-chevron-left"></i>
+      <i class="fa fa-chevron-left"></i>
+    </div>
 
     <ion-slide-box on-slide-changed="slideHasChanged(index)">
 
@@ -24,25 +32,44 @@
       </ion-slide>
 
       <ion-slide>
-        <p class="title">This is a track.<br>Click on the button to raise its score.</p>
-        <p class="subtitle">You can vote for it every 15 seconds.</p>
+        <p class="title">
+          This is a track.<br>
+          <strong>Click</strong> on the button to <strong>raise its score</strong>.
+        </p>
       </ion-slide>
 
       <ion-slide>
-        <p class="title">New tracks are pink.<br>They get double votes.</p>
+        <p class="title">
+          Newly-added tracks are <strong>pink</strong>.<br>
+          Your votes <strong>count double</strong> on them.
+        </p>
       </ion-slide>
 
       <ion-slide>
-        <p class="title">Old tracks are gray.<br>They slowly lose points.</p>
-        <p class="subtitle">Vote for them to bring them back.</p>
+        <p class="title">
+          Old tracks are <strong>gray</strong>.<br>
+          They <strong>lose points</strong> until you vote for them.
+        </p>
       </ion-slide>
 
       <ion-slide>
-        <p class="title">The top track in the list is the one played next.</p>
+        <p class="title">
+          When the current track is finished, <br>
+          the track with the <strong>highest score</strong> is <strong>played next</strong>.
+        </p>
       </ion-slide>
 
       <ion-slide>
-        <p class="title">TODO : links for submenu</p>
+
+        <h1>You're ready!</h1>
+
+        <p class="link">Click on <i class="ion-navicon-round"></i> to <strong>vote</strong> for the next track to play.</p>
+        <p class="link">Click on <i class="ion-plus"></i> to <strong>add</strong> a new track to the playlist</p>
+
+        <div class="downarrow">
+          <i class="fa fa-arrow-down"></i>
+        </div>
+
       </ion-slide>
 
 
