@@ -1,6 +1,7 @@
 - player page, with links to app and code along with player
+- track TTL
+- current track (redis + messages in sync + bootstrap)
 - room creation : plug the API (and use an input)
-- current track
 - add track timeouts in the session
 - analytics (at least a little)
 - demo room for testing design (random adds in cron)
