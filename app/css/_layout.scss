@@ -1,3 +1,7 @@
+$line-height: 72px;
+$padding: 15px;
+$inner-height: ($line-height - 2 * $padding);
+
 html{
   min-height: 100%;
 }
@@ -13,6 +17,24 @@ body{
 input{
   font-family: $basefont;
 }
+
+
+// Title
+.main-title{
+  font-family: $headfont;
+
+  span:nth-child(1){
+    color: $white;
+  }
+  span:nth-child(2){
+    color: $lightmain;
+  }
+  span:nth-child(3){
+    color: $lightmain;    
+  }
+}
+
+
 
 // CONTENT
 .has-tabs{

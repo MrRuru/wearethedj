@@ -1,92 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
 
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/music.css" rel="stylesheet">
 
-  <script type="text/javascript">
+  </head>
 
-    $(function(){
-  
-      changingTrack = false;
-      trackStarted = false;
+  <body>
+    <div id="dz-root"></div>
+
+    <div id="container" class="col-md-7">
+    
+      <div class="main-title">
+        <span>poll</span><span>.</span><span>dance</span>
+      </div>
+
+      <div id="joinroom">
+        <form>
+          <div class="input">
+            <i class="upvote muted">
+              <span class="outer"><span class="inner"></span></span>
+            </i>
+            <input placeholder="Enter your code..."></input>
+          </div>
+        </form>
+      </div>
+
+      <div id="login">
+        <p><a id="login">Login with deezer</a></p>
+      </div>
+
+      <div id="playing">
+        <div id="player" style="width:100%;" align="center"></div>
+
+      </div>
+
+    </div>
+
+    <div id="right-menu" class="col-md-5">
+
+      <div id="menu-joinroom">
+        <h1>Please enter the code for the party</h1>
+      </div>
 
 
-      function nextTrack(){
-        if (changingTrack) {
-          return;
-        }
-        changingTrack = true;
+      <div id="menu-login">
+        <h1>Awesome, now login with a Deezer account</h1>
+      </div>
 
-        $.ajax({
-          url: '/room/myroom/top',
-          type: 'DELETE',
-          success: function(trackId){
-            DZ.player.playTracks([trackId]);
-          }
-        });
-      };
+      <div id="menu-playing">
+        <h1>How to choose the music</h1>
 
-      function onPlayerPos(position){
-        // Pos > 0 : track started
-        if (position > 0 && !trackStarted) {
-          trackStarted = true;
-          changingTrack = false; // Now, nextTrack can be called again
-        }
+        <div class="step">
+          <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
+          <p>Go to <strong>http://poll.dance</strong> on your phone</p>
+        </div>
+        
+        <div class="step">
+          <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
+          <p>Use the code <strong class="code">AZFC123</strong></p>
+        </div>
+      </div>
+   
+    </div>
 
-        // Pos = 0 and track started => it has ended
-        if (position == 0 && trackStarted) {
-          trackStarted = false;
-          nextTrack();
-        }
-      };
-
-      function onPlayerLoaded() {
-
-        DZ.Event.subscribe('player_position', function(pos){
-          onPlayerPos(pos[0]);
-        });
-
-        nextTrack();
-      }
-
-      DZ.init({
-        appId  : '133181',
-        channelUrl : 'http://playlist.mru2.com/channel.html',
-        player : {
-          container : 'player',
-          cover : true,
-          width : 1000,
-          height : 80,
-          playlist: false,
-          onload : onPlayerLoaded
-        }
-      });
-
-      DZ.login(function(response) {
-        if (response.authResponse) {
-          console.log('Welcome!  Fetching your information.... ');
-          DZ.api('/user/me', function(response) {
-            console.log('Good to see you, ' + response.name + '.');
-          });
-        } else {
-          console.log('User cancelled login or did not fully authorize.');
-        }
-      }, {perms: 'manage_library,delete_library'});
-
-    });
-
-  </script>
-</head>
-
-<body>
-
-  <h1>Music player</h1>
-
-  <div id="dz-root"></div>
-  <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
-
-  <div id="player" style="width:100%;" align="center"></div>
-
-</body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!-- Load the sdk -->
+    <script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+    <script type="text/javascript" src="/js/music.js"></script>
+  </body>
 </html>
