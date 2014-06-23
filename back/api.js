@@ -8,6 +8,8 @@ var  express      = require('express')
    , uid          = require('./uid.js')
    , api          = express();
 
+api.use(express.bodyParser());
+
 
 // API : Create a new room
 api.post('/room', function(req, res){
@@ -15,7 +17,7 @@ api.post('/room', function(req, res){
   Q.spawn( function* () {
 
     try{
-      var code = req.query.code;
+      var code = req.body.code;
       if (!code) { res.send(422, 'Missing `code` parameter.'); return; }
 
       var existingRoom = yield Room.findByCode(code);
@@ -45,12 +47,11 @@ api.get('/room', function(req, res){
       if (!code) { res.send(422, 'Missing `code` parameter.'); return; }
 
       var room = yield Room.findByCode(code);
-      if (!room) { res.send(200, null); return; }
+      if (!room) { res.send(404, null); return; }
 
       res.send(200, room.attrs);
     }
     catch (err) {
-      // TODO : log
       console.log('error', err);
       res.send(500, 'Server Error : ' + err.message);
     }
@@ -65,12 +66,15 @@ api.delete('/room/:roomId/top', function(req, res){
   Q.spawn(function* () {
 
     try{
-      var roomId = req.params.roomId;    
+      var roomId = req.params.roomId;
       var playlist = yield Playlist.find(roomId);
       var track = yield playlist.popTopTrack();
 
+      if (!track) { res.send(404); return; }
+
       yield TrackExpirer.deleteTrack(track.id);
-      Sockets.broadcastRoom(roomId, 'playingTrack', track);
+      Sockets.broadcastRoom(roomId, 'playingTrack', track.attrs);
+      Sockets.broadcastRoom(roomId, 'deleteTrack', track.attrs);
 
       res.send(track.attrs);
     }

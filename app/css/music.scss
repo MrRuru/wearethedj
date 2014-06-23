@@ -1,4 +1,4 @@
-@import '../../www/bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
+@import "../../www/bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 @import "colors";
 @import "fonts";
 @import "icons";
@@ -6,7 +6,7 @@
 
 html, body{
   height: 100%;
-  background: red;
+  background-color: $lightback;
 }
 
 .main-title{
@@ -101,6 +101,67 @@ html, body{
   }
 }
 
+#playing{
+
+  .controls{
+    padding: 36px;
+    margin: 0 -15px;
+    background: rgba(0,0,0,0.2);
+    text-align: center;
+    vertical-align: middle;
+    a{
+      color: $white;
+      font-size: 48px;
+      line-height: 48px;
+      margin: 0px 36px;
+      cursor: pointer;
+      &:hover{
+        color: $lightmain;
+      }
+    }
+  }
+
+
+  .current{
+    background: $white;
+    color: lighten($lightback, 10);
+    margin: 0px -15px;
+    padding: 15px;
+
+    h3{
+      margin-top: 0;
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: $lightgray;
+      text-transform: uppercase;
+      font-family: $headfont;
+    }
+
+    .artist, .title{
+      margin-left: 30px;
+      font-size: 28px;
+      display: block;
+      line-height: 1.6em;
+      margin-top: 12px;
+    }
+
+    .title{
+      font-weight: 700;
+      color: $lightmain;
+      margin-top: 30px;
+    }
+
+    .artist{
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+
+  }
+}
+
+
 #right-menu{
   padding-left: 36px;
   height: 100%;
@@ -126,7 +187,7 @@ html, body{
     p{
       font-weight: 300;
       font-style: italic;
-      display: inline-block;
+      display: inline;
       margin-left: 16px;
       font-size: 24px;
       line-height: 42px;

@@ -50,27 +50,30 @@
 
             <section class="signup-form">
                 <div class="container">
-                    <div class="creating" style="display: none;">
-                        <h2>Creating your playlist...</h2>
-                        <div class="spinner">
-                            <i class="spin"><span class="outer"><span class="inner"></span></span></i>
-                        </div>
-                    </div>
 
                     <div class="created" style="display: none;">
-                        <h2>Your playlist is ready!</h2>
-                        <p class="code">The access code is 
-                            <strong class="input"><span class="content" contenteditable="true" id="codeinput">18654</span><span class="append" id="edit-code"><span class="glyphicon glyphicon-pencil"></span></span></strong>                            
-                        </p>
+                        <h2>Choose a code for your party</h2>
 
-                        <div class="link">
-                            <h3>Playlist : <a href="#" target="_blank">http://playl.st/fsd5t</a></h3>
-                            <p>Give this link to the people at the party.</p>
+                        <form id="code-input" action="/room" method="POST">
+                            <input name="code" placeholder="Enter a code here" size="16">
+
+                            </input>
+                            <a id="update">
+                                <i id="submit" class="glyphicon glyphicon-pencil"></i>
+                                <span id="loading">
+                                    <i class="spin"><span class="outer"><span class="inner"></span></span></i>
+                                </span>
+                                <i id="success" class="glyphicon glyphicon-ok"></i>
+                            </a>
+                        </form>
+
+
+                        <div class="why">
+                            <p>You will need it to play the music, and your guests will need it to vote</p>
                         </div>
 
                         <div class="link">
-                            <h3>Music player : <a href="#" target="_blank">http://playl.st/fsd5t</a></h3>
-                            <p>Open this link on the computer plugged to the soundsytem.</p>
+                            <p><strong>Awesome!</strong> Now send your guests to <a href="app.poll.dance" target="_blank">app.poll.dance</a> and go to <a href="music.poll.dance" target="_blank">music.poll.dance</a> to get this party started</p>
                         </div>
 
                     </div>

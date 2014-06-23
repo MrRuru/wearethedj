@@ -118,8 +118,14 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     Playlist.tracks = [];
     Playlist.index = {};
 
+    // Store the current track
+    this.playing = {
+      artist: data.playing.artist,
+      title: data.playing.title
+    }
+
     // Trick for entering them progressively
-    var allTracks = _.map(data, function(trackOpts){
+    var allTracks = _.map(data.tracks, function(trackOpts){
       return new Track(trackOpts);
     });
 
@@ -151,6 +157,8 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   };
 
   Playlist.playingTrack = function(trackOpts){
+    console.log('playist is playing', trackOpts);
+
     Playlist.playing = {
       title: trackOpts.title,
       artist: trackOpts.artist

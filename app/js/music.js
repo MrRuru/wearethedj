@@ -3,7 +3,7 @@
 
 // The actual deezer player wrapper
 var Player = {
-  playTrack: function(trackId){
+  loadTrack: function(trackId){
     DZ.player.playTracks([trackId]);
   },
 
@@ -11,7 +11,7 @@ var Player = {
     DZ.player.pause();
   },
 
-  resume: function(){
+  play: function(){
     DZ.player.play();
   }
 }
@@ -23,6 +23,7 @@ var Controller = {
   isInitialized: false,
   roomId: null,
   isLoggedIn: false,
+  currentTrack: null,
 
   initialized: function(){ return this.isInitialized; },
   roomSet: function(){ return this.roomId !== null; },
@@ -35,16 +36,12 @@ var Controller = {
   init: function(){
     var self = this;
 
-    console.log('initializing');
+    console.log('initializing controller');
 
     DZ.init({
       appId  : '133181',
       channelUrl : ('http://' + window.location.host + '/channel.html'),
       player : {
-        container : 'player',
-        cover : true,
-        width : 1000,
-        height : 80,
         playlist: false,
         onload : function(){
           // Watch the track position
@@ -54,9 +51,7 @@ var Controller = {
 
           // Update the view
           self.isInitialized = true;
-          View.render();
-
-          console.log('initialized');
+          View.showLanding();
         }
       }
     });
@@ -66,13 +61,21 @@ var Controller = {
 
     var self = this;
 
-    // Simulate OK xhr
-    setTimeout(function(){
-
-      self.roomId = '1234';
-      View.render();
-
-    }, 1000);
+    $.ajax({
+      url: '/room',
+      data: {
+        code: code
+      },
+      dataType: 'json',
+      success: function(room){
+        self.roomId = room.id;
+        View.showLogin();
+        onSuccess();
+      },
+      error: function(){
+        onError('Invalid code');
+      }
+    });
 
   },
 
@@ -88,7 +91,7 @@ var Controller = {
 
           // Update the view
           self.isLoggedIn = true;
-          View.render();
+          View.showPlayer();
 
         });
       } else {
@@ -98,14 +101,21 @@ var Controller = {
   },
 
   play: function(){
-    // Handle first track : need to be fetched
+    if (!this.currentTrack) {
+      this.loadNextTrack();
+    }
+    else{
+      Player.play();
+      View.setPlaying();
+    }
   },
 
   pause: function(){
-    Player.pause()
+    Player.pause();
+    View.setPaused();
   },
 
-  next: function(){
+  loadNextTrack: function(){
 
     // Do not destroy the top playlist
     if (this.fetchingNext) { return false; }
@@ -113,10 +123,13 @@ var Controller = {
 
     var self = this;
     $.ajax({
-      url: '/room/myroom/top',
+      url: '/room/' + this.roomId + '/top',
       type: 'DELETE',
-      success: function(trackId){
-        self.setTrack(trackId);
+      success: function(track){
+        Player.loadTrack(track.id);
+        self.currentTrack = track;
+        View.updateTrack(track);
+        View.setPlaying();
       }
     });
   },
@@ -131,7 +144,7 @@ var Controller = {
 
     // Pos == 0 : it's the end
     if (position === 0) {
-      this.next();
+      this.loadNextTrack();
     }
   }
 
@@ -142,17 +155,33 @@ var View = {
 
   init: function(cb){
 
+    console.log('initializing view');
+
     // Store dom elements
     this.joinRoomCont = $('#joinroom, #menu-joinroom');
     this.joinRoomSpinner = $('#joinroom .upvote');
     this.loginCont = $('#login, #menu-login');
     this.playingCont = $('#playing, #menu-playing');
+    this.currentTrackCont = $('#playing .current');
+
 
     var self = this;
 
     // Bind events
-    this.loginCont.on('click', function(){
+    this.loginCont.find('a').on('click', function(){
       Controller.login();
+    });
+
+    this.playingCont.find('#play').on('click', function(){
+      Controller.play();      
+    });
+
+    this.playingCont.find('#pause').on('click', function(){
+      Controller.pause();      
+    });
+
+    this.playingCont.find('#next').on('click', function(){
+      Controller.loadNextTrack();
     });
 
     this.joinRoomCont.on('click', function(){
@@ -179,7 +208,7 @@ var View = {
         // Error
         function(error){
           self.joinRoomSpinner.removeClass('spin');
-          alert('Erreur : ' + error);
+          alert('Error : ' + error);
         }
       );
     });
@@ -194,31 +223,40 @@ var View = {
     $('#container').show()
   },
 
-  render: function(){
-  
-    console.log('rendering');
+  showLanding: function(){
     var self = this;
+    self.joinRoomCont.fadeIn('slow');
+    return;
+  },
 
-    // Handle the different statuses
-    if (Controller.loggedIn()) {
-      self.loginCont.fadeOut('slow', function(){
-        self.playingCont.fadeIn('slow');
-      });
-      return;
-    }
+  showLogin: function(){
+    var self = this;
+    self.joinRoomCont.fadeOut('slow', function(){
+      self.loginCont.fadeIn('slow');
+    });
+  },
 
-    if (Controller.roomSet()) {
-      self.joinRoomCont.fadeOut('slow', function(){
-        self.loginCont.fadeIn('slow');
-      });
-      return;
-    }
+  showPlayer: function(){
+    var self = this;
+    self.playingCont.find('#pause').hide();
+    self.loginCont.fadeOut('slow', function(){
+      self.playingCont.fadeIn('slow');
+    });
+  },
 
-    if (Controller.initialized()) {
-      self.joinRoomCont.fadeIn('slow');
-      return;
-    };
+  updateTrack: function(track){
+    this.currentTrackCont.find('.artist').html(track.artist);
+    this.currentTrackCont.find('.title').html(track.title);
+  },
 
+  setPlaying: function(){
+    this.playingCont.find('#play').hide();
+    this.playingCont.find('#pause').show();
+  },
+
+  setPaused: function(){
+    this.playingCont.find('#pause').hide();
+    this.playingCont.find('#play').show();
   }
 
 };

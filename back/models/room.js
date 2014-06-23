@@ -14,10 +14,12 @@ var Q     = require('q'),
 // Initializer
 // Only called at creation and when fetching via id
 // The id and code are the same thing BTW
-var Room = function(id, code){
+var Room = function(id, code, currentArtist, currentTitle){
   this.attrs = {
     id: id,
-    code: code
+    code: code,
+    currentArtist: currentArtist,
+    currentTitle: currentTitle
   };
 };
 
@@ -32,6 +34,20 @@ Room.prototype.trackIds = Q.async( function* () {
 
 });
 
+Room.prototype.getTopTrack = Q.async( function* () {
+  var trackIds = yield this.trackIds();
+  console.log('track Ids : ', trackIds);
+  return trackIds[0];
+});
+
+Room.prototype.setCurrentTrack = Q.async( function* (artist, title) {
+
+  yield Redis.hmset(Redis.room(this.attrs.id), {
+    'c_artist': artist,
+    'c_title': title
+  });  
+
+});
 
 
 // ======= //
@@ -42,11 +58,11 @@ Room.prototype.trackIds = Q.async( function* () {
 Room.get = Q.async( function* (id) {
 
   // Get the code
-  var code = yield Redis.hget( Redis.room(id), 'code');
+  var attrs = yield Redis.hgetall( Redis.room(id) );
 
-  if (!code) { return null; }
+  if (!attrs) { return null; }
 
-  return new Room(id, code);
+  return new Room(id, attrs['code'], attrs['c_artist'], attrs['c_title']);
 
 });
 
@@ -61,13 +77,17 @@ Room.create = Q.async( function* (code) {
   }
 
   // Create the room
-  yield Redis.hset(Redis.room(id), 'code', code);
+  yield Redis.hmset(Redis.room(id), {
+    'code': code,
+    'c_artist': '',
+    'c.title': ''
+  });
 
   // Add the code in the index
   yield Redis.hset(Redis.codes(), code, id);
 
   // Return the room
-  return new Room(id, code);
+  return new Room(id, code, '', '');
 
 });
 

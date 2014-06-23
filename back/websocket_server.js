@@ -93,7 +93,7 @@ io.sockets.on('connection', function(socket){
       }
 
       var tracks = yield playlist.tracks();
-      socket.emit('bootstrap', tracks);
+      socket.emit('bootstrap', {tracks: tracks, playing: playlist.getCurrentTrack()});
 
     });
   });

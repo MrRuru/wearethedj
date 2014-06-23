@@ -54,6 +54,31 @@ Playlist.prototype.getTrack = function(trackId) {
 
 };
 
+Playlist.prototype.popTopTrack = Q.async( function* (trackId) {
+
+  var topTrackId = yield this.room.getTopTrack();
+  var topTrack = yield Track.get(this.room.attrs.id, topTrackId);
+
+  if (!topTrack) { return null; }
+
+  // Destroy it
+  yield topTrack.destroy();
+
+  // Update the room
+  yield this.room.setCurrentTrack(topTrack.attrs.artist, topTrack.attrs.title);
+
+  return topTrack;
+
+});
+
+Playlist.prototype.getCurrentTrack = function(){
+  return {
+    artist: this.room.attrs.currentArtist,
+    title: this.room.attrs.currentTitle
+  };
+};
+
+
 PlaylistService.find = Q.async( function* (roomId) {
 
   console.log('getting room with id', roomId);

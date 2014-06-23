@@ -41,10 +41,10 @@ var Track = function(attrs) {
 Track.prototype.destroy = Q.async( function* () {
 
   // Remove it from the playlist
-  yield Redis.zrem( Redis.playlist(this.roomId), this.id );
+  yield Redis.zrem( Redis.playlist(this.attrs.roomId), this.attrs.id );
 
   // Clear its attributes
-  yield Redis.del( Redis.track(this.roomId, this.id) );
+  yield Redis.del( Redis.track(this.attrs.roomId, this.attrs.id) );
 
 });
 

@@ -48,14 +48,13 @@ Sockets.register = function(socket){
   }
 
   // Store the socket object
-  _sockets[roomId] = _sockets[roomId] || {};
-  _sockets[roomId][userId] = socket;
+  _sockets[userId] = socket
 
   // Add listeners
+  var context = new Context(userId, roomId);
   _.each(_listeners, function(listener){
 
     socket.on(listener.name, function(data, cb){
-      var context = new Context(userId, roomId);
       listener.cb(context, data, cb);
     });
 
@@ -68,14 +67,13 @@ Sockets.unregister = function(socket){
 
   // Get the userId and roomId
   var userId = socket.userId;
-  var roomId = socket.roomId;
 
-  if (!userId || !roomId || !_sockets[roomId] || !_sockets[roomId][userId]) {
-    console.log('[SOCKETS] Trying to unregister an invalid socket. userId is ' + userId + ' roomId is ' + roomId);
+  if (!userId || !_sockets[userId]) {
+    console.log('[SOCKETS] Trying to unregister an invalid socket. userId is ' + userId);
     return;
   }
 
-  delete _sockets[roomId][userId];
+  delete _sockets[userId];
 
   console.log('Deleted socket. All are : ', _sockets);
 };

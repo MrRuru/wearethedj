@@ -88,18 +88,21 @@ section {
     .created{
         transition: opacity 300ms linear;
         opacity: 0;
-        p.code{
-            font-size: 1.6em;
-            margin-bottom: 2.4em;
+
+        p{
+            font-style: italic;
         }
 
         .link{
-            margin: 1.6em 0;
             h3{
                 margin-bottom: 0.2em;
             }
             p{
-                font-style: italic;
+                strong{
+                    font-family: $headfont;
+                    font-style: normal;
+                }
+                font-size: 1.4em;
             }
             a{
                 color: $white;
@@ -111,59 +114,77 @@ section {
             }
         }
 
-        strong{
-            display: inline-block;
+        .why p{
             font-size: 1.6em;
-            height: 1.6em;
-            line-height: 1em;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        #loading i{
+            z-index: 2;
+            @extend .upvote;
+            height: 50px;
+            width: 50px;
+            display: inline-block;
+            padding: 4px;
+            .outer{ border-color: $lightmain; }
+            .inner{ border-color: $lightmain; }
+        }
+
+        #code-input{
+
+            display: inline-block;
+            font-size: 28px;
+            height: 50px;
+            line-height: 50px;
             font-family: $headfont;
-            margin: 0 0.5em;
             border: 4px solid $white;
             color: $white;
-            background: transparent;
             box-sizing: content-box;
-            // width: auto;
+            margin: 1.6em 0em;
 
-            .content{
+            input{
                 display: inline-block;
-                font-size: 1em;
-                height: 1.6em;
-                line-height: 1.6em;
                 margin: 0;
-                padding: 0 0.8em;
+                padding: 0 16px;
+                border: none;
+                background: transparent;
+                float: left;
+                outline: none;
+
+                &::-moz-placeholder {  /* Firefox 19+ */
+                  color: $white; 
+                  opacity: 0.8; 
+                }
+
+                &::-webkit-input-placeholder {
+                  color: $white;  
+                  opacity: 0.8; 
+                }
             }
 
-            .append{
+            #update{
+                &:hover{
+                    text-decoration: none;
+                }
                 display: inline-block;
                 background: $white;
                 color: $lightmain;
-                font-size: 1em;
-                height: 1.6em;
-                width: 1.6em;
+                font-size: 42px;
+                height: 50px;
+                width: 54px;
                 text-align: center;
-                line-height: 1.6em;
+                line-height: 42px;
                 margin: 0;
                 padding: 0;
-                cursor: pointer;
-                span{
+                padding-left: 4px;
+                cursor: pointer;                
+                i{
                     font-size: 60%;
                 }
             }
         }
 
-        small{
-            font-size: 0.5em;
-            a{
-                color: $white;
-                opacity: 0.6;
-                text-decoration: underline;
-
-                &:hover{
-                    opacity: 1;
-                    text-decoration: none;
-                }
-            }
-        }
     }
 }
 
@@ -202,6 +223,7 @@ section {
             color: $white;
             border: 0.15em solid $white;
             transition: all 100ms linear;
+            font-family: $headfont;
 
             &:hover{
                 text-decoration: none;

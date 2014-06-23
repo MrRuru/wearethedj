@@ -252,6 +252,7 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("bootstrap/glyphicons-halflings-regular.eot");
   src: url("bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+
 .glyphicon {
   position: relative;
   top: 1px;
@@ -876,7 +877,7 @@ th {
 
 html {
   font-size: 62.5%;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -3986,6 +3987,7 @@ a.thumbnail.active {
 
   to {
     background-position: 0 0; } }
+
 .progress {
   overflow: hidden;
   height: 20px;
@@ -4943,7 +4945,7 @@ button.close {
     border-radius: 10px;
     cursor: pointer;
     background-color: #000 \9;
-    background-color: transparent; }
+    background-color: rgba(0, 0, 0, 0); }
   .carousel-indicators .active {
     margin: 0;
     width: 12px;
@@ -5029,6 +5031,7 @@ button.close {
 
 @-ms-viewport {
   width: device-width; }
+
 .visible-xs, .visible-sm, .visible-md, .visible-lg {
   display: none !important; }
 
@@ -5199,6 +5202,7 @@ button.close {
 @font-face {
   font-family: 'Komikax';
   src: url(/fonts/KOMIKAX_.ttf); }
+
 i.upvote {
   display: inline-block;
   height: 42px;
@@ -5240,12 +5244,14 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(360deg); } }
+
 @-webkit-keyframes spin-reverse {
   from {
     -webkit-transform: rotate(0deg); }
 
   to {
     -webkit-transform: rotate(-360deg); } }
+
 upvote {
   width: 42px;
   height: 42px; }
@@ -5259,7 +5265,7 @@ html {
 
 body {
   background: #2c3e50;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
   color: #ecf0f1;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
@@ -5318,7 +5324,7 @@ input {
 
 html, body {
   height: 100%;
-  background: red; }
+  background-color: #34495e; }
 
 .main-title {
   text-align: center;
@@ -5331,7 +5337,7 @@ html, body {
 #container {
   height: 100%;
   background-color: #34495e;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
   color: #ecf0f1; }
   #container #joinroom {
     margin: 0px -15px; }
@@ -5384,6 +5390,48 @@ html, body {
         border-color: #703688;
         color: white; }
 
+#playing .controls {
+  padding: 36px;
+  margin: 0 -15px;
+  background: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  vertical-align: middle; }
+  #playing .controls a {
+    color: #ecf0f1;
+    font-size: 48px;
+    line-height: 48px;
+    margin: 0px 36px;
+    cursor: pointer; }
+    #playing .controls a:hover {
+      color: #9b59b6; }
+#playing .current {
+  background: #ecf0f1;
+  color: #46627f;
+  margin: 0px -15px;
+  padding: 15px; }
+  #playing .current h3 {
+    margin-top: 0;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #bdc3c7;
+    text-transform: uppercase;
+    font-family: "Montserrat"; }
+  #playing .current .artist, #playing .current .title {
+    margin-left: 30px;
+    font-size: 28px;
+    display: block;
+    line-height: 1.6em;
+    margin-top: 12px; }
+  #playing .current .title {
+    font-weight: 700;
+    color: #9b59b6;
+    margin-top: 30px; }
+  #playing .current .artist {
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 30px; }
+
 #right-menu {
   padding-left: 36px;
   height: 100%;
@@ -5403,7 +5451,7 @@ html, body {
     #right-menu .step p {
       font-weight: 300;
       font-style: italic;
-      display: inline-block;
+      display: inline;
       margin-left: 16px;
       font-size: 24px;
       line-height: 42px;
