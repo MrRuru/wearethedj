@@ -44,7 +44,7 @@ $('#launch, #launch-bottom').on('click', function(){
         codeForm.find('#loading').show();
 
         $.ajax({
-            url: 'http://local.poll.dance:8001/room',
+            url: 'http://api.poll.dance/room',
             method: 'POST',
             dataType: 'json',
             contentType : 'application/json',

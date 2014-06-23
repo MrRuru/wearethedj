@@ -62,7 +62,7 @@ var Controller = {
     var self = this;
 
     $.ajax({
-      url: '/room',
+      url: 'http://api.poll.dance/room',
       data: {
         code: code
       },
@@ -123,7 +123,7 @@ var Controller = {
 
     var self = this;
     $.ajax({
-      url: '/room/' + this.roomId + '/top',
+      url: 'http://api.poll.dance/room/' + this.roomId + '/top',
       type: 'DELETE',
       success: function(track){
         Player.loadTrack(track.id);
