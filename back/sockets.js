@@ -31,8 +31,10 @@ Sockets.on = function(event, cb){
 };
 
 Sockets.broadcastRoom = function(roomId, event, data){
-  _.each(_sockets[roomId], function(socket){
-    socket.emit(event, data);
+  _.each(_sockets, function(socket){
+    if (socket.roomId === roomId) {
+      socket.emit(event, data);
+    }
   });
 };
 
@@ -48,7 +50,8 @@ Sockets.register = function(socket){
   }
 
   // Store the socket object
-  _sockets[userId] = socket
+  socket.roomId = roomId;
+  _sockets[userId] = socket;
 
   // Add listeners
   var context = new Context(userId, roomId);
