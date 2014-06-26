@@ -252,7 +252,6 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("bootstrap/glyphicons-halflings-regular.eot");
   src: url("bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-
 .glyphicon {
   position: relative;
   top: 1px;
@@ -877,7 +876,7 @@ th {
 
 html {
   font-size: 62.5%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: transparent; }
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -3987,7 +3986,6 @@ a.thumbnail.active {
 
   to {
     background-position: 0 0; } }
-
 .progress {
   overflow: hidden;
   height: 20px;
@@ -4945,7 +4943,7 @@ button.close {
     border-radius: 10px;
     cursor: pointer;
     background-color: #000 \9;
-    background-color: rgba(0, 0, 0, 0); }
+    background-color: transparent; }
   .carousel-indicators .active {
     margin: 0;
     width: 12px;
@@ -5031,7 +5029,6 @@ button.close {
 
 @-ms-viewport {
   width: device-width; }
-
 .visible-xs, .visible-sm, .visible-md, .visible-lg {
   display: none !important; }
 
@@ -5202,7 +5199,6 @@ button.close {
 @font-face {
   font-family: 'Komikax';
   src: url(/fonts/KOMIKAX_.ttf); }
-
 i.upvote {
   display: inline-block;
   height: 42px;
@@ -5244,14 +5240,12 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(360deg); } }
-
 @-webkit-keyframes spin-reverse {
   from {
     -webkit-transform: rotate(0deg); }
 
   to {
     -webkit-transform: rotate(-360deg); } }
-
 upvote {
   width: 42px;
   height: 42px; }
@@ -5265,7 +5259,7 @@ html {
 
 body {
   background: #2c3e50;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
   color: #ecf0f1;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
@@ -5334,61 +5328,119 @@ html, body {
   margin-bottom: 108px;
   text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25); }
 
-#container {
+#container, #right-menu {
+  position: relative; }
+
+#container .step {
+  width: 100%;
+  position: absolute;
+  left: 100%;
+  opacity: 0;
+  transition: all 300ms; }
+  #container .step.active {
+    left: 0;
+    opacity: 1; }
+
+#right-menu .step {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  right: 100%;
+  transition: all 300ms; }
+  #right-menu .step.active {
+    opacity: 1;
+    right: 0; }
+
+.left-side {
   height: 100%;
   background-color: #34495e;
-  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
-  color: #ecf0f1; }
-  #container #joinroom {
-    margin: 0px -15px; }
-    #container #joinroom.focus .input {
-      background: #ecf0f1;
-      border-color: #ecf0f1; }
-    #container #joinroom.focus i {
-      color: #9b59b6; }
-    #container #joinroom .input {
-      border: 0;
-      border-top: 1px solid #7f8c8d;
-      border-bottom: 1px solid #7f8c8d;
-      background: transparent;
-      transition: all 300ms;
-      padding: 15px; }
-      #container #joinroom .input .upvote {
-        margin-right: 15px; }
-    #container #joinroom input {
-      height: 42px;
-      font-size: 18px;
-      line-height: 42px;
-      color: #2c3e50;
-      background: transparent;
-      border: none;
-      padding: 0;
-      font-weight: 300; }
-      #container #joinroom input:focus {
-        outline: none; }
-  #container #login {
-    text-align: center; }
-    #container #login a {
-      display: inline-block;
-      font-size: 1.6em;
-      margin: 0;
-      font-weight: 700;
-      font-family: "Montserrat";
-      text-transform: uppercase;
-      padding: 0 1.6em;
-      height: 3.2em;
-      line-height: 3.2em;
-      cursor: pointer;
-      background: #9b59b6;
-      border-radius: 0.2em;
-      color: #ecf0f1;
-      border-bottom: 0.2em solid #8e44ad;
-      transition: all 200ms linear; }
-      #container #login a:hover {
-        text-decoration: none;
-        background: #804399;
-        border-color: #703688;
-        color: white; }
+  background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(0, 0, 0, 0.4) 0%, transparent 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba(142, 68, 173, 0.4) 0%, rgba(142, 68, 173, 0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba(127, 140, 141, 0.3) 0%, rgba(127, 140, 141, 0) 70%);
+  color: #ecf0f1;
+  z-index: 2;
+  overflow: hidden; }
+
+#container #joinroom hr {
+  border-color: rgba(255, 255, 255, 0.1); }
+#container #joinroom label {
+  display: block;
+  font-size: 18px;
+  line-height: 1.6em;
+  font-weight: 300;
+  margin-top: 1.6em;
+  font-style: italic;
+  text-align: left; }
+#container #joinroom input {
+  display: block;
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+  color: #ecf0f1;
+  background: transparent;
+  border: none;
+  border-bottom: 4px solid #ecf0f1;
+  padding: 0;
+  padding-bottom: 6px;
+  font-weight: 300;
+  letter-spacing: 2px; }
+  #container #joinroom input:focus {
+    outline: none;
+    border-color: #9b59b6; }
+#container #joinroom #conflict {
+  margin-top: 4em;
+  font-weight: 400;
+  font-size: 18px; }
+  #container #joinroom #conflict h3 {
+    font-family: "Montserrat";
+    font-size: 32px;
+    margin-bottom: 1em;
+    color: #e74c3c;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2); }
+  #container #joinroom #conflict p {
+    font-weight: 400; }
+  #container #joinroom #conflict a {
+    display: block;
+    color: #ecf0f1;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin: 18px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px; }
+    #container #joinroom #conflict a:hover {
+      text-decoration: none;
+      color: white; }
+    #container #joinroom #conflict a.cancel {
+      margin-top: 36px;
+      background: #25a25a; }
+      #container #joinroom #conflict a.cancel:hover {
+        background: #2ecc71; }
+    #container #joinroom #conflict a.confirm {
+      background: #a04000; }
+      #container #joinroom #conflict a.confirm:hover {
+        background: #d35400; }
+#container #login {
+  text-align: center; }
+  #container #login a {
+    display: inline-block;
+    font-size: 1.6em;
+    margin: 0;
+    font-weight: 700;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    padding: 0 1.6em;
+    height: 3.2em;
+    line-height: 3.2em;
+    cursor: pointer;
+    background: #9b59b6;
+    border-radius: 0.2em;
+    color: #ecf0f1;
+    border-bottom: 0.2em solid #8e44ad;
+    transition: all 200ms linear; }
+    #container #login a:hover {
+      text-decoration: none;
+      background: #804399;
+      border-color: #703688;
+      color: white; }
 
 #playing .controls {
   padding: 36px;
@@ -5432,35 +5484,43 @@ html, body {
     font-style: italic;
     margin-bottom: 30px; }
 
-#right-menu {
+.right-side {
   padding-left: 36px;
   height: 100%;
   background: #ecf0f1;
-  color: #7f8c8d; }
-  #right-menu h1 {
-    font-weight: 700;
-    font-family: "Montserrat";
-    margin-top: 108px;
-    margin-bottom: 54px;
-    line-height: 54px;
-    color: #46627f; }
-    #right-menu h1 span {
-      color: #8e44ad; }
-  #right-menu .step {
-    margin: 36px 0px; }
-    #right-menu .step p {
-      font-weight: 300;
-      font-style: italic;
-      display: inline;
-      margin-left: 16px;
-      font-size: 24px;
-      line-height: 42px;
-      vertical-align: middle;
-      margin-bottom: 0;
-      color: #596a75; }
-      #right-menu .step p strong {
+  color: #7f8c8d;
+  overflow: hidden; }
+
+#right-menu h1 {
+  font-weight: 700;
+  font-family: "Montserrat";
+  margin-top: 108px;
+  margin-bottom: 54px;
+  line-height: 54px;
+  color: #46627f; }
+  #right-menu h1 span {
+    color: #8e44ad; }
+#right-menu .instruction {
+  margin: 36px 0px; }
+  #right-menu .instruction p {
+    font-weight: 300;
+    font-style: italic;
+    display: inline;
+    margin-left: 16px;
+    font-size: 24px;
+    line-height: 42px;
+    vertical-align: middle;
+    margin-bottom: 0;
+    color: #596a75; }
+    #right-menu .instruction p strong {
+      color: #8e44ad;
+      font-weight: 700;
+      font-style: normal;
+      font-family: "Montserrat";
+      margin: 0px 4px; }
+      #right-menu .instruction p strong a {
         color: #8e44ad;
-        font-weight: 700;
-        font-style: normal;
-        font-family: "Montserrat";
-        margin: 0px 4px; }
+        border-bottom: 4px solid #8e44ad; }
+        #right-menu .instruction p strong a:hover {
+          text-decoration: none;
+          border-bottom: none; }

@@ -32,7 +32,7 @@ api.post('/room', function(req, res){
       if (!code) { res.send(422, 'Missing `code` parameter.'); return; }
 
       var existingRoom = yield Room.findByCode(code);
-      if( !!existingRoom) { res.send(422, 'Code already taken.'); return; }
+      if( !!existingRoom) { res.send(409, existingRoom.attrs); return; }
 
       var room = yield Room.create(code);
       res.send(201, room.attrs);

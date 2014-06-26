@@ -11,68 +11,86 @@
   <body>
     <div id="dz-root"></div>
 
-    <div id="container" class="col-md-7">
-    
-      <div class="main-title">
-        <span>poll</span><span>.</span><span>dance</span>
-      </div>
+    <div class="col-md-7 left-side">
+      <div id="container">
+      
+        <div class="main-title">
+          <span>poll</span><span>.</span><span>dance</span>
+        </div>
 
-      <div id="joinroom">
-        <form>
-          <div class="input">
-            <i class="upvote muted">
-              <span class="outer"><span class="inner"></span></span>
-            </i>
-            <input placeholder="Enter your code..."></input>
+        <div id="main-cont">
+
+          <div id="joinroom" class="step step-room-login">
+            <div class="col-md-8 col-md-offset-2">
+              <form>
+                <input placeholder="Choose an access code..." size="24" id="access_code"></input>
+                <label for="access_code">Your guests will need it to vote for the music</label>
+              </form>
+
+              <div id="conflict">
+                <h3>Code already used</h3>
+                <p>Someone is already using this code. Issues WILL arise if two parties are using the same code at the same time.</p>
+                
+                <a class="cancel" id="choose-other-code">
+                  Choose another code
+                </a>
+
+                <a class="confirm" id="continue-with-code">
+                  I know what I'm doing
+                </a>
+
+              </div>
+            </div>
           </div>
-        </form>
-      </div>
 
-      <div id="login">
-        <p><a>Login with deezer</a></p>
-      </div>
+          <div id="login" class="step step-deezer-login">
+            <p><a>Login with deezer</a></p>
+          </div>
 
-      <div id="playing">
+          <div id="playing" class="step step-player">
 
-        <div class="current">
-          <h3>Currently playing</h3>
+            <div class="current">
+              <h3>Currently playing</h3>
 
-          <span class="title">Nothing yet</span>
-          <span class="artist">Let's start this</span>
+              <span class="title">Nothing yet</span>
+              <span class="artist">Let's start this</span>
+            </div>
+
+            <div class="controls">
+              <a id="play"><i class="fa fa-play"></i></a>
+              <a id="pause"><i class="fa fa-pause"></i></a>
+              <a id="next"><i class="fa fa-step-forward"></i></a>
+            </div>
+
+          </div>
         </div>
-
-        <div class="controls">
-          <a id="play"><i class="fa fa-play"></i></a>
-          <a id="pause"><i class="fa fa-pause"></i></a>
-          <a id="next"><i class="fa fa-step-forward"></i></a>
-        </div>
-
       </div>
-
     </div>
 
-    <div id="right-menu" class="col-md-5">
+    <div class="col-md-5 right-side">
+      <div id="right-menu">
 
-      <div id="menu-joinroom">
-        <h1>Please enter the code for the party</h1>
-      </div>
-
-
-      <div id="menu-login">
-        <h1>Awesome, now login with a Deezer account</h1>
-      </div>
-
-      <div id="menu-playing">
-        <h1>How to choose the music</h1>
-
-        <div class="step">
-          <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
-          <p>Go to <strong>http://poll.dance</strong> on your phone</p>
+        <div id="menu-joinroom" class="step step-room-login">
+          <h1>Please choose an access code for the party.</h1>
         </div>
-        
-        <div class="step">
-          <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
-          <p>Use the code <strong class="code">AZFC123</strong></p>
+
+
+        <div id="menu-login" class="step step-deezer-login">
+          <h1>Awesome, now login with a Deezer account</h1>
+        </div>
+
+        <div id="menu-playing" class="step step-player">
+          <h1>How to choose the music</h1>
+
+          <div class="instruction">
+            <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
+            <p>Go to <strong><a href="http://app.poll.dance" target="_blank" id="app_link">http://app.poll.dance</a></strong> on your phone</p>
+          </div>
+          
+          <div class="instruction">
+            <i class="upvote"><span class="outer"><span class="inner"></span></span></i>
+            <p>Use the code <strong class="code">AZFC123</strong></p>
+          </div>
         </div>
       </div>
    

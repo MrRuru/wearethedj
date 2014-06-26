@@ -57,12 +57,13 @@ var Controller = {
     });
   },
 
-  setRoom: function(code, onSuccess, onError){
+  setRoom: function(code, onSuccess, onConflict, onError){
 
     var self = this;
 
     $.ajax({
       url: 'http://app.poll.dance/room',
+      method: 'POST',
       data: {
         code: code
       },
@@ -72,8 +73,17 @@ var Controller = {
         View.showLogin();
         onSuccess();
       },
-      error: function(){
-        onError('Invalid code');
+      error: function(res){
+        console.log(res);
+
+        // 409 conflict : propose to use the room anyway
+        if (res.status === 409) {
+          self.roomId = res.responseJSON.id;
+          onConflict();
+          return;
+        }
+
+        onError('An error happened : ' + res.responseText);
       }
     });
 
@@ -130,6 +140,11 @@ var Controller = {
         self.currentTrack = track;
         View.updateTrack(track);
         View.setPlaying();
+      },
+      error: function(res){
+        if (res.status === 404) { 
+          alert('The playlist is empty :(  Follow the instructions on the right to add some tracks and try again.')
+        }
       }
     });
   },
@@ -163,7 +178,7 @@ var View = {
     this.loginCont = $('#login, #menu-login');
     this.playingCont = $('#playing, #menu-playing');
     this.currentTrackCont = $('#playing .current');
-
+    this.conflictCont = $('#conflict');
 
     var self = this;
 
@@ -182,6 +197,11 @@ var View = {
 
     this.playingCont.find('#next').on('click', function(){
       Controller.loadNextTrack();
+    });
+
+    this.playingCont.find('#app_link').on('click', function(e){
+      e.preventDefault();
+      window.open($(this).attr('href'), 'poll.dance', 'scrollbars=yes,width=640,height=960');
     });
 
     this.joinRoomCont.on('click', function(){
@@ -205,6 +225,11 @@ var View = {
           $('.code').html(code);
         },
 
+        // Conflict
+        function(){
+          self.conflictCont.fadeIn('slow');          
+        },
+
         // Error
         function(error){
           self.joinRoomSpinner.removeClass('spin');
@@ -213,35 +238,39 @@ var View = {
       );
     });
 
+    $('#choose-other-code').on('click', function(){
+      $('#conflict').hide();
+      $('#access_code').val(null).focus();
+    });
 
-    // Hide them
-    this.joinRoomCont.hide();
-    this.loginCont.hide();
-    this.playingCont.hide();
+    $('#continue-with-code').on('click', function(){
+      var code = $('#access_code').val();
+      $('.code').html(code);
+      View.showLogin();
+    });
+
+
+    // Prepare the hidden elements
+    this.playingCont.find('#pause').hide();
+    this.conflictCont.hide();
 
     // Show the container
     $('#container').show()
   },
 
   showLanding: function(){
-    var self = this;
-    self.joinRoomCont.fadeIn('slow');
-    return;
+    $('.step').removeClass('active');
+    $('.step-room-login').addClass('active');
   },
 
   showLogin: function(){
-    var self = this;
-    self.joinRoomCont.fadeOut('slow', function(){
-      self.loginCont.fadeIn('slow');
-    });
+    $('.step').removeClass('active');
+    $('.step-deezer-login').addClass('active');
   },
 
   showPlayer: function(){
-    var self = this;
-    self.playingCont.find('#pause').hide();
-    self.loginCont.fadeOut('slow', function(){
-      self.playingCont.fadeIn('slow');
-    });
+    $('.step').removeClass('active');
+    $('.step-player').addClass('active');
   },
 
   updateTrack: function(track){
