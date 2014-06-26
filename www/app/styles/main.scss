@@ -49,145 +49,6 @@ section {
 }
 
 
-.signup-form{
-    z-index: -1;
-    opacity: 0;
-    // height: 457px; // to remove
-
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background: $lightmain;
-    transition: opacity 300ms linear;
-    color: $white;
-
-    // background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(black, 0.2) 0%, rgba(black, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba($darkmain, 0.4) 0%, rgba($darkmain,0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba($white, 0.3) 0%, rgba($white,0) 70%);
-
-    // p{ font-weight: 400; }
-
-
-    .creating{
-        transition: opacity 300ms linear;
-        opacity: 0;
-        h2{
-            font-size: 1.6em;
-            margin-top: 4em;
-            text-align: center;
-        }
-
-        .spinner{
-            text-align: center;
-            i{
-                @extend .upvote;
-                .outer{ border-color: $white; }
-                .inner{ border-color: $white; }       
-            }
-        }
-    }
-
-    .created{
-        transition: opacity 300ms linear;
-        opacity: 0;
-
-        p{
-            font-style: italic;
-        }
-
-        .link{
-            h3{
-                margin-bottom: 0.2em;
-            }
-            p{
-                strong{
-                    font-family: $headfont;
-                    font-style: normal;
-                }
-                font-size: 1.4em;
-            }
-            a{
-                color: $white;
-                text-decoration: none;
-                border-bottom: 0.2em solid $white;
-                &:hover{
-                    border-bottom: none;
-                }
-            }
-        }
-
-        .why p{
-            font-size: 1.6em;
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        #loading i{
-            z-index: 2;
-            @extend .upvote;
-            height: 50px;
-            width: 50px;
-            display: inline-block;
-            padding: 4px;
-            .outer{ border-color: $lightmain; }
-            .inner{ border-color: $lightmain; }
-        }
-
-        #code-input{
-
-            display: inline-block;
-            font-size: 28px;
-            height: 50px;
-            line-height: 50px;
-            font-family: $headfont;
-            border: 4px solid $white;
-            color: $white;
-            box-sizing: content-box;
-            margin: 1.6em 0em;
-
-            input{
-                display: inline-block;
-                margin: 0;
-                padding: 0 16px;
-                border: none;
-                background: transparent;
-                float: left;
-                outline: none;
-
-                &::-moz-placeholder {  /* Firefox 19+ */
-                  color: $white; 
-                  opacity: 0.8; 
-                }
-
-                &::-webkit-input-placeholder {
-                  color: $white;  
-                  opacity: 0.8; 
-                }
-            }
-
-            #update{
-                &:hover{
-                    text-decoration: none;
-                }
-                display: inline-block;
-                background: $white;
-                color: $lightmain;
-                font-size: 42px;
-                height: 50px;
-                width: 54px;
-                text-align: center;
-                line-height: 42px;
-                margin: 0;
-                padding: 0;
-                padding-left: 4px;
-                cursor: pointer;                
-                i{
-                    font-size: 60%;
-                }
-            }
-        }
-
-    }
-}
-
 .landing{
     background-color: $darkback;
     color: $white;
@@ -229,6 +90,25 @@ section {
                 text-decoration: none;
                 color: $white;
                 background-color: $lightmain;
+                border-color: $lightmain;
+            }
+        }
+    }
+
+
+    .login{
+        padding-top: 1em;
+        font-size: 1.4em;
+        color: $white;
+        font-weight: 900;
+        margin-bottom: 3em;
+
+        a{
+            color: $white;
+            text-decoration: none;
+            padding-bottom: 0.15em;
+            border-bottom: 0.15em solid $white;
+            &:hover{
                 border-color: $lightmain;
             }
         }
@@ -292,53 +172,34 @@ section {
     }
 }
 
-// // Dec
-// .description{
-//     background: $lightback;
-//     color: $white;
-
-//     p.headline{
-//         font-size: 2.5em;
-//         font-weight: 200;
-//         margin-top: 1em;
-//         font-style: italic;
-//     }
-// }
-
-// .demo{
-//     background: $lightgray;
-//     color: $darkback;
-// }
-
-// #iphone-mockup{
-//     float: right;
-//     width: 478px;
-//     height: 999px;
-//     position: relative;
-//     background: url(../images/iphone-mockup.png);
-//     iframe{
-//         position: absolute;
-//         top: 149px;
-//         left: 43px;
-//     }
-// }
+.bottom{
 
 
-// /* Custom page footer */
-// .footer {
-//     padding-top: 19px;
-//     color: #777;
-//     border-top: 1px solid #e5e5e5;
-// }
+    .links{
 
+        display: block;
+        margin-top: 6em;
+        padding-top: 1em;
+        color: $lightgray;
+        font-weight: 600;
+        border-top: 1px solid rgba(0,0,0,0.1);
 
-// Temp modal
-.modal-content{
-    background: $white;
-    color: $darkback;
+        a, span{
+            display: inline-block;
+            margin: 0em 1em;
+        }
 
-    h2{
-        font-size: 1.6em;
+        a{
+            color: $lightgray;
+            display: inline-block;
+            text-decoration: underline;
+            &:hover{
+                text-decoration: none;
+            }
+        }
+
+    }
+    a.contact{
     }
 }
 
