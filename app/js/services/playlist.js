@@ -105,10 +105,7 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   Playlist.Track = Track;
   Playlist.tracks = [];
   Playlist.index = {};
-  Playlist.playing = {    
-    artist: 'C2C',
-    title: 'F.U.Y.A'
-  };
+  Playlist.playing = null;
 
 
 
@@ -175,6 +172,10 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
 
   Playlist.hasTrack = function(trackId){
     return _.has(Playlist.index, trackId);
+  };
+
+  Playlist.hisPlaying = function(){
+    return this.playing && !!this.playing.title && !!this.playlist.artist
   };
 
   return Playlist;

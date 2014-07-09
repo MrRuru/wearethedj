@@ -82,6 +82,8 @@ io.sockets.on('connection', function(socket){
       socket.userId = data.userId;
       socket.roomId = data.roomId;
 
+      console.log('registering socket', socket.id);
+
       Sockets.register(socket);
 
       // Respond with the playlist

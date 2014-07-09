@@ -49,6 +49,12 @@ Sockets.register = function(socket){
     throw('Cannot register an invalid socket. userId is ' + userId + ' roomId is ' + roomId);
   }
 
+  // Clear the former socket
+  if ( !!_sockets[userId] ) { 
+    console.log('deleting former socket', _sockets[userId].id);
+    Sockets.unregister(_sockets[userId]);
+  }
+
   // Store the socket object
   socket.roomId = roomId;
   _sockets[userId] = socket;
@@ -56,6 +62,7 @@ Sockets.register = function(socket){
   // Add listeners
   var context = new Context(userId, roomId);
   _.each(_listeners, function(listener){
+    socket.removeAllListeners(listener.name);
 
     socket.on(listener.name, function(data, cb){
       listener.cb(context, data, cb);
@@ -63,7 +70,7 @@ Sockets.register = function(socket){
 
   });
 
-  console.log('New socket. All are : ', _sockets);
+  console.log('New socket. Total all are : ', _.size(_sockets));
 };
 
 Sockets.unregister = function(socket){
@@ -78,7 +85,7 @@ Sockets.unregister = function(socket){
 
   delete _sockets[userId];
 
-  console.log('Deleted socket. All are : ', _sockets);
+  console.log('Deleted socket. Total are : ', _.size(_sockets));
 };
 
 module.exports = Sockets;
