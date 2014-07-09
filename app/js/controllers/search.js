@@ -2,12 +2,17 @@
 // Search controller
 // =================
 
-angular.module('app.controllers.search', ['app.services.sync', 'app.controllers.playlist'])
-.controller('SearchCtrl', function($scope, $timeout, Sync, Playlist) {
+angular.module('app.controllers.search', ['app.services.sync', 'app.controllers.playlist', 'ionic'])
+.controller('SearchCtrl', function($scope, $timeout, Sync, Playlist, $ionicModal) {
 
   $scope.search = {query: ''};
   $scope.searching = false;
-  $scope.firstView = true;
+  
+  $scope.clearSearch = function(){
+    $scope.searching = false;
+    $scope.search = {query: ''};
+    $scope.results = null;
+  };
 
   $scope.doSearch = function(){
     console.log('searching', $scope.search.query, '.');
@@ -22,16 +27,12 @@ angular.module('app.controllers.search', ['app.services.sync', 'app.controllers.
     $scope.results = [];
     DZ.api('/search', 'GET', {q: $scope.search.query, order: 'RANKING'}, function(res){
       $scope.searching = false;
+      // $ionicLoading.hide();
 
-      var results = res.data.slice(0,10);
-      _.each(results, function(result){
-        if ( Playlist.hasTrack(result.id) ) {
-          result.status = 'cannotadd';
-          result.score = Playlist.index[result.id].score;
-        }
-      });
+      var results = _.filter(res.data, function(result){
+        return !Playlist.hasTrack(result.id);
+      }).slice(0,10);
 
-      var result;
       var gradualAppend = function(){
         result = results.shift();
         if (!!result) {
@@ -57,10 +58,14 @@ angular.module('app.controllers.search', ['app.services.sync', 'app.controllers.
       if(success){
         console.log('added');
         track.status = 'added';
+        $timeout(function(){
+          $scope.clearSearch();
+          $scope.closeModal();
+        }, 600);
       }
       else {
         console.log('Error adding track : ', res);
-        track.status = '';
+        track.status = null;
       }
     });
   };

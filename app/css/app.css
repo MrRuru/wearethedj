@@ -84,11 +84,43 @@ input {
   .main-title span:nth-child(3) {
     color: #9b59b6; }
 
+.appmodal {
+  opacity: 0;
+  z-index: -1;
+  transition: 300ms; }
+
+.appmodal.shown {
+  opacity: 1;
+  z-index: 999; }
+
+.appmodal.shown-add {
+  animation: 300ms fadeInModal; }
+
+.appmodal.shown-remove {
+  animation: 300ms fadeOutModal; }
+
+@-webkit-keyframes fadeInModal {
+  from-z-index: 999;
+  from-opacity: 0;
+  to-z-index: 999;
+  to-opacity: 1; }
+
+@-webkit-keyframes fadeOutModal {
+  from-z-index: 999;
+  from-opacity: 1;
+  to-z-index: 999;
+  to-opacity: 0; }
+
+.appmodal a.close {
+  float: right;
+  font-size: 42px;
+  padding: 15px; }
+
 .has-tabs {
   top: 72px;
   bottom: 72px; }
 
-.pane, .view {
+ion-content.playlist {
   background-color: #e1e4e5;
   color: #34495e; }
 
@@ -110,19 +142,20 @@ input {
     height: 42px;
     font-size: 26.25px;
     top: 15px; }
-    .topbar h1.title .right {
-      float: right; }
-
-.bottomnav .tabs {
-  background-color: #34495e;
-  color: #ecf0f1;
-  border-top: none;
-  height: 72px; }
-
-.bottomnav .tab-item .icon {
-  margin: 15px;
-  height: 42px;
-  line-height: 42px; }
+  .topbar .search-link {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    line-height: 42px;
+    height: 72px;
+    padding: 15px;
+    background: #8e44ad;
+    color: #ecf0f1;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none; }
 
 .track {
   height: 72px;
@@ -378,25 +411,39 @@ input {
     margin-right: 6.3px;
     font-size: 16.8px; }
 
+ion-content.search {
+  background: #8e44ad;
+  color: #ecf0f1; }
+
+ion-content.search .track {
+  background: #8e44ad; }
+  ion-content.search .track h3, ion-content.search .track p, ion-content.search .track .right {
+    color: #ecf0f1; }
+
 form.search .item-input {
   border: 0;
-  background: #ecf0f1;
+  background: #8e44ad;
+  color: #ecf0f1;
   transition: all 300ms;
   padding: 15px; }
 form.search input {
   height: 42px;
   font-size: 18px;
   line-height: 42px;
-  color: #2c3e50;
+  color: #ecf0f1;
   padding: 0; }
+  form.search input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5); }
 form.search i.icon {
   padding: 0;
   text-align: center;
   display: inline-block;
   margin-right: 15px;
-  font-size: 42px;
+  font-size: 33.6px;
+  line-height: 42px;
   height: 42px;
-  width: 42px; }
+  width: 42px;
+  color: #ecf0f1; }
 
 .right.cannotadd a {
   font-size: 25.2px;

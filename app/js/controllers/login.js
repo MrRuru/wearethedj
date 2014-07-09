@@ -3,7 +3,7 @@
 // =================
 
 angular.module('app.controllers.login', ['app.services.sync', 'app.services.room'])
-.controller('LoginCtrl', function($scope, $location, Sync, Room) {
+.controller('LoginCtrl', function($scope, $state, Sync, Room) {
 
   $scope.joinRoom = function(){
     var roomName = $scope.room.code;
@@ -24,7 +24,7 @@ angular.module('app.controllers.login', ['app.services.sync', 'app.services.room
 
       Sync.load(function(){
         $scope.loading = false;
-        $location.path('/tab/help');
+        $state.go('help');
       });
 
     }, function(reason){

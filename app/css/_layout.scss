@@ -34,6 +34,56 @@ input{
   }
 }
 
+// MODALS
+.appmodal{
+  opacity: 0;
+  z-index: -1;
+  transition: 300ms;
+}
+
+.appmodal.shown{
+  opacity: 1;
+  z-index: 999;
+}
+
+.appmodal.shown-add{
+  animation: 300ms fadeInModal;
+}
+
+.appmodal.shown-remove{
+  animation: 300ms fadeOutModal;
+}
+
+@-webkit-keyframes fadeInModal{
+  from: {
+    z-index: 999;
+    opacity: 0;
+  }
+  to: {
+    z-index: 999;
+    opacity: 1;
+  }
+}
+
+
+@-webkit-keyframes fadeOutModal{
+  from: {
+    z-index: 999;
+    opacity: 1;
+  }
+  to: {
+    z-index: 999;
+    opacity: 0;
+  }
+}
+
+
+.appmodal a.close{
+  float: right;
+  font-size: $inner-height;
+  padding: $padding;
+}
+
 
 
 // CONTENT
@@ -42,9 +92,9 @@ input{
   bottom: $line-height;
 }
 
-.pane, .view{
+ion-content.playlist{
   background-color: lighten($lightgray, 13);
-  color: $lightback;  
+  color: $lightback;
 }
 
 // TOPBAR
@@ -67,23 +117,21 @@ input{
     height: $inner-height;
     font-size: $inner-height / 1.6;
     top: $padding;
-
-    .right{
-      float: right;
-    }
   }
-}
 
-// BOTTOM BAR
-.bottomnav .tabs{
-  background-color: $lightback;
-  color: $white;
-  border-top: none;
-  height: $line-height;
-}
-
-.bottomnav .tab-item .icon{
-  margin: $padding;
-  height: $inner-height;
-  line-height: $inner-height;
+  .search-link{
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    line-height: $inner-height;
+    height: $line-height;
+    padding: $padding;
+    background: $darkmain;
+    color: $white;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+  }
 }

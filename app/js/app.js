@@ -21,43 +21,12 @@ angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'ap
       controller: 'LoginCtrl'
     })
 
-
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: '/tab',
-      abstract: true,
-      templateUrl: 'templates/tabs.html'
-    })
-
-    .state('tab.playlist', {
+    .state('playlist', {
       url: '/playlist',
-      views: {
-        'playlist-tab': {
-          templateUrl: 'templates/playlist.html',
-          controller: 'PlaylistCtrl'
-        }
-      }
-    })
-
-    .state('tab.search', {
-      url: '/search',
-      views: {
-        'search-tab': {
-          templateUrl: 'templates/search.html',
-          controller: 'SearchCtrl'
-        }
-      }
-    })
-
-    .state('tab.help', {
-      url: '/help',
-      views: {
-        'help-tab': {
-          templateUrl: 'templates/help.html',
-          controller: 'HelpCtrl'
-        }
-      }
+      controller: 'PlaylistCtrl',
+      templateUrl: 'templates/playlist.html'
     });
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

@@ -1,8 +1,24 @@
+ion-content.search{
+  background: $darkmain;
+  color: $white;
+}
+
+
+ion-content.search .track{
+  background: $darkmain;
+
+  h3, p, .right{
+    color: $white;
+  }
+}
+
+
 form.search{
   
   .item-input{  
     border: 0;
-    background: $white;    
+    background: $darkmain;
+    color: $white;
     transition: all 300ms;
     padding: $padding;
   }
@@ -11,8 +27,12 @@ form.search{
     height: $inner-height;
     font-size: 18px;
     line-height: $inner-height;
-    color: $darkback;
+    color: $white;
     padding: 0;
+
+    &::-webkit-input-placeholder{
+      color: rgba(255,255,255,0.5);
+    }
   }
 
   i.icon{
@@ -20,9 +40,11 @@ form.search{
     text-align: center;
     display: inline-block;
     margin-right: $padding;
-    font-size: $inner-height;
+    font-size: $inner-height * 0.8;
+    line-height: $inner-height;
     height: $inner-height;
     width: $inner-height;
+    color: $white;
   }
 }
 

@@ -1,12 +1,24 @@
-<div class="topbar bar bar-header">
-  <h1 class="title">
-    The Playlist
-  </h1>
-</div>
+  <!-- Modals -->
+
+  <!-- Search -->
+  <ion-content ng-class="{shown: (modal === 'search')}" class="search appmodal" ng-controller="SearchCtrl">
+    <div ng-include src="'templates/search.html'"></div>
+  </ion-content>
 
 
-<ion-view>
-  <ion-content>
+
+  <!-- Help -->
+
+
+  <ion-content class="playlist">
+
+    <!-- The playlist -->
+    <div class="topbar bar bar-header">
+      <h1 class="title">
+        poll.dance
+      </h1>
+      <a class="search-link" ng-click="openModal('search')">Add</a>
+    </div>
 
     <div ng-show="playlist.length === 0" class="padding">
       <p class="notracks">The playlist is empty :( &nbsp;&nbsp; Please <a href="#/tab/search">add some tracks</a></p>
@@ -41,4 +53,3 @@
     </ion-list>
 
   </ion-content>
-</ion-view>

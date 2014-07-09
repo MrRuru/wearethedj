@@ -1,48 +1,39 @@
-<div class="topbar bar bar-header">
-  <h1 class="title">Add a track</h1>
-</div>
-
-<ion-view>
-  <ion-content>
-
-    <ion-list>
-
-      <form class="search" ng-submit="doSearch()">
-        <label class="item item-input">
-          <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Search for a track" ng-model="search.query">
-          <input type="submit" style="display:none;"></input>
-        </label>
-      </form>
 
 
-      <div ng-show="firstView" class="padding">
-        <p class="search-help">Look for an artist or track, click + to add it to the current playlist.</p>
-      </div>
+<ion-list>
+
+  <a ng-click="closeModal(); clearSearch();" class="close">
+    <i class="ion-ios7-close-empty"></i>
+  </a>
 
 
-      <div class="searching" ng-show="searching">
-        <div class="spinner">
-          <div class="inner"></div>
-        </div>
-      </div>
+  <form class="search" ng-submit="doSearch()">
+    <label class="item item-input">
+      <i class="ion-loading-c icon" ng-show="searching"></i>
+      <i class="ion-ios7-search icon" ng-show="!searching"></i>
+      <input type="text" placeholder="Artist, track, ..." ng-model="search.query">
+      <input type="submit" style="display:none;"></input>
+    </label>
+  </form>
+
+  <div class="searching" ng-show="searching">
+    <div class="spinner">
+      <div class="inner"></div>
+    </div>
+  </div>
 
 
-      <ion-item ng-repeat="result in results" type="item-text-wrap" class="track" ng-hide="searching" ng-class="(result.status === 'added') ? 'highlight' : ( (result.status === 'cannotadd') ? 'dying' : '' )">
-        <div class="left score">
-          <strong>{{result.score || '-'}}</strong>
-        </div>
+  <ion-item ng-repeat="result in results" type="item-text-wrap" class="track">
 
-        <div class="right upvote add" ng-class="result.status">
-          <i class="upvote" ng-show="result.score"><span class="outer"><span class="inner"></span></span></i>
-          <i class="fa fa-plus-circle add-track" ng-hide="result.score" ng-click="addTrack(result)"></i>
-        </div>
+    <div class="right upvote add">
+      <i class="ion-ios7-plus-outline add-track" ng-click="addTrack(result)" ng-show="!result.status"></i>
+      <i class="ion-loading-c add-track" ng-show="result.status == 'adding'"></i>
+      <i class="ion-ios7-checkmark-empty add-track" ng-show="result.status == 'added'"></i>
+    </div>
 
-        <h3>{{result.title}}</h3>
-        <p>{{result.artist.name}}</p>
-      </ion-item>
-      
-    </ion-list>
+    <h3>{{result.title}}</h3>
+    <p>{{result.artist.name}}</p>
 
-  </ion-content>
-</ion-view>
+  </ion-item>
+  
+</ion-list>
