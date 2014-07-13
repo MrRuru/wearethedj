@@ -24,43 +24,45 @@ angular.module('app.services.user', [])
   var _pendingVotes = [];
   var _totalPendingVotes = 0;
 
-
   var User = {
     id: uid,
 
     bootstrap: function(data){
       _votes = data.votes;
+      _seenHelp = false;
     },
 
-    votes: function(){
-      return _votes - _totalPendingVotes;
-    },
+    seenHelp: false
 
-    useVote: function(trackId){
-      console.log('using vote on ', trackId);
-      _pendingVotes[trackId] = _pendingVotes[trackId] || 0;
-      _pendingVotes[trackId] += 1;
-      _totalPendingVotes += 1;
-    },
+    // votes: function(){
+    //   return _votes - _totalPendingVotes;
+    // },
 
-    clearVotes: function(trackId){
-      var trackVotes = _pendingVotes[trackId];
+    // useVote: function(trackId){
+    //   console.log('using vote on ', trackId);
+    //   _pendingVotes[trackId] = _pendingVotes[trackId] || 0;
+    //   _pendingVotes[trackId] += 1;
+    //   _totalPendingVotes += 1;
+    // },
 
-      _totalPendingVotes = _totalPendingVotes - trackVotes;
-      _pendingVotes[trackId] = 0;
+    // clearVotes: function(trackId){
+    //   var trackVotes = _pendingVotes[trackId];
 
-      // Assume votes are cashed, will be corrected via the server anyway
-      _votes -= trackVotes;
+    //   _totalPendingVotes = _totalPendingVotes - trackVotes;
+    //   _pendingVotes[trackId] = 0;
 
-      // Send correction callback
-      return function(){
-        _votes = _votes + trackVotes;
-      };
-    },
+    //   // Assume votes are cashed, will be corrected via the server anyway
+    //   _votes -= trackVotes;
 
-    updateUser: function(attrs){
-      _votes = attrs.votes;
-    }
+    //   // Send correction callback
+    //   return function(){
+    //     _votes = _votes + trackVotes;
+    //   };
+    // },
+
+    // updateUser: function(attrs){
+    //   _votes = attrs.votes;
+    // }
   };
 
   return User;

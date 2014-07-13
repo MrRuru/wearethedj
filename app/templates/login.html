@@ -1,3 +1,8 @@
+<!-- Help -->
+<ion-content ng-class="{shown: (modal === 'help')}" class="help appmodal" ng-controller="HelpCtrl">
+  <div ng-include src="'templates/help.html'"></div>
+</ion-content>
+
 
 <div class="main-title login">
   <span>poll</span><span>.</span><span>dance</span>
@@ -19,4 +24,8 @@
     {{ error }}
   </div>
 
+</div>
+
+<div class="show-help">
+  <a ng-click="modal = 'help'">How it works</a>
 </div>

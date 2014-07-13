@@ -53,6 +53,27 @@
   opacity: 0.8;
 }
 
+.show-help{
+  animation: fadein 1000ms;
+  -webkit-animation: fadein 1000ms;
+  position: absolute;
+  bottom: $line-height;
+  text-align: center;
+  width: 100%;
+
+  a{
+    display: inline-block;
+    font-family: $headfont;
+    text-transform: uppercase;
+    color: $white;
+    background: $lightmain;
+    padding: 8px 12px;
+    border-radius: 2px;
+    border-bottom: 2px solid $darkmain;
+  }
+}
+
+
 @-webkit-keyframes fadein { 
   0% { opacity: 0; }
   100% { opacity: 1; }

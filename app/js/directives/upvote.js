@@ -38,7 +38,6 @@ angular.module('app.directives.upvote', [])
 
   // Actual directive instanciating
   var link = function(scope, element, attrs){
-    console.log('linking directive with', scope, element, attrs);
 
     var lastUpvote = 0;
     var progressEl = element[0].childNodes[0].childNodes[1];

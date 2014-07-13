@@ -1,6 +1,9 @@
-<div class="help" ng-class="'slide' + index">
+<a ng-click="closeModal(); clearSearch();" class="close">
+  <i class="ion-ios7-close-empty"></i>
+</a>
 
-  <ion-content>
+
+<div class="pane" ng-class="'slide' + index">
 
     <div class="tracks ion-list">
       <ion-item class="track demo" ng-class="track.status">
@@ -58,23 +61,14 @@
         </p>
       </ion-slide>
 
-      <ion-slide>
+      <ion-slide ng-click="closeModal()">
 
-        <h1>You're ready!</h1>
-
-        <p class="link">Click on <i class="ion-navicon-round"></i> to <strong>vote</strong> for the next track to play.</p>
-        <p class="link">Click on <i class="ion-plus"></i> to <strong>add</strong> a new track to the playlist</p>
-
-        <div class="downarrow">
-          <i class="fa fa-arrow-down"></i>
-        </div>
+        <h1>That's it!</h1>
+        <p class="title">Now, enter the code for the party and get started!</p>
 
       </ion-slide>
 
 
     </ion-slide-box>
-
-
-  </ion-content>
 
 </div>

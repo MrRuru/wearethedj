@@ -1,5 +1,12 @@
 .help{
 
+  a.close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+  }
+
   color: $white;
   h1, p.title{ color: $white; }
 
@@ -7,6 +14,10 @@
   .slider, .slider-slides, .scroll{
     height: 100%;
   }  
+
+  .slider-slide{
+    padding-top: $line-height;
+  }
 
   .has-tabs{
     top: 0;
@@ -49,7 +60,7 @@
 
   // Track
   .tracks{
-    top: 3 * $inner-height;    
+    top: 4 * $inner-height;    
     opacity: 1;
     transition: opacity 300ms linear;
     position: absolute;
@@ -58,6 +69,7 @@
 
   // Swipe
   .swipe{
+    z-index: 1;
     text-align: center;
     position: absolute;
     width: 100%;
@@ -93,8 +105,8 @@
 
 
   // Slides
-  &.slide0{
-    .pane{
+  .slide0{
+    .slider-slide{
       background: $lightback;
     }
 
@@ -109,36 +121,36 @@
   }
 
 
-  &.slide1{
-    .pane{
+  .slide1{
+    .slider-slide{
       background: mix($lightback, $darkmain, 80);
     }
   }
 
-  &.slide2{
-    .pane{
+  .slide2{
+    .slider-slide{
       background: mix($lightback, $darkmain, 60);
     }
   }
 
-  &.slide3{
-    .pane{
+  .slide3{
+    .slider-slide{
       background: mix($lightback, $darkmain, 40);
     }
   }
 
-  &.slide4{
+  .slide4{
     .tracks .additional{
       left: 0;
     }
 
-    .pane{
+    .slider-slide{
       background: mix($lightback, $darkmain, 20);
     }
   }
 
-  &.slide5{
-    .pane{
+  .slide5{
+    .slider-slide{
       background: $darkmain;
     }
     .tracks{

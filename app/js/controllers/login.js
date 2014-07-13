@@ -5,6 +5,11 @@
 angular.module('app.controllers.login', ['app.services.sync', 'app.services.room'])
 .controller('LoginCtrl', function($scope, $state, Sync, Room) {
 
+  $scope.closeModal = function(){
+    $scope.modal = null;
+  };
+
+
   $scope.joinRoom = function(){
     var roomName = $scope.room.code;
 
@@ -24,7 +29,7 @@ angular.module('app.controllers.login', ['app.services.sync', 'app.services.room
 
       Sync.load(function(){
         $scope.loading = false;
-        $state.go('help');
+        $state.go('playlist');
       });
 
     }, function(reason){

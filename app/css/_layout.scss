@@ -7,8 +7,8 @@ html{
 }
 
 body{
-  background: $darkback;
   background-image: radial-gradient(ellipse farthest-side at 40% 30%, rgba(black, 0.4) 0%, rgba(black, 0) 100%), radial-gradient(ellipse farthest-side at 70% 80%, rgba($darkmain, 0.4) 0%, rgba($darkmain,0) 70%), radial-gradient(ellipse farthest-side at 20% 10%, rgba($darkgray, 0.3) 0%, rgba($darkgray,0) 70%);
+  background-color: $darkback;
   color: $white;
   font-family: $basefont;
   font-weight: 700;
