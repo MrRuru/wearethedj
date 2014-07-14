@@ -33,6 +33,17 @@ angular.module('app', ['ionic', 'ngAnimate', 'ngCookies', 'app.controllers', 'ap
 
 })
 
+.directive('autoHideKeyboard', function () {
+    return function (scope, element, attr) {
+      var textFields = element.find('input');
+       
+      element.bind('submit', function() {
+          console.log('form was submitted');
+          textFields[0].blur();
+      });
+    }
+})
+
 .run(function(User, Playlist, Room, Sync){
 
   Sync.setRoom(Room);

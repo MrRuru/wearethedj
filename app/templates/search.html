@@ -7,10 +7,10 @@
   </a>
 
 
-  <form class="search" ng-submit="doSearch()">
+  <form class="search" ng-submit="doSearch()" auto-hide-keyboard>
     <label class="item item-input">
       <i class="ion-loading-c icon" ng-show="searching"></i>
-      <i class="ion-ios7-search icon" ng-show="!searching"></i>
+      <i class="ion-ios7-search icon" ng-show="!searching" ng-click="doSearch()"></i>
       <input type="text" placeholder="Artist, track, ..." ng-model="search.query">
       <input type="submit" style="display:none;"></input>
     </label>
