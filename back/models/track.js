@@ -46,6 +46,9 @@ Track.prototype.destroy = Q.async( function* () {
   // Clear its attributes
   yield Redis.del( Redis.track(this.attrs.roomId, this.attrs.id) );
 
+  // Store its status
+  this.deleted = true;
+
 });
 
 
@@ -54,7 +57,7 @@ Track.prototype.destroy = Q.async( function* () {
 Track.prototype.setAttr = Q.async( function* (attr, value) {
 
   yield Redis.hset( Redis.track(this.attrs.roomId, this.attrs.id), attr, value );
-  this[attrs] = value;
+  this.attrs[attr] = value;
 
 });
 
@@ -65,6 +68,8 @@ Track.prototype.upvote = Q.async( function* () {
   var upvoteBy = (this.attrs.status === 'new') ? 2 : 1;
   var newScore = yield Redis.zincrby( Redis.playlist(this.attrs.roomId), upvoteBy, this.attrs.id );
   this.attrs.score = parseInt(newScore, 10);
+
+  yield this.setAttr('last_upvote_at', Date.now());
 
 });
 

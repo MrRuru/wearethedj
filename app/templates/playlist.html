@@ -5,16 +5,16 @@
     <div ng-include src="'templates/search.html'"></div>
   </ion-content>
 
+  <!-- The playlist -->
+  <div class="topbar bar bar-header">
+    <h1 class="title">
+      poll.dance
+    </h1>
+    <a class="search-link" ng-click="openModal('search')">Add</a>
+  </div>
+
 
   <ion-content class="playlist">
-
-    <!-- The playlist -->
-    <div class="topbar bar bar-header">
-      <h1 class="title">
-        poll.dance
-      </h1>
-      <a class="search-link" ng-click="openModal('search')">Add</a>
-    </div>
 
     <div ng-show="playlist.length === 0" class="padding">
       <p class="notracks">The playlist is empty :( &nbsp;&nbsp; Please <a href="#/tab/search">add some tracks</a></p>

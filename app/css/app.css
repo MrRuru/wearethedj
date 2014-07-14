@@ -157,6 +157,9 @@ ion-content.playlist {
     font-weight: 400;
     text-decoration: none; }
 
+ion-content.playlist {
+  top: 72px; }
+
 .track {
   height: 72px;
   border: 0;

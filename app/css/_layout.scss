@@ -135,3 +135,7 @@ ion-content.playlist{
     text-decoration: none;
   }
 }
+
+ion-content.playlist{
+  top: $line-height;
+}
