@@ -13,8 +13,8 @@ var DYING_TICK     = 1   * 1000;  // 10 second
 // Should be initialized with all tracks, but fuck it
 var _trackTimeouts = {};
 
-var getTrackKey = function(track){
-  return '' + track.attrs.roomId + ':' + track.attrs.id;
+var getTrackKey = function(attrs){
+  return '' + attrs.roomId + ':' + attrs.id;
 }
 
 // Check the status a track is supposed to have
@@ -58,7 +58,7 @@ var enqueueCheck = function(track) {
   console.log('[TTL] Next check in', delay);
 
   // Clear existing timeout if any
-  var key = getTrackKey(track);
+  var key = getTrackKey(track.attrs);
   clearTimeout(_trackTimeouts[key]);
   _trackTimeouts[key] = setTimeout(function(){ check(track.attrs.roomId, track.attrs.id).done(); }, delay);
 
@@ -118,9 +118,9 @@ TrackExpirer.refreshTrack = function(track){
   check(track.attrs.roomId, track.attrs.id).done();
 };
 
-TrackExpirer.deleteTrack = function(track){
-  console.log('[TTL] Deleting track', track);
-  var key = getTrackKey(track);
+TrackExpirer.deleteTrack = function(trackAttrs){
+  console.log('[TTL] Deleting track', trackAttrs);
+  var key = getTrackKey(trackAttrs);
   clearTimeout(_trackTimeouts[key]);
 };
 
