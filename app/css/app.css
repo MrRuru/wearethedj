@@ -413,6 +413,17 @@ ion-content.playlist {
     border-radius: 2px;
     border-bottom: 2px solid #8e44ad; }
 
+.footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center; }
+  .footer a {
+    color: #ecf0f1;
+    font-size: 13px;
+    font-weight: 300;
+    text-decoration: none; }
+
 @-webkit-keyframes fadein {
   0% {
     opacity: 0; }

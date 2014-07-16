@@ -73,6 +73,19 @@
   }
 }
 
+.footer{
+  position: absolute; 
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+
+  a{
+    color: $white;
+    font-size: 13px;
+    font-weight: 300;
+    text-decoration: none;
+  }
+}
 
 @-webkit-keyframes fadein { 
   0% { opacity: 0; }

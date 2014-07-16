@@ -32,10 +32,17 @@ angular.module('app.controllers.login', ['app.services.sync', 'app.services.room
         $state.go('playlist');
       });
 
-    }, function(reason){
+    }, function(response){
 
-      console.log('ERROR : ', reason);
-      $scope.error = "An error happened, sorry.";
+      if (response.status === 404) {
+        $scope.error = "Sorry, no party was found with this code. Please try again.";
+        $scope.room.code = '';
+      }
+      else{
+        console.log('ERROR : ', reason);
+        $scope.error = "An error happened, sorry.";
+      }
+
       $scope.loading = false;
 
     });
