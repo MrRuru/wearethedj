@@ -83,7 +83,7 @@ api.delete('/room/:roomId/top', function(req, res){
 
       if (!track) { res.send(404); return; }
 
-      yield TrackExpirer.deleteTrack(track.id);
+      yield TrackExpirer.deleteTrack(track.attrs);
       Sockets.broadcastRoom(roomId, 'playingTrack', track.attrs);
       Sockets.broadcastRoom(roomId, 'deleteTrack', track.attrs);
 

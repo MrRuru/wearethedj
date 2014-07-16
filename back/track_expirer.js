@@ -119,7 +119,7 @@ TrackExpirer.refreshTrack = function(track){
 };
 
 TrackExpirer.deleteTrack = function(track){
-  console.log('[TTL] Deleting track', track);  
+  console.log('[TTL] Deleting track', track);
   var key = getTrackKey(track);
   clearTimeout(_trackTimeouts[key]);
 };
