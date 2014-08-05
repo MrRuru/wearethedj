@@ -83,6 +83,7 @@ section {
             @extend .cta-btn;
             color: $white;
             border: 0.15em solid $white;
+            -webkit-transition: all 100ms linear;
             transition: all 100ms linear;
             font-family: $headfont;
 

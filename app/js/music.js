@@ -130,6 +130,7 @@ var Controller = {
     // Do not destroy the top playlist
     if (this.fetchingNext) { return false; }
     this.fetchingNext = true;
+    console.log('now fetching next');
 
     var self = this;
     $.ajax({
@@ -153,6 +154,7 @@ var Controller = {
   onPlayerPosition: function(position){
     // Pos > 0 : track started, no more fetching next one
     if (position > 0) { 
+      console.log('no more fetching next');
       this.fetchingNext = false;
       return;
     }
