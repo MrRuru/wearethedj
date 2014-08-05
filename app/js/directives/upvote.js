@@ -71,7 +71,7 @@ angular.module('app.directives.upvote', [])
 
   return {
     // Check element name
-    restrict: 'E',
+    restrict: 'A',
 
     // Internal variables
     scope: {

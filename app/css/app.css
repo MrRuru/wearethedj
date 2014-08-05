@@ -107,7 +107,7 @@ input {
   animation: 300ms fadeInModal; }
 
 .appmodal.shown-remove {
-  -webkit-animation: 300ms fadeInModal;
+  -webkit-animation: 300ms fadeOutModal;
   animation: 300ms fadeOutModal; }
 
 @-webkit-keyframes fadeInModal {
