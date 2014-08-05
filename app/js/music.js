@@ -44,10 +44,16 @@ var Controller = {
       player : {
         playlist: false,
         onload : function(){
-          // Watch the track position
-          DZ.Event.subscribe('player_position', function(pos){
-            self.onPlayerPosition(pos[0]);
+          // Watch the track end
+          DZ.Event.subscribe('track_end', function(){
+            console.log('track end triggered');
+            self.loadNextTrack();
           });
+
+          // DZ.Event.subscribe('current_track', function(){
+          //   self.loadNextTrack();
+          // });
+
 
           // Update the view
           self.isInitialized = true;
@@ -127,10 +133,10 @@ var Controller = {
 
   loadNextTrack: function(){
 
-    // Do not destroy the top playlist
-    if (this.fetchingNext) { return false; }
-    this.fetchingNext = true;
-    console.log('now fetching next');
+    // // Do not destroy the top playlist
+    // if (this.fetchingNext) { return false; }
+    // this.fetchingNext = true;
+    // console.log('now fetching next');
 
     var self = this;
     $.ajax({
@@ -150,20 +156,20 @@ var Controller = {
     });
   },
 
-  // Handle track chaining
-  onPlayerPosition: function(position){
-    // Pos > 0 : track started, no more fetching next one
-    if (position > 0) { 
-      console.log('no more fetching next');
-      this.fetchingNext = false;
-      return;
-    }
+  // // Handle track chaining
+  // onPlayerPosition: function(position){
+  //   // Pos > 0 : track started, no more fetching next one
+  //   if (position > 0) { 
+  //     console.log('no more fetching next');
+  //     this.fetchingNext = false;
+  //     return;
+  //   }
 
-    // Pos == 0 : it's the end
-    if (position === 0) {
-      this.loadNextTrack();
-    }
-  }
+  //   // Pos == 0 : it's the end
+  //   if (position === 0) {
+  //     this.loadNextTrack();
+  //   }
+  // }
 
 };
 
