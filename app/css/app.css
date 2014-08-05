@@ -1,9 +1,6 @@
 /* Your app's CSS, go crazy, make it your own */
 /* Fonts */
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
-@font-face {
-  font-family: 'Komikax';
-  src: url(/fonts/KOMIKAX_.ttf); }
 i.upvote {
   display: inline-block;
   height: 42px;
@@ -51,12 +48,12 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(-360deg); } }
-upvote {
+span.upvote {
   width: 42px;
   height: 42px; }
-  upvote .outer {
+  span.upvote .outer {
     stroke: #2c3e50; }
-  upvote .inner {
+  span.upvote .inner {
     stroke: #9b59b6; }
 
 html {
@@ -226,9 +223,9 @@ input {
       border-color: #ecf0f1; }
     .track.highlight i.upvote .inner {
       border-color: #ecf0f1; }
-    .track.highlight upvote .outer {
+    .track.highlight span.upvote .outer {
       stroke: #ecf0f1; }
-    .track.highlight upvote .inner {
+    .track.highlight span.upvote .inner {
       stroke: #ecf0f1; }
   .track.new {
     background: #e4e6e8; }
@@ -246,7 +243,7 @@ input {
       color: #9b59b6; }
     .track.new i.upvote .outer {
       border-color: #8e44ad; }
-    .track.new upvote .outer {
+    .track.new span.upvote .outer {
       stroke: #8e44ad; }
   .track.dying {
     background: #e4e6e8; }
@@ -264,9 +261,9 @@ input {
       border-color: #95a5a6; }
     .track.dying i.upvote .inner {
       border-color: #bdc3c7; }
-    .track.dying upvote .outer {
+    .track.dying span.upvote .outer {
       stroke: #95a5a6; }
-    .track.dying upvote .inner {
+    .track.dying span.upvote .inner {
       stroke: #bdc3c7; }
 
 /* Track insertion */
@@ -373,7 +370,7 @@ input {
     line-height: 42px;
     color: #2c3e50;
     padding: 0; }
-  .room-form .upvote {
+  .room-form i.upvote {
     margin-right: 15px; }
   .room-form.focus .item-input {
     background: #ecf0f1;

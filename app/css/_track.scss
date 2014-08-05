@@ -94,7 +94,7 @@
       .outer{ border-color: $white; }
       .inner{ border-color: $white; }       
     }
-    upvote{
+    span.upvote{
       .outer{ stroke: $white; }
       .inner{ stroke: $white; }       
     }
@@ -109,7 +109,7 @@
     i.upvote .outer{
       border-color: $darkmain;
     }
-    upvote .outer{
+    span.upvote .outer{
       stroke: $darkmain;
     }
   }
@@ -126,7 +126,7 @@
       }
     }
 
-    upvote{
+    span.upvote{
       .outer{
         stroke: $gray;
       }
