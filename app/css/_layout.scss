@@ -38,6 +38,7 @@ input{
 .appmodal{
   opacity: 0;
   z-index: -1;
+  -webkit-transition: 300ms;
   transition: 300ms;
 }
 
@@ -47,19 +48,32 @@ input{
 }
 
 .appmodal.shown-add{
+  -webkit-animation: 300ms fadeInModal;
   animation: 300ms fadeInModal;
 }
 
 .appmodal.shown-remove{
+  -webkit-animation: 300ms fadeInModal;
   animation: 300ms fadeOutModal;
 }
 
 @-webkit-keyframes fadeInModal{
-  from: {
+  0%: {
     z-index: 999;
     opacity: 0;
   }
-  to: {
+  100%: {
+    z-index: 999;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInModal{
+  0%: {
+    z-index: 999;
+    opacity: 0;
+  }
+  100%: {
     z-index: 999;
     opacity: 1;
   }
@@ -67,16 +81,26 @@ input{
 
 
 @-webkit-keyframes fadeOutModal{
-  from: {
+  0%: {
     z-index: 999;
     opacity: 1;
   }
-  to: {
+  100%: {
     z-index: 999;
     opacity: 0;
   }
 }
 
+@keyframes fadeOutModal{
+  0%: {
+    z-index: 999;
+    opacity: 1;
+  }
+  100%: {
+    z-index: 999;
+    opacity: 0;
+  }
+}
 
 .appmodal a.close{
   float: right;

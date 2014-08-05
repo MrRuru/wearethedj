@@ -30,11 +30,13 @@ i.upvote {
   i.upvote.spin .outer {
     border-top-color: transparent;
     border-bottom-color: transparent;
-    -webkit-animation: spin 400ms infinite linear; }
+    -webkit-animation: spin 400ms infinite linear;
+    animation: spin 400ms infinite linear; }
   i.upvote.spin .inner {
     border-left-color: transparent;
     border-right-color: transparent;
-    -webkit-animation: spin-reverse 200ms infinite linear; }
+    -webkit-animation: spin-reverse 200ms infinite linear;
+    animation: spin-reverse 200ms infinite linear; }
 
 @-webkit-keyframes spin {
   from {
@@ -42,12 +44,24 @@ i.upvote {
 
   to {
     -webkit-transform: rotate(360deg); } }
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+
+  to {
+    transform: rotate(360deg); } }
 @-webkit-keyframes spin-reverse {
   from {
     -webkit-transform: rotate(0deg); }
 
   to {
     -webkit-transform: rotate(-360deg); } }
+@keyframes spin-reverse {
+  from {
+    transform: rotate(0deg); }
+
+  to {
+    transform: rotate(-360deg); } }
 span.upvote {
   width: 42px;
   height: 42px; }
@@ -81,6 +95,7 @@ input {
 .appmodal {
   opacity: 0;
   z-index: -1;
+  -webkit-transition: 300ms;
   transition: 300ms; }
 
 .appmodal.shown {
@@ -88,21 +103,45 @@ input {
   z-index: 999; }
 
 .appmodal.shown-add {
+  -webkit-animation: 300ms fadeInModal;
   animation: 300ms fadeInModal; }
 
 .appmodal.shown-remove {
+  -webkit-animation: 300ms fadeInModal;
   animation: 300ms fadeOutModal; }
 
 @-webkit-keyframes fadeInModal {
-  from-z-index: 999;
-  from-opacity: 0;
-  to-z-index: 999;
-  to-opacity: 1; }
+  0% {
+    z-index: 999;
+    opacity: 0; }
+
+  100% {
+    z-index: 999;
+    opacity: 1; } }
+@keyframes fadeInModal {
+  0% {
+    z-index: 999;
+    opacity: 0; }
+
+  100% {
+    z-index: 999;
+    opacity: 1; } }
 @-webkit-keyframes fadeOutModal {
-  from-z-index: 999;
-  from-opacity: 1;
-  to-z-index: 999;
-  to-opacity: 0; }
+  0% {
+    z-index: 999;
+    opacity: 1; }
+
+  100% {
+    z-index: 999;
+    opacity: 0; } }
+@keyframes fadeOutModal {
+  0% {
+    z-index: 999;
+    opacity: 1; }
+
+  100% {
+    z-index: 999;
+    opacity: 0; } }
 .appmodal a.close {
   float: right;
   font-size: 42px;
@@ -362,6 +401,7 @@ input {
     border-top: 1px solid #7f8c8d;
     border-bottom: 1px solid #7f8c8d;
     background: transparent;
+    -webkit-transition: all 300ms;
     transition: all 300ms;
     padding: 15px; }
   .room-form input {
@@ -418,6 +458,12 @@ input {
 
   100% {
     opacity: 1; } }
+@keyframes fadein {
+  0% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
 .current-votes {
   color: #bdc3c7;
   height: 72px;
@@ -441,6 +487,7 @@ form.search .item-input {
   border: 0;
   background: #8e44ad;
   color: #ecf0f1;
+  -webkit-transition: all 300ms;
   transition: all 300ms;
   padding: 15px; }
 form.search input {
@@ -492,6 +539,7 @@ i.add-track {
     padding-top: 72px; }
   .help .pane {
     background: transparent;
+    -webkit-transition: background linear 300ms;
     transition: background linear 300ms; }
   .help .slider-pager {
     display: none; }
@@ -514,6 +562,7 @@ i.add-track {
   .help .tracks {
     top: 168px;
     opacity: 1;
+    -webkit-transition: opacity 300ms linear;
     transition: opacity 300ms linear;
     position: absolute;
     width: 100%; }
@@ -528,17 +577,21 @@ i.add-track {
     font-size: 24px;
     font-weight: 300;
     opacity: 0;
+    -webkit-transition: opacity 0s linear;
     transition: opacity 0s linear; }
     .help .swipe.displayed {
+      -webkit-transition: opacity 1000ms linear;
       transition: opacity 1000ms linear;
       opacity: 1; }
     .help .swipe i {
       -webkit-animation: blink 4000ms linear infinite;
       animation: blink 4000ms linear infinite; }
     .help .swipe i:nth-child(1) {
-      -webkit-animation-delay: 100ms; }
+      -webkit-animation-delay: 100ms;
+      animation-delay: 100ms; }
     .help .swipe i:nth-child(2) {
-      -webkit-animation-delay: 50ms; }
+      -webkit-animation-delay: 50ms;
+      animation-delay: 50ms; }
   .help .slide0 .slider-slide {
     background: #34495e; }
   .help .slide0 .slider-pager, .help .slide0 .tracks {
@@ -590,6 +643,15 @@ i.add-track {
       animation: blink 4000ms linear infinite; }
 
 @-webkit-keyframes blink {
+  0% {
+    opacity: 1; }
+
+  1% {
+    opacity: 0; }
+
+  20% {
+    opacity: 1; } }
+@keyframes blink {
   0% {
     opacity: 1; }
 

@@ -41,12 +41,14 @@ i.upvote{
       border-top-color: transparent;
       border-bottom-color: transparent;      
       -webkit-animation: spin 400ms infinite linear;
+      animation: spin 400ms infinite linear;
     }
 
     .inner{
       border-left-color: transparent;
       border-right-color: transparent;
       -webkit-animation: spin-reverse 200ms infinite linear;
+      animation: spin-reverse 200ms infinite linear;
     }
   }
 }
@@ -61,12 +63,30 @@ i.upvote{
   }
 }
 
+@keyframes spin { 
+  from { 
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(360deg);
+  }
+}
+
 @-webkit-keyframes spin-reverse { 
   from { 
     -webkit-transform: rotate(0deg);
   }
   to { 
     -webkit-transform: rotate(-360deg);
+  }
+}
+
+@keyframes spin-reverse { 
+  from { 
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(-360deg);
   }
 }
 
