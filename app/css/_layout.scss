@@ -92,9 +92,10 @@ input{
   bottom: $line-height;
 }
 
-ion-content.playlist{
+.scroll-content.playlist{
   background-color: lighten($lightgray, 13);
   color: $lightback;
+  top: $line-height;
 }
 
 // TOPBAR
@@ -134,8 +135,4 @@ ion-content.playlist{
     font-weight: 400;
     text-decoration: none;
   }
-}
-
-ion-content.playlist{
-  top: $line-height;
 }

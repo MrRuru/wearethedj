@@ -1,14 +1,13 @@
-ion-content.search{
+.scroll-content.search{
   background: $darkmain;
   color: $white;
-}
 
+  .track{
+    background: $darkmain;
 
-ion-content.search .track{
-  background: $darkmain;
-
-  h3, p, .right{
-    color: $white;
+    h3, p, .right{
+      color: $white;
+    }
   }
 }
 
