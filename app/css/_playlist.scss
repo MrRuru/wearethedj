@@ -1,14 +1,15 @@
-// PLAYLIST TOPBAR
-.current-votes{
-  color: $lightgray;
-  height: $line-height;
-  line-height: $inner-height;
-  font-weight: 900;
-  text-align: right;
 
-  small{
-    margin-left: -$inner-height * 0.15;
-    margin-right: $inner-height * 0.15;
-    font-size: $inner-height * 0.4;
+.notracks{
+  color: $darkgray;
+  font-style: italic;
+  font-size: 1.6em;
+  line-height: 1.6em;
+  margin-top: 1em;
+  text-align: center;
+  font-weight: 400;
+  a {
+    color: $darkmain;
+    text-decoration: underline;
+    font-weight: 600;
   }
 }

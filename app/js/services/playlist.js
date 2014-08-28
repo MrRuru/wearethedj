@@ -174,7 +174,7 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
     return _.has(Playlist.index, trackId);
   };
 
-  Playlist.hisPlaying = function(){
+  Playlist.isPlaying = function(){
     return this.playing && !!this.playing.title && !!this.playlist.artist
   };
 

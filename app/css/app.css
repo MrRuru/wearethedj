@@ -145,7 +145,9 @@ input {
 .appmodal a.close {
   float: right;
   font-size: 42px;
-  padding: 15px; }
+  padding: 15px;
+  text-align: center;
+  width: 72px; }
 
 .has-tabs {
   top: 72px;
@@ -181,13 +183,7 @@ input {
     text-align: center;
     line-height: 42px;
     height: 72px;
-    padding: 15px;
-    background: #8e44ad;
-    color: #ecf0f1;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none; }
+    padding: 15px; }
 
 .track {
   height: 72px;
@@ -464,16 +460,18 @@ input {
 
   100% {
     opacity: 1; } }
-.current-votes {
-  color: #bdc3c7;
-  height: 72px;
-  line-height: 42px;
-  font-weight: 900;
-  text-align: right; }
-  .current-votes small {
-    margin-left: -6.3px;
-    margin-right: 6.3px;
-    font-size: 16.8px; }
+.notracks {
+  color: #7f8c8d;
+  font-style: italic;
+  font-size: 1.6em;
+  line-height: 1.6em;
+  margin-top: 1em;
+  text-align: center;
+  font-weight: 400; }
+  .notracks a {
+    color: #8e44ad;
+    text-decoration: underline;
+    font-weight: 600; }
 
 .scroll-content.search {
   background: #8e44ad;

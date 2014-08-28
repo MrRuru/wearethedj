@@ -106,6 +106,8 @@ input{
   float: right;
   font-size: $inner-height;
   padding: $padding;
+  text-align: center;
+  width: $line-height;  
 }
 
 
@@ -152,11 +154,5 @@ input{
     line-height: $inner-height;
     height: $line-height;
     padding: $padding;
-    background: $darkmain;
-    color: $white;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none;
   }
 }

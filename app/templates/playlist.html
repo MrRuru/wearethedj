@@ -10,19 +10,15 @@
     <h1 class="title">
       poll.dance
     </h1>
-    <a class="search-link" ng-click="openModal('search')">Add</a>
+    <a class="search-link" ng-click="openModal('search')"><i class="ion-ios7-plus-outline add-track"></i></a>
   </div>
 
 
   <ion-content class="playlist">
 
-    <div ng-show="playlist.length === 0" class="padding">
-      <p class="notracks">The playlist is empty :( &nbsp;&nbsp; Please <a href="#/tab/search">add some tracks</a></p>
-    </div>
-
     <ion-list>
 
-      <ion-item class="track highlight" ng-show="!!playlist.isPlaying()">
+      <ion-item class="track highlight" ng-show="!playlist.isPlaying()">
         <div class="left score">
           <strong>
             <i class="fa fa-volume-up"></i>
@@ -47,5 +43,9 @@
       </ion-item>
       
     </ion-list>
+
+    <div ng-show="playlist.tracks.length === 0" class="padding">
+      <p class="notracks">Seems like the playlist is empty :(  <br> <a ng-click="openModal('search')">Let's add some tracks</a></p>
+    </div>
 
   </ion-content>
