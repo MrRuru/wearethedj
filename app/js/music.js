@@ -1,7 +1,7 @@
 // Global : DZ
 
-// var API_HOST = 'http://app.poll.dance';
-var API_HOST = 'http://local.poll.dance:8001';
+var API_HOST = 'http://app.poll.dance';
+// var API_HOST = 'http://local.poll.dance:8001';
 
 // The actual deezer player wrapper
 var Player = {
