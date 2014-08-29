@@ -49,3 +49,8 @@ sudo service nginx restart
 # Install dependencies
 cd /www
 npm install
+
+# Building process
+sudo npm install -g grunt-cli
+sudo npm install -g gulp
+sudo gem install sass
