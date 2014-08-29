@@ -175,7 +175,7 @@ angular.module('app.services.playlist', ['app.services.sync', 'app.services.user
   };
 
   Playlist.isPlaying = function(){
-    return this.playing && !!this.playing.title && !!this.playlist.artist
+    return this.playing && !!this.playing.title && !!this.playing.artist
   };
 
   return Playlist;
