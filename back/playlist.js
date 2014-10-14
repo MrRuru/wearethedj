@@ -4,8 +4,7 @@
 var Q       = require('q'),
     _       = require('lodash'),
     Room    = require('./models/room.js'),
-    Track   = require('./models/track.js'),
-    Logger  = require('./logger.js');
+    Track   = require('./models/track.js');
 
 var PlaylistService = {};
 
@@ -67,9 +66,6 @@ Playlist.prototype.popTopTrack = Q.async( function* (trackId) {
 
   // Update the room
   yield this.room.setCurrentTrack(topTrack.attrs.artist, topTrack.attrs.title);
-
-  // Log the update
-  Logger.trackPlayed(this.room.attrs, topTrack.attrs);
 
   return topTrack;
 

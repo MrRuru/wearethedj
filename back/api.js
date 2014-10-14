@@ -92,6 +92,9 @@ api.delete('/room/:roomId/top', function(req, res){
       Sockets.broadcastRoom(roomId, 'deleteTrack', track.attrs);
 
       res.send(track.attrs);
+
+      // Log the update
+      Logger.trackPlayed(playlist.room.attrs, track.attrs, Sockets.loggedInCount(roomId));
     }
     catch (err) {
       // TODO : log
