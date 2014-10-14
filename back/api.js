@@ -6,7 +6,7 @@ var  express      = require('express')
    , TrackExpirer = require('./track_expirer.js')
    , Sockets      = require('./sockets.js')
    , uid          = require('./uid.js')
-   , api          = express(),
+   , api          = express()
    , Logger       = require('./logger.js');
 
 api.use(express.bodyParser());

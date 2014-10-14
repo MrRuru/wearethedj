@@ -1,7 +1,7 @@
 var fs              = require('fs'),
     nodemailer      = require('nodemailer'),
-    directTransport = require('nodemailer-direct-transport');//, // default config
-//    Sockets = require('./sockets');
+    directTransport = require('nodemailer-direct-transport'),
+    Sockets         = require('./sockets');
 
 var Logger = {};
 
