@@ -1,5 +1,7 @@
 // Global : DZ
 
+var API_HOST = 'http://app.poll.dance';
+// var API_HOST = 'http://local.poll.dance:8001';
 
 // The actual deezer player wrapper
 var Player = {
@@ -68,7 +70,7 @@ var Controller = {
     var self = this;
 
     $.ajax({
-      url: 'http://app.poll.dance/room',
+      url: API_HOST + '/room',
       method: 'POST',
       data: {
         code: code
@@ -140,7 +142,7 @@ var Controller = {
 
     var self = this;
     $.ajax({
-      url: 'http://app.poll.dance/room/' + this.roomId + '/top',
+      url: API_HOST + '/room/' + this.roomId + '/top',
       type: 'DELETE',
       success: function(track){
         Player.loadTrack(track.id);
@@ -155,21 +157,6 @@ var Controller = {
       }
     });
   },
-
-  // // Handle track chaining
-  // onPlayerPosition: function(position){
-  //   // Pos > 0 : track started, no more fetching next one
-  //   if (position > 0) { 
-  //     console.log('no more fetching next');
-  //     this.fetchingNext = false;
-  //     return;
-  //   }
-
-  //   // Pos == 0 : it's the end
-  //   if (position === 0) {
-  //     this.loadNextTrack();
-  //   }
-  // }
 
 };
 
