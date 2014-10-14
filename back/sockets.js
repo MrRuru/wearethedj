@@ -38,6 +38,9 @@ Sockets.broadcastRoom = function(roomId, event, data){
   });
 };
 
+Sockets.loggedInCount = function(roomId){
+  return _.size(_.filter(_sockets, function(socket){ return (socket.roomId === roomId); }));
+};
 
 Sockets.register = function(socket){
 

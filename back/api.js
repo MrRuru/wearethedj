@@ -6,7 +6,8 @@ var  express      = require('express')
    , TrackExpirer = require('./track_expirer.js')
    , Sockets      = require('./sockets.js')
    , uid          = require('./uid.js')
-   , api          = express();
+   , api          = express(),
+   , Logger       = require('./logger.js');
 
 api.use(express.bodyParser());
 
@@ -36,6 +37,9 @@ api.post('/room', function(req, res){
 
       var room = yield Room.create(code);
       res.send(201, room.attrs);
+
+      // Log creation
+      Logger.roomCreated(room.attrs);
     }
     catch (err) {
       // TODO : log
