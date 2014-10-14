@@ -31,7 +31,7 @@ Sockets.on('addTrack', function(context, data, cb) { // context = getters for ro
       cb(true);
     }
     catch (e) {
-      console.log('Error adding track', context, data, e);
+      console.log('Error adding track', context, data, e, e.stack);
       cb(false, e);
     }
 
@@ -58,7 +58,7 @@ Sockets.on('upvote', function(context, data, cb) {
       Sockets.broadcastRoom(playlist.room.attrs.id, 'updateTrack', track.attrs);
     }
     catch (e) {
-      console.log('Error upvoting track', context, data, e);
+      console.log('Error upvoting track', context, data, e, e.stack);
       cb(false, e);
     }
 
