@@ -1,40 +1,33 @@
-var winston = require('winston'),
-    mailer  = require('nodemailer').createTransport(), // default config
-    Sockets = require('./sockets');
+var fs              = require('fs'),
+    nodemailer      = require('nodemailer'),
+    directTransport = require('nodemailer-direct-transport');//, // default config
+//    Sockets = require('./sockets');
 
 var Logger = {};
 
-var getLogger = function(room){
-  var logger = winston.loggers.get(room.code);
+var mailer = nodemailer.createTransport(directTransport());
 
-  if (logger){
-    return logger;
-  }
-  else {
-    winston.loggers.add(room.code, file: { 'log/' + room.code + '.log' }});
-    return winston.loggers.get(room.code);    
-  }
+var log = function(room, tag, info){
+  var logFile = '../log/' + room.code + '.log';
+
+  var data = '\n' + (new Date()).toISOString() + ' | ' + tag + ' | ' + JSON.stringify(info);
+  fs.appendFile(logFile, data);
 };
 
 
 Logger.roomCreated = function(room){
-  var logger = getLogger(room);
-
-  logger.info('created', {
-    id: room.id,
-    code: room.code
-  });
+  log(room, 'CREATED', {id: room.id, code: room.code});
 
   mailer.sendMail({
     from: 'info@poll.dance',
     to:   'david.ruyer@gmail.com',
-    subject: ('New poll.dance party : ' + room.code)
+    subject: ('New poll.dance party : ' + room.code),
+    text: ''
   });
 };
 
 Logger.trackPlayed = function(room, track){
-  var logger = getLogger(room);
-  logger.info('play', {
+  log(room, 'PLAYED', {
     score: track.score,
     title: track.title,
     artist: track.artist,

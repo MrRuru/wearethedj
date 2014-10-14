@@ -1,3 +1,4 @@
 node_modules
 .vagrant
 .sass-cache
+log/*.log
