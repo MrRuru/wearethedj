@@ -1,9 +1,10 @@
 // The room model
 // Handles playlist and signin logic, and persistence
-var Q     = require('q'),
-    Redis = require('../adapters/redis'),
-    _     = require('lodash'),
-    uid   = require('../uid.js');
+var Q         = require('q'),
+    Redis     = require('../adapters/redis'),
+    _         = require('lodash'),
+    uid       = require('../uid.js'),
+    ROOM_TTL  = 72*60*60;
 
 
 // ======== //
@@ -80,8 +81,11 @@ Room.create = Q.async( function* (code) {
   yield Redis.hmset(Redis.room(id), {
     'code': code,
     'c_artist': '',
-    'c.title': ''
+    'c_title': ''
   });
+
+  // Expire it after 72 hours
+  yield Redis.expire(Redis.room(id), ROOM_TTL);
 
   // Add the code in the index
   yield Redis.hset(Redis.codes(), code, id);

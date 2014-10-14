@@ -23,6 +23,7 @@ Redis.del = Q.nbind(client.del, client);
 Redis.zrem = Q.nbind(client.zrem, client);
 Redis.incr = Q.nbind(client.incr, client);
 Redis.exists = Q.nbind(client.exists, client);
+Redis.expire = Q.nbind(client.expire, client);
 
 
 // The common used keys
