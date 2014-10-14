@@ -1,7 +1,7 @@
 var fs              = require('fs'),
     nodemailer      = require('nodemailer'),
-    directTransport = require('nodemailer-direct-transport'),
-    Sockets         = require('./sockets');
+    directTransport = require('nodemailer-direct-transport');
+    // Sockets         = require('./sockets');
 
 var Logger = {};
 
@@ -30,8 +30,8 @@ Logger.trackPlayed = function(room, track){
   log(room, 'PLAYED', {
     score: track.score,
     title: track.title,
-    artist: track.artist,
-    people: Sockets.loggedInCount(room.id)
+    artist: track.artist
+    // people: Sockets.loggedInCount(room.id)
   });
 };
 
