@@ -16,7 +16,7 @@ var log = function(room, tag, info){
 
 
 Logger.roomCreated = function(room){
-  log(room, 'CREATED', {id: room.id, code: room.code});
+  log(room, 'LAUNCHED', {id: room.id, code: room.code});
 
   mailer.sendMail({
     from: 'info@poll.dance',

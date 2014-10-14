@@ -69,7 +69,7 @@ Playlist.prototype.popTopTrack = Q.async( function* (trackId) {
   yield this.room.setCurrentTrack(topTrack.attrs.artist, topTrack.attrs.title);
 
   // Log the update
-  Logger.trackPlayed(this.room.attrs, track.attrs);
+  Logger.trackPlayed(this.room.attrs, topTrack.attrs);
 
   return topTrack;
 
