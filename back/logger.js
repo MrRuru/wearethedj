@@ -10,7 +10,7 @@ var mailer = nodemailer.createTransport(directTransport());
 var log = function(room, tag, info){
   var logFile = '../log/' + room.code + '.log';
 
-  var data = '\n' + (new Date()).toISOString() + ' | ' + tag + ' | ' + JSON.stringify(info);
+  var data = (new Date()).toISOString() + ' | ' + tag + ' | ' + JSON.stringify(info) + '\n';
   fs.appendFile(logFile, data);
 };
 
